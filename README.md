@@ -25,7 +25,6 @@
 
 *Objects--Understands, utilises and manipulates Objects using a range of methods to benefit the solution.*
 
-**
 
 ##Project Management
 
@@ -91,18 +90,19 @@
 
 1. What are the most important aspects of quality software?
 *List discuss and demonstrate 6 software quality characteristics.*
+
 First of all, we can define quality software (from now on, QS) as “reasonably bug or defect free, delivered on time and within budget, meets requirements and/or expectations, and is maintainable”, according to [Try QA](http://tryqa.com/).
 
 We can break definition of QS depending on which one of the three involved stakeholders we take into account: development team, sponsors or end users. Therefore, we can identify three aspects of QS, which will be explained in the following paragraphs.
 
-On one hand, we get the functional quality. As [David Chappell](http://www.davidchappell.com/writing/white_papers/The_Three_Aspects_of_Software_Quality_v1.0-Chappell.pdf) says, it can relate to:
+On one hand, we get the **functional quality**. As [David Chappell](http://www.davidchappell.com/writing/white_papers/The_Three_Aspects_of_Software_Quality_v1.0-Chappell.pdf) says, it can relate to:
 
 * Meeting the specified requirements.
 * Creating software that has few defects.
 * Good enough performance.
 * Ease of learning and ease of use.
 
-Another aspect of QS is structural quality. It refers to the way the code is structured, and the properties of this kind of quality are: 
+Another aspect of QS is **structural quality**. It refers to the way the code is structured, and the properties of this kind of quality are: 
 
 * Code testability (easy-to-test code).
 * Code maintainability (easy-to-change-without-introducing-bugs code).
@@ -115,16 +115,53 @@ One more modern standard would be ISO/IEC 25010:2011, which described a hierarch
 
 Another approach would be the Defect Management one (SQDM), defined by ([ASQ](https://asq.org/quality-resources/software-quality) as the one “based on counting and managing defects. Defects are commonly categorized by severity, and the numbers in each category are used for planning”. As ASQ continues, “[m]ore mature software development organizations use tools, such as defect leakage matrices (for counting the numbers of defects that pass through development phases prior to detection) and control charts, to measure and improve development process capability” .
 
-That is how we end at the third and last QS aspect, the development process quality, which affects the value received by the three of the stakeholders mentioned above. The key parts of process quality are:
+That is how we end at the third and last QS aspect, the **development process quality**, which affects the value received by the three of the stakeholders mentioned above. The key parts of process quality are:
 
 * meeting delivery dates.
 * meeting budgets.
 * a repeatable development process that reliably delivers quality software.
 
+To finish with, we will discuss the 6 main quality characteristics of QS identified by ISO 9126–1. We list those features as follows:
+
+1. Functionality
+2. Reliability
+3. Usability
+4. Efficiency
+5. Maintainability
+6. Portability
+
+Being the key aim of any product, **functionality** can be defined with more or less ease depending on the more or less functions the item has to accomplish. 
+
+Furthermore, it is remarkable that this feature of QS is the only one that can be considered boolean (the function either exists or doesn't exist). To exemplify it, if our app contains a calendar view to show all the events the user is attending, but this view doesn't render, our app won't be functional.
+
+Secondly, we get **reliability** as the "capability of the system to keep its service provision under defined conditions for defined periods of time"([Buenaflor, 2017. Medium](https://medium.com/@leanardbuenaflor/iso-9126-software-quality-characteristics-a25a26e7d046)). 
+
+For instance, if the Hive's server goes down for 3 minutes, would the system recover and continue working? What if 90 hivers were looking for events when the network crashed? 
+
+All that has to do with the concept of *fault tolerance*, defined by [SearchDisasterRecovery](https://searchdisasterrecovery.techtarget.com/definition/fault-tolerant) as:
+
+capability of a computer system, electronic system or network to deliver uninterrupted service, despite one or more of its components failing. Fault tolerance also resolves potential service interruptions related to software or logic errors. The purpose is to prevent catastrophic failure that could result from a single point of failure.
+
+The next feature to be discussed is **usability**, which refers to the ease of use of the product. Eg: showing a calendar, and letting the user look up events they said are attending inside of the former, means the Hive is functional, whereas allowing the user to do such consultation with a simple click might improve the usability of the site.
+
+**Efficiency** depends on the resources used/consumed by the system while providing the required functionality. "[D]isk space, memory, network etc. provides a good indication of this characteristic" (Buenaflor). Big part of usability hinges on this feature, as we can see in the following example:
+
+Imagine the Hiver takes long time to register the attendance of one user, the system won't be easy to use anymore.
+
+Furthermore, the capacity to isolate and fix a bug is called **maintainability** (or supportability). Writing a readable code and keeping it simple helps making our system maintainable (and thus, testable). 
+
+To give a real-world example, if our code is not clearly commented nor DRY, if a new programmer needs to fix some ulterior faults, we would have made their job more difficult.
+
+To finish with, **portability** has to do with how the software can be adapted to changes either in its environment or with its requirements. Therefore, a sub-feature is adaptability.
+
+To assure out code to be adaptable and portable, object oriented design can be implemented.
+
 Bibliography:
 1. [David Chappell. THE THREE ASPECTS OF SOFTWARE QUALITY:FUNCTIONAL, STRUCTURAL, AND PROCESS](http://www.davidchappell.com/writing/white_papers/The_Three_Aspects_of_Software_Quality_v1.0-Chappell.pdf)
 2. [ASQ. WHAT IS A SOFTWARE QUALITY? ](https://asq.org/quality-resources/software-quality).
 3. [TRY QA. What is Software Quality?](http://tryqa.com/what-is-software-quality/).
+4. [Buenaflor, 2017. Medium. ISO 9126 Software Quality Characteristics](https://medium.com/@leanardbuenaflor/iso-9126-software-quality-characteristics-a25a26e7d046).
+5. [SearchDisasterRecovery. VMware virtual recovery and backup best practices and tools](https://searchdisasterrecovery.techtarget.com/definition/fault-tolerant)
 
 2. What libraries are being used in the app and why?
 *Appropriate use and description of libraries used in the app-Excellent use of libraries and a complete and detailed description of libraries used in the app*
