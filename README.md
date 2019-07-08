@@ -152,9 +152,7 @@ Furthermore, the capacity to isolate and fix a bug is called **maintainability**
 
 To give a real-world example, if our code is not clearly commented nor DRY, if a new programmer needs to fix some ulterior faults, we would have made their job more difficult.
 
-To finish with, **portability** has to do with how the software can be adapted to changes either in its environment or with its requirements. Therefore, a sub-feature is adaptability.
-
-To assure out code to be adaptable and portable, object oriented design can be implemented.
+To finish with, **portability** has to do with how the software can be adapted to changes either in its environment or with its requirements. Therefore, a sub-feature is adaptability. To assure out code to be adaptable and portable, object oriented design can be implemented.
 
 Bibliography:
 1. [David Chappell. THE THREE ASPECTS OF SOFTWARE QUALITY:FUNCTIONAL, STRUCTURAL, AND PROCESS](http://www.davidchappell.com/writing/white_papers/The_Three_Aspects_of_Software_Quality_v1.0-Chappell.pdf)
