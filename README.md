@@ -1,6 +1,6 @@
-##Readme - The Hive
+#Readme - The Hive#
 
-##The Code
+##The Code##
 *Separate your program into modules that each deal with one particular focus, or concern.-Excellent and complete separation of concerns demonstrating a strong understanding of software design*
 
 *Demonstrate DRY (Don’t Repeat Yourself) principles in all code.-Excellent use of DRY principles, every piece of knowledge has a single, unambiguous, authoritative representation*
@@ -26,7 +26,7 @@
 *Objects--Understands, utilises and manipulates Objects using a range of methods to benefit the solution.*
 
 
-##Project Management
+##Project Management##
 
 1. Record interactions with your client in a diary format
 2. Plan information gathering activities to determine project requirements, constraints and risks
@@ -44,7 +44,7 @@
 10. As a team, conduct post project review
 11. Create a questionnaire for the client to ascertain the satisfaction with your products and services
 
-##Application Design
+##Application Design##
 
 1. Compose a summary of your application including problem definition and solution
 2. Review the conceptual design with the client and edit based on their feedback
@@ -73,7 +73,7 @@
 *Provides Object Oriented design diagrams(UML or alternative) that clearly identify OO class attributes, methods, relationships.*
 *Apply Object oriented principles/patterns--Superior use of object oriented principles/patterns; use of OO principles/patterns throughout application with positive impact on code maintainability and serviceability*
 
-##Tools & Methodologies
+##Tools & Methodologies##
 
 1. Trello or similar project management tool to be used for Kanban process to track progress of build
 *Select and follow a commonly used planning methodology, such as Kanban, Trello, Jira, or Asana.-Simple and clear standards for planning methodology chosen and adhered to*
@@ -86,7 +86,7 @@
 4. Code review - Demonstrate that you have had your code reviewed by other students and that you have provided a code review for others
 5. Show evidence of client communication, e.g. meeting minutes, emails, or other communication tools
 
-### Short Answer Questions
+##Short Answer Questions##
 
 1. What are the most important aspects of quality software?
 *List discuss and demonstrate 6 software quality characteristics.*
@@ -164,6 +164,19 @@ Bibliography:
 2. What libraries are being used in the app and why?
 *Appropriate use and description of libraries used in the app-Excellent use of libraries and a complete and detailed description of libraries used in the app*
 
+In this project several libraries have been integrated.
+
+####[Jest](https://jestjs.io/) - Delightful JavaScript Testing####
+
+**Jest** is an open-source project maintained by Facebook and used for testing Javascript code. It is remarkably suitable with React code testing, not surprisingly because React also comes from Facebook.
+
+Jest is very easy to install, using either *npm or yarn package managers*, and easy to use. It is also fast, which increases the efficiency (read previous question) of the app, and thus, the quality of our software.
+
+Another useful feature of Jest are its *mocks*. A mock object is "a simulated object that mimics the behavior of the smallest testable parts of an application in controlled ways[,]"makes use of the same interface as the element of code it is intended to imitate and is often used in unit testing to scrutinize the performance of an actual object. 
+
+Therefore, it helps "isolate the component being tested from the components it depends on and applying mock objects effectively is an important part of test-driven development (TDD)" ([Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object)).
+
+Jest has simple mock functions.
 
 3. A team is about to engage in a project, developing a website for a small business. What knowledge and skills would they need in order to develop the project?
 
