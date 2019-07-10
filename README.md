@@ -1,6 +1,6 @@
-#Readme - The Hive#
+# Readme - The Hive
 
-##The Code##
+## The Code
 *Separate your program into modules that each deal with one particular focus, or concern.-Excellent and complete separation of concerns demonstrating a strong understanding of software design*
 
 *Demonstrate DRY (Don’t Repeat Yourself) principles in all code.-Excellent use of DRY principles, every piece of knowledge has a single, unambiguous, authoritative representation*
@@ -26,7 +26,7 @@
 *Objects--Understands, utilises and manipulates Objects using a range of methods to benefit the solution.*
 
 
-##Project Management##
+## Project Management
 
 1. Record interactions with your client in a diary format
 2. Plan information gathering activities to determine project requirements, constraints and risks
@@ -44,7 +44,7 @@
 10. As a team, conduct post project review
 11. Create a questionnaire for the client to ascertain the satisfaction with your products and services
 
-##Application Design##
+## Application Design
 
 1. Compose a summary of your application including problem definition and solution
 2. Review the conceptual design with the client and edit based on their feedback
@@ -76,7 +76,7 @@
 *Provides Object Oriented design diagrams(UML or alternative) that clearly identify OO class attributes, methods, relationships.*
 *Apply Object oriented principles/patterns--Superior use of object oriented principles/patterns; use of OO principles/patterns throughout application with positive impact on code maintainability and serviceability*
 
-##Tools & Methodologies##
+## Tools & Methodologies
 
 1. Trello or similar project management tool to be used for Kanban process to track progress of build
 *Select and follow a commonly used planning methodology, such as Kanban, Trello, Jira, or Asana.-Simple and clear standards for planning methodology chosen and adhered to*
@@ -89,7 +89,7 @@
 4. Code review - Demonstrate that you have had your code reviewed by other students and that you have provided a code review for others
 5. Show evidence of client communication, e.g. meeting minutes, emails, or other communication tools
 
-##Short Answer Questions##
+## Short Answer Questions
 
 1. What are the most important aspects of quality software?
 *List discuss and demonstrate 6 software quality characteristics.*
@@ -169,17 +169,29 @@ Bibliography:
 
 In this project several libraries have been integrated.
 
-####[Jest](https://jestjs.io/) - Delightful JavaScript Testing####
+####[Jest](https://jestjs.io/) - Delightful JavaScript Testing
 
 **Jest** is an open-source project maintained by Facebook and used for testing Javascript code. It is remarkably suitable with React code testing, not surprisingly because React also comes from Facebook.
 
 Jest is very easy to install, using either *npm or yarn package managers*, and easy to use. It is also fast, which increases the efficiency (read previous question) of the app, and thus, the quality of our software.
 
-Another useful feature of Jest are its *mocks*. A mock object is "a simulated object that mimics the behavior of the smallest testable parts of an application in controlled ways[,]"makes use of the same interface as the element of code it is intended to imitate and is often used in unit testing to scrutinize the performance of an actual object. 
+One thing to note is *coverage*. You set it up just by adding the flag **--coverage**, and you are able to collect code coverage information from entire projects, including untested files. However, the tests are as good as the coverage. Eg: if you just test 50% of the system's code, then the remaining half can contain bugs.
+
+To finish with, Jest has simple *mock functions*, because "uses a custom resolver for imports in your tests" ([Jest Doc](https://jestjs.io/)). A mock object is "a simulated object that mimics the behavior of the smallest testable parts of an application in controlled ways[,]"makes use of the same interface as the element of code it is intended to imitate and is often used in unit testing to scrutinize the performance of an actual object. 
 
 Therefore, it helps "isolate the component being tested from the components it depends on and applying mock objects effectively is an important part of test-driven development (TDD)" ([Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object)).
 
-Jest has simple mock functions.
+#### [react-big-calendar](https://www.npmjs.com/package/react-big-calendar)
+
+A "[f]ull-featured calendar to visualize [and] add events" ([React.Rocks](https://react.rocks/example/react-big-calendar)), built for *React* and made for modern browsers. It is also characterisez by using *flexbox*.
+
+A key point regarding react-big-calendar is that it treats event start/end dates as an exclusive range. Therefore, the event doesn not include the end date. If we display events on whole days, end dates are rounded up to the next day. "So an event ending on Apr 8th 12:00:00 am will not appear on the 8th, whereas one ending on Apr 8th 12:01:00 am will. If you want inclusive ranges consider providing a function endAccessor that returns the end date + 1 day for those events that end at midnight" ([React Big Calendar Docs](https://intljusticemission.github.io/react-big-calendar/examples/index.html)).
+
+#### [OAuth2-Meetup](http://www.passportjs.org/packages/passport-oauth2-meetup/)
+
+As all the information of each event within our Hive will be grabbed from [Meetup.com](https://www.meetup.com), we decided to request for the Meetup account to sign in our Hive. According to this line of thinking, we chose the meetup promise for Passport. 
+OAuth2-Meetup would allow us to automatically get the username, identified as **meetup_<**meetupID**>**. Nevertheless, this promise has not been updated for 4 years, which made us wonder if it was our best option.
+Happily, we made it work, actually without even using that as a promise, but accessing the data through an axios request.
 
 3. A team is about to engage in a project, developing a website for a small business. What knowledge and skills would they need in order to develop the project?
 
