@@ -6,14 +6,18 @@ const port = 3000;
 //Additional packages
 const axios = require('axios');
 const queryString = require('query-string');
-//Passport
 
+//Passport
 const passport = require("./config/passport");
 app.use(passport.initialize());
 
+//Temp variables for access tokens
+let access_token= "";
+let refresh_token= "";
+
 //Root page 
 app.get('/', (req,res) => {
-    res.send('Testing!');
+    res.send('Testing homepage!');
 });
 
 //Direct the user to authenticate on Meetup.com
@@ -46,14 +50,60 @@ app.get('/callback', async (req, res) => {
     //If auth successful, provide the response (including access and refresh token)
     const response = await axios.post('https://secure.meetup.com/oauth2/access', body, config);
     console.log(`Access token: ${response.data.access_token}. Refresh token: ${response.data.refresh_token}`);
+    access_token = response.data.access_token;
+    refresh_token = response.data.refresh_token;
     return res.redirect("/");
-
-   } 
+    return res.statusCode(200);
+} 
 
    catch(err) {
     console.log(err);
    }
 });
+
+app.get('/request', () => {
+    var url = "https://api.meetup.com";
+    console.log(access_token);
+    const groupURL = "Ruby-On-Rails-Oceania-Sydney";
+
+    // axios.get(url, {
+    //     params: {
+    //       ":urlname": groupURL,
+        
+    //     }
+    //   })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   })
+    //   .then(function () {
+    //     // always executed
+    //   });  
+
+      axios.get("https://api.meetup.com/members/self", 
+        {headers:  {
+            Authorization: "Bearer c4485631c7529d246383382a933e9a74"
+          }
+        
+        }
+      )
+      .then(function (response) {
+          console.log(response)
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+    
+ 
+
+    
+    
+    
+})
+
+
 
 
 //Application-level middleware
