@@ -176,7 +176,7 @@ Another useful feature of Jest are its *mocks*. A mock object is "a simulated ob
 
 Therefore, it helps "isolate the component being tested from the components it depends on and applying mock objects effectively is an important part of test-driven development (TDD)" ([Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object)).
 
-Jest has simple mock functions.
+Jest has simple mock functions, like 
 
 3. A team is about to engage in a project, developing a website for a small business. What knowledge and skills would they need in order to develop the project?
 
