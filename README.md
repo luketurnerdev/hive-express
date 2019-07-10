@@ -63,8 +63,7 @@
 6. Object Relational Mapping (ORM)
 *ORM accurately reflects an efficient and practical database design for project, using correct ORM symbology*
 
-![ORM][docs/orm.jpg]
-
+![ORM](docs/orm.jpg)
 
 7. Project plan and effort estimation
 
