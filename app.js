@@ -4,7 +4,8 @@ const app = express();
 const port = 3000;
 
 //Additional packages
-
+const axios = require('axios');
+const queryString = require('query-string');
 //Passport
 
 const passport = require("./config/passport");
@@ -17,20 +18,43 @@ app.get('/', (req,res) => {
 
 //Meetup API test
 
-app.get('/meetup',
-  passport.authenticate('meetup', { session: false }),
-  function(req, res) {
-    res.json(req.user);
-  });
+app.get('/meetup', (req, res) => {
+    res.redirect("https://secure.meetup.com/oauth2/authorize?client_id=n3i689g0cs3tj2qvt7u92q1ul0&response_type=code&redirect_uri=http://localhost:3000/callback");
+}
 
-passport.use(new MeetupOAuth2Strategy({
-    clientID: MEETUP_KEY,
-    clientSecret: MEETUP_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/meetup/callback",
-    autoGenerateUsername: true
-  }, function(accessToken, refreshToken, profile, done) {
-      return done(null, profile);
-  }));
+)
+
+app.get('/callback', async (req, res) => {
+
+    const config = { headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }};
+    
+
+
+    const body = queryString.stringify({
+        'client_id':"n3i689g0cs3tj2qvt7u92q1ul0",
+        'client_secret':"tbmduf2gvmitpdrc9b35sjfn7c",
+        'grant_type': 'authorization_code',
+        'redirect_uri': "http://localhost:3000/callback",
+        'code':req.query.code
+    });
+
+
+   try {
+    const response = await axios.post('https://secure.meetup.com/oauth2/access', body, config);
+    console.log(response);
+    return res.sendStatus(200);
+   } 
+
+   catch(err) {
+    console.log(err);
+   }
+});
+
+app.get('/successful', () => {
+    console.log('yay')
+});
 
 
 //Application-level middleware
