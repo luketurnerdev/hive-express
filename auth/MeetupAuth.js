@@ -1,10 +1,15 @@
 //Authenticate the user on Meetup.com and return an access token and refresh token.
 const axios = require('axios');
 const queryString = require('query-string');
-let access_token = "";
-let refresh_token = "";
+const client_id = "n3i689g0cs3tj2qvt7u92q1ul0";
+const client_secret = "tbmduf2gvmitpdrc9b35sjfn7c";
+const redirect_uri = "http://localhost:3000/callback";
 
-const MeetupAuth = async (req, res) => {
+
+async function MeetupAuth (req, res) {
+        var access_token = "";
+        var refresh_token = "";
+        
         console.log('This is the meetup authorization js file.')
 
         //Define the headers as using URL-encoded format
@@ -15,10 +20,10 @@ const MeetupAuth = async (req, res) => {
         //Client auth information to be used in the body.
         //Use queryString.stringify to convert this information to url-encoded from JSON.
         const body = queryString.stringify({
-            'client_id':"n3i689g0cs3tj2qvt7u92q1ul0",
-            'client_secret':"tbmduf2gvmitpdrc9b35sjfn7c",
+            'client_id': client_id,
+            'client_secret':client_secret,
             'grant_type': 'authorization_code',
-            'redirect_uri': "http://localhost:3000/callback",
+            'redirect_uri': redirect_uri,
             'code':req.query.code
         });
     
@@ -39,5 +44,18 @@ const MeetupAuth = async (req, res) => {
 
 
     }
-   
-module.exports = MeetupAuth;
+
+    function AccessToken() {
+        return access_token;
+      }
+    
+      function RefreshToken() {
+        return refresh_token;
+      }
+
+
+module.exports = {
+    MeetupAuth,
+    AccessToken,
+    RefreshToken
+}
