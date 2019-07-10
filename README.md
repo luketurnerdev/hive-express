@@ -47,9 +47,45 @@
 ## Application Design
 
 1. Compose a summary of your application including problem definition and solution
+
+
+
 2. Review the conceptual design with the client and edit based on their feedback
+
+
 3. User stories for the whole application
+
 *Provide UX/UI design documentation(user stories) that adequately show Agile methodology implementation.-Provides multiple user stories that use ‘persona, what and why’ that outline meaningful features of project. Shows evidence of user story revision and refinement.*
+
+### **Minimum Viable Product (MVP)**
+
+#### User stories from MVP
+
+As a student:
+
+- I should be able to use a calendar so that I track meetups I am attending.
+- I should be able to see specific event information so that I can know more about that event.
+- I should be able to recommend new meetups to the Hive’s staff so that they can approve them.
+- I should be able to send a sign up request so that the staff can approve my participation in the Hive.
+- I should be able to see which other students are attending an event so that I know who I will be meeting there.
+- I should be able to leave reviews (ratings + comments) on passed events I attended, so that I can help other students decide whether they go or not to similar events.
+- I should be able to display my own reviews so that I can prove I am interested in my professional development to potential employers.
+- I should be able to read other students’ reviews in order to decide whether or not to attend an event similar  to the one they reviewed.
+
+As the staff:
+
+- I should be able to use a calendar so that I track meetup hivers are attending.
+- I should be able to approve or reject students’ suggestions regarding new meetups, so that I can keep the Hive full of interesting and enriching events.
+- I should be able to approve or reject potential hiver’s sign up requests, so that I can make sure Hiver’s users are either Coder Academy’s staff or students/alumni.
+- I should be able to delete students’ comments in order to keep the Hive free of harassment and other undesired behaviours.
+
+### First versions of User Stories (evidence of user story revision and refinement)
+
+![Students' first version](docs/students_first_version.png)
+
+![Staff's first version - a](docs/staff_first_version1.png)
+
+![Staff's first version - b](docs/staff_first_version2.png)
 
 4. A workflow diagram of the user journey/s
 
