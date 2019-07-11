@@ -1,11 +1,13 @@
-//Authenticate the user on Meetup.com and return an access token and refresh token.
+/*
+    Authenticate the user on Meetup.com and return an access token and refresh token.
+    These tokens are stored in the database and are updated upon re-authorization
+*/
+
 const axios = require('axios');
-const session = require('express-session');
 const queryString = require('query-string');
 const MeetupService = require('./../services/MeetupService');
 
 async function MeetupAuth (req, res) {
-        
         
         console.log('This is the meetup authorization js file.')
 
