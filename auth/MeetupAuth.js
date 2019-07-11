@@ -40,8 +40,8 @@ async function MeetupAuth (req, res) {
         //THIS IS A TEMPORARY SOLUTION - will store this info in the database later
         //TODO - replace 'current-user' with user ID from database
         MeetupService.setItem("current-user", {
-            "accessToken": response.data.access_token,
-            "refreshToken": response.data.refresh_token
+            "access_token": response.data.access_token,
+            "refresh_token": response.data.refresh_token
         });
         return res.redirect("/");
     } 
