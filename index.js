@@ -1,6 +1,8 @@
 require("dotenv").config();
+
 require("./database/connect");
 const app = require("./app");
+const port = process.env.PORT;
 
 // Custom HTTP errors
 global.HTTPError = class HTTPError extends Error {
@@ -16,6 +18,5 @@ global.HTTPError = class HTTPError extends Error {
 };
 
 // Start server
-app.listen(process.env.PORT, () =>
-  console.log(`Listening on port ${process.env.PORT}`)
-);
+app.listen(port, () => console.log(`Server is listening on port ${port}`));
+
