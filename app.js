@@ -1,19 +1,13 @@
 //Express server setup
 const express = require("express");
+const exphbs = require("express-handlebars");
 const morgan = require("morgan");
 const methodOverride = require("method-override");
 const app = express();
 
-//Root page
-app.get("/", (req, res) => {
-  res.send("Testing!");
-});
-
-//Application-level middleware
-app.use((req, res, next) => {
-  console.log("Time: ", Date.now());
-  next();
-});
+// Handlebars view engine
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // Body parser, get streams as json
 app.use(express.urlencoded({ extended: false }));
@@ -24,6 +18,9 @@ app.use(methodOverride("_method"));
 
 // Morgan
 app.use(morgan("combined"));
+
+// Routes from /routes
+app.use(require("./routes"));
 
 //Route specific middleware
 app.use("/", (req, res, next) => {
