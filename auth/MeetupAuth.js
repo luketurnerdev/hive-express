@@ -5,6 +5,7 @@ const queryString = require('query-string');
 const client_id = "n3i689g0cs3tj2qvt7u92q1ul0";
 const client_secret = "tbmduf2gvmitpdrc9b35sjfn7c";
 const redirect_uri = "http://localhost:3000/callback";
+const MeetupService = require('./../services/MeetupService');
 
 var access_token = "";
 var refresh_token = "";
@@ -44,11 +45,27 @@ async function MeetupAuth (req, res) {
             config
         );
 
+        //Use a singleton pattern to store the tokens
+        //TODO - replace 'current-user' with user ID from database
+        MeetupService.setItem("current-user", {
+            "accessToken": response.data.access_token,
+            "refreshToken": response.data.refresh_token
+        });
+
+
+
+        //Use a meetup service class here (singleton);
+        //could store this in the db?
+        //update when a user logs in again
+
+
+
+
         //Save tokens into session storage.
 
         // Window.sessionStorage.setItem('access_token', response.data.access_token);
         // sessionStorage.setItem('refresh_token', response.data.refresh_token);
-        sessionStorage.setItem("name", "Garret");
+
 
         // let token = sessionStorage.getItem('access_token');
         // console.log("Retrieved access token from session storage:" + token);

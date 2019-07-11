@@ -14,7 +14,9 @@ app.use(passport.initialize());
 
 //Meetup authentication
 const MeetupAuth = require('./auth/MeetupAuth').MeetupAuth;
-// const AccessToken = MeetupAuth.access_token;
+const MeetupService = require("./services/MeetupService");
+const AccessToken = MeetupService.getItem("current-user");
+console.log(AccessToken);
 
 //Root page 
 app.get('/', (req,res) => {
