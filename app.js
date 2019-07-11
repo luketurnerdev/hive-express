@@ -3,6 +3,7 @@
 //Express server setup
 const express = require('express');
 const app = express();
+require("dotenv").config();
 
 //Additional packages
 const axios = require('axios');
