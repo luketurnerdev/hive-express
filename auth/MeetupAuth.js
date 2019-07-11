@@ -2,18 +2,7 @@
 const axios = require('axios');
 const session = require('express-session');
 const queryString = require('query-string');
-const client_id = "n3i689g0cs3tj2qvt7u92q1ul0";
-const client_secret = "tbmduf2gvmitpdrc9b35sjfn7c";
-const redirect_uri = "http://localhost:3000/callback";
 const MeetupService = require('./../services/MeetupService');
-
-var access_token = "";
-var refresh_token = "";
-
-// function AccessToken() 
-//     {
-// return MeetupAuth().access_token;
-//     }
 
 async function MeetupAuth (req, res) {
         
@@ -28,10 +17,10 @@ async function MeetupAuth (req, res) {
         //Client auth information to be used in the body.
         //Use queryString.stringify to convert this information to url-encoded from JSON.
         const body = queryString.stringify({
-            'client_id': client_id,
-            'client_secret':client_secret,
+            'client_id': process.env.CLIENT_ID,
+            'client_secret':process.env.CLIENT_SECRET,
             'grant_type': 'authorization_code',
-            'redirect_uri': redirect_uri,
+            'redirect_uri': process.env.REDIRECT_URI,
             'code':req.query.code
         });
     
@@ -51,6 +40,10 @@ async function MeetupAuth (req, res) {
             "accessToken": response.data.access_token,
             "refreshToken": response.data.refresh_token
         });
+
+        // console.log(
+        //     MeetupService.getItem('current-user')
+        // );
 
 
 

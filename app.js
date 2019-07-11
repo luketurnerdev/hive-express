@@ -15,15 +15,13 @@ app.use(passport.initialize());
 //Meetup authentication
 const MeetupAuth = require('./auth/MeetupAuth').MeetupAuth;
 const MeetupService = require("./services/MeetupService");
-const AccessToken = MeetupService.getItem("current-user");
-console.log(AccessToken);
+
 
 //Root page 
 app.get('/', (req,res) => {
     res.send('Testing homepage!');
 });
 
-//Globals
 
 //Direct the user to authenticate on Meetup.com
 //This takes them to a callback route below
@@ -31,30 +29,23 @@ app.get('/', (req,res) => {
 
 app.get('/meetup', (req, res) => 
 {
+    // process.env.PORT
     //Add the 'scope' parameter in the headers to ask for more permissions, e.g., RSVP access etc.
     //Basic and RSVP
     res.redirect("https://secure.meetup.com/oauth2/authorize?client_id=n3i689g0cs3tj2qvt7u92q1ul0&response_type=code&redirect_uri=http://localhost:3000/callback");
 });
 
-//Retrieve access and refresh tokens
+//Return from meetup auth page and fetch access and refresh tokens
 app.get('/callback', MeetupAuth);
 
-app.get('/request', () => {
-    
-})
 
 
-//Application-level middleware
+//Application-level middleware goes here
 
-app.use((req,res) => {
-    console.log('Time: ', Date.now());
-    next();
-});
 
-//Route specific middleware
 
-app.use("/", (req,res,next) => {
-    console.log('This is middleware for a specific route.');
-});
+//Route specific middleware goes here
+
+
 
 module.exports = app;
