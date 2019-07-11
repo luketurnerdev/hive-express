@@ -5,3 +5,9 @@ function create() {
     //We may need to insert checks to determine if the user already exists in the DB or not.
 }
 
+async function create(req, res) {
+    const { title, url } = req.body;
+    req.user.bookmarks.push({ title, url });
+    await req.user.save();
+    res.json(req.user.bookmarks);
+}
