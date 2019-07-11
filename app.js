@@ -1,8 +1,36 @@
 //localStorage
 // import behavioursubject from 'rxjs'
 //Express server setup
-const express = require('express');
+const express = require("express");
+const exphbs = require("express-handlebars");
+const morgan = require("morgan");
+const methodOverride = require("method-override");
 const app = express();
+
+// Handlebars view engine
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// Body parser, get streams as json
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Method Override
+app.use(methodOverride("_method"));
+
+// Morgan
+app.use(morgan("combined"));
+
+// Routes from /routes
+app.use(require("./routes"));
+
+//Route specific middleware
+app.use("/", (req, res, next) => {
+  console.log("This is middleware for a specific route.");
+});
+
+module.exports = app;
+
 
 //API Keys
 require("dotenv").config();
@@ -18,8 +46,9 @@ const queryString = require('query-string');
 // app.use(passport.initialize());
 
 //Meetup authentication
-const MeetupAuth = require('./auth/MeetupAuth').MeetupAuth;
-const MeetupService = require("./services/MeetupService");
+const meetupAuth = require('./controllers/auth_controller').meetupAuth;
+// const tester = require('./controllers/auth_controller').tester;
+const meetupService = require("./services/meetupService");
 
 
 
@@ -28,12 +57,12 @@ app.get('/', (req,res) => {
     let access_token, refresh_token;
     //Has there been a token defined? If so, assign a variable
 
-    if (MeetupService.getItem('current-user')){
-        access_token = MeetupService.getItem('current-user').access_token;
-        refresh_token = MeetupService.getItem('current-user').refresh_token;
+    if (meetupService.getItem('current-user')){
+        access_token = meetupService.getItem('current-user').access_token;
+        refresh_token = meetupService.getItem('current-user').refresh_token;
     }
     res.send(`Testing. Access token: ${access_token}, refresh: ${refresh_token}`);
-    console.log(MeetupService);
+    console.log(meetupService);
 
 });
 
@@ -51,7 +80,7 @@ app.get('/meetup', (req, res) =>
 });
 
 //Return from meetup auth page and fetch access and refresh tokens
-app.get('/callback', MeetupAuth);
+app.get('/callback', meetupAuth);
 
 
 
