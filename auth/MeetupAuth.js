@@ -5,7 +5,7 @@
 
 const axios = require('axios');
 const queryString = require('query-string');
-const MeetupService = require('./../services/MeetupService');
+const meetupService = require('../services/meetupService');
 
 async function MeetupAuth (req, res) {
         
@@ -39,7 +39,7 @@ async function MeetupAuth (req, res) {
         //Use a singleton pattern to store the tokens
         //THIS IS A TEMPORARY SOLUTION - will store this info in the database later
         //TODO - replace 'current-user' with user ID from database
-        MeetupService.setItem("current-user", {
+        meetupService.setItem("current-user", {
             "access_token": response.data.access_token,
             "refresh_token": response.data.refresh_token
         });

@@ -18,8 +18,9 @@ const queryString = require('query-string');
 // app.use(passport.initialize());
 
 //Meetup authentication
-const MeetupAuth = require('./auth/MeetupAuth').MeetupAuth;
-const MeetupService = require("./services/MeetupService");
+const meetupAuth = require('./controllers/auth_controller').meetupAuth;
+// const tester = require('./controllers/auth_controller').tester;
+const meetupService = require("./services/meetupService");
 
 
 
@@ -28,12 +29,12 @@ app.get('/', (req,res) => {
     let access_token, refresh_token;
     //Has there been a token defined? If so, assign a variable
 
-    if (MeetupService.getItem('current-user')){
-        access_token = MeetupService.getItem('current-user').access_token;
-        refresh_token = MeetupService.getItem('current-user').refresh_token;
+    if (meetupService.getItem('current-user')){
+        access_token = meetupService.getItem('current-user').access_token;
+        refresh_token = meetupService.getItem('current-user').refresh_token;
     }
     res.send(`Testing. Access token: ${access_token}, refresh: ${refresh_token}`);
-    console.log(MeetupService);
+    console.log(meetupService);
 
 });
 
@@ -51,7 +52,7 @@ app.get('/meetup', (req, res) =>
 });
 
 //Return from meetup auth page and fetch access and refresh tokens
-app.get('/callback', MeetupAuth);
+app.get('/callback', meetupAuth);
 
 
 

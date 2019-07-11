@@ -1,4 +1,4 @@
-class MeetupService {
+class meetupService {
     constructor() {
         this.keys = {};
     }
@@ -12,4 +12,4 @@ class MeetupService {
     }
 }
 
-module.exports = new MeetupService();
+module.exports = new meetupService();
