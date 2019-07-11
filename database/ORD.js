@@ -1,17 +1,19 @@
 
 users = [
   {
-    id:         ObjectId,
-    meetup_uid: Number,
-    email:      String,
-    firstName:  String,
-    lastName:   String,
-    city:       String,
-    avatar:     String,
-    admin:      Boolean,
-    confirmed:  Boolean,
-    created_at: Date,
-    updated_at: Date
+    id:            ObjectId,
+    meetup_uid:    Number,
+    email:         String,
+    firstName:     String,
+    lastName:      String,
+    city:          String,
+    avatar:        String,
+    admin:         Boolean,
+    confirmed:     Boolean,
+    access_token:  String,
+    refresh_token: String,
+    created_at:    Date,
+    updated_at:    Date
   }
 ]
 
@@ -23,11 +25,7 @@ events = [
     group:             String,
     local_date:        Date,
     local_time:        Date,
-    location: {
-      how_to_find_us:  String,
-      lat:             Number,
-      lon:             Number
-    },
+    how_to_find_us:    String,
     attendance_count:  Number,
     guest_limit:       Number,
     rsvp_limit:        Number,

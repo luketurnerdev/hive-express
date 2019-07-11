@@ -21,20 +21,10 @@ const eventSchema = new Schema({
     type: Date,
     required: true
   },
-  location: {
-    how_to_find_us: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    lat: {
-      type: Number,
-      required: true
-    },
-    lon: {
-      type: Number,
-      required: true
-    }
+  how_to_find_us: {
+    type: String,
+    required: true,
+    trim: true
   },
   attendance_count: {
     type: Number,

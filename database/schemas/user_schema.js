@@ -25,10 +25,6 @@ const userSchema = new Schema({
     required: true,
     trim: true
   },
-  nickname: {
-    type: String,
-    trim: true
-  },
   city: {
     type: String,
     required: true
@@ -46,6 +42,8 @@ const userSchema = new Schema({
     required: true,
     default: false
   },
+  access_token: String,
+  refresh_token: String,
   created_at: {
     type: Date,
     default: Date.now
