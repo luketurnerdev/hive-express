@@ -7,7 +7,6 @@ const morgan = require("morgan");
 const methodOverride = require("method-override");
 const app = express();
 
-
 // Handlebars view engine
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
