@@ -35,59 +35,12 @@ async function MeetupAuth (req, res) {
         );
 
         //Use a singleton pattern to store the tokens
+        //THIS IS A TEMPORARY SOLUTION - will store this info in the database later
         //TODO - replace 'current-user' with user ID from database
         MeetupService.setItem("current-user", {
             "accessToken": response.data.access_token,
             "refreshToken": response.data.refresh_token
         });
-
-        // console.log(
-        //     MeetupService.getItem('current-user')
-        // );
-
-
-
-        //Use a meetup service class here (singleton);
-        //could store this in the db?
-        //update when a user logs in again
-
-
-
-
-        //Save tokens into session storage.
-
-        // Window.sessionStorage.setItem('access_token', response.data.access_token);
-        // sessionStorage.setItem('refresh_token', response.data.refresh_token);
-
-
-        // let token = sessionStorage.getItem('access_token');
-        // console.log("Retrieved access token from session storage:" + token);
-        
-        // Once we get token, post request to meetup's user page, and create new user with meetup info
-        // Then ask them to 'complete their profile' with other information that is not on meetup
-        // probably user meetup id
-        // if meetup id is not in user table, make a new account.
-        // if it is, log them in
-        
-        //When user logs in, create a new session with access and rfrehs tokens
-        //the hive is the source of truth for attendance etc
-        //Maybe have colour coding for descrepencies between meetup and the hive
-        //login and signup are the same button - just different comparisons
-
-        // Save data to sessionStorage
-        // sessionStorage.setItem('key', 'value');
-
-        // // Get saved data from sessionStorage
-        // let data = sessionStorage.getItem('key');
-
-        // // Remove saved data from sessionStorage
-        // sessionStorage.removeItem('key');
-
-        // // Remove all saved data from sessionStorage
-        // sessionStorage.clear();
-
-
-
         return res.redirect("/");
     } 
     
