@@ -1,7 +1,8 @@
 const Event = require("./../database/models/event_model");
 
-function index(req, res) {
-  res.send("events index");
+async function index(req, res) {
+  let events = await Event.find().sort({ created_at: "desc" });
+  res.render("events/index", { events });
 }
 
 async function create(req, res) {
@@ -27,10 +28,8 @@ async function create(req, res) {
     attendance_count,
     guest_limit,
     rsvp_limit
-  }).catch(err =>
-    res.status(500).send(err)
-  );
-  
+  }).catch(err => res.status(500).send(err));
+
   res.send(req.body);
 }
 
