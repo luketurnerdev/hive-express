@@ -1,13 +1,32 @@
+//API Keys
+const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
+const redirect_uri = process.env.REDIRECT_URI;
 
-
+//Packages / Imports
+require("dotenv").config();
 const axios = require('axios');
 const queryString = require('query-string');
 const meetupService = require('../services/meetupService');
+
+
+// /auth/register
+function index (req, res) {
+    res.send('This is the register page.');
+}
 
 /*
     Authenticate the user on Meetup.com and return an access token and refresh token.
     These tokens are stored in the database and are updated upon re-authorization
 */
+
+function meetupRedirect(req, res) {
+        //TODO: Add the 'scope' parameter in the headers to ask for more permissions, e.g., RSVP access etc.
+        //Basic and RSVP
+        const scope = {};
+        res.redirect
+            (`https://secure.meetup.com/oauth2/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}`);
+        };
 
 async function meetupAuth (req, res) {
         
@@ -45,6 +64,8 @@ async function meetupAuth (req, res) {
             "access_token": response.data.access_token,
             "refresh_token": response.data.refresh_token
         });
+
+        console.log("Access token: " + response.data.access_token);
         return res.redirect("/");
     } 
     
@@ -56,6 +77,11 @@ async function meetupAuth (req, res) {
     }
 
 
+    
+
+
 module.exports = {
-    meetupAuth
+    meetupRedirect,
+    meetupAuth,
+    index
 }

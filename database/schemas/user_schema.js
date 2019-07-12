@@ -1,5 +1,7 @@
 const { Schema } = require("mongoose");
 
+//These are the attributes a user will have
+//A lot of these will be pulled from the user's Meetup.com profile
 const userSchema = new Schema({
   meetup_uid: {
     type: Number,
