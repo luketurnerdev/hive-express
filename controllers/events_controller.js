@@ -1,6 +1,10 @@
 const Event = require("./../database/models/event_model");
 const axios = require("axios");
 
+/*
+  // GET to "/"
+  // Show all events
+*/
 async function index(req, res) {
   let events = await Event.find().sort({ created_at: "desc" });
   let upcomingMeetups = await axios
@@ -16,6 +20,10 @@ async function index(req, res) {
   res.render("events/index", { events, upcomingMeetups });
 }
 
+/*
+  // POST to "/create"
+  // Create an event
+*/
 async function create(req, res) {
   let {
     link,
@@ -46,6 +54,10 @@ async function create(req, res) {
   res.send(req.body);
 }
 
+/*
+  // GET to "/:id"
+  // Show one event
+*/
 async function show(req, res) {
   let event = await Event
     .findById(req.params.id)
