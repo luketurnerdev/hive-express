@@ -48,6 +48,13 @@ async function create(req, res) {
       );
 
       console.log(user);
+      //Save new user into the database
+
+      user.save().then (user => {
+        res.send('User saved to database!');
+      }) .catch(error => {
+        res.status(400).send("Unable to save the database.");
+      })
       
       res.send(req.body);
 
