@@ -65,6 +65,26 @@ async function meetupAuth (req, res) {
             "refresh_token": response.data.refresh_token
         });
 
+        //axios request for user data.
+        //store it in a var
+        // check if it exists in the db
+        // if not, create
+        // if it does, update
+
+        axios.get('https://api.meetup.com/members/self', {
+            headers: {
+                "Authorization": `Bearer ${response.data.access_token}`
+            }
+        }).then (function(response) {
+            console.log("getting user profile, ", response);
+        }).catch (function(error) {
+            console.log(error);
+        })
+
+        const userDetails = {
+
+        }
+
         console.log("Access token: " + response.data.access_token);
         return res.redirect("/");
     } 

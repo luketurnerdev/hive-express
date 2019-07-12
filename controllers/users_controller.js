@@ -1,5 +1,6 @@
 //Import the user model
 const User = require("./../database/models/user_model");
+const meetupService = require("./../services/meetupService");
 const axios = require("axios");
 
 function index(req, res) {
@@ -9,6 +10,15 @@ function index(req, res) {
 //Import access and refresh tokens from authorization
 //Do get request here for user info, store it in a variable and then write it to the DB
 
+const userData = {
+
+}
+
+// axios.get('https://api.meetup.com/members/self', {
+//   headers: {
+//     'Authorization': 'Bearer' + access_token
+//   }
+// });
 
 async function create(req, res) {
     let {
