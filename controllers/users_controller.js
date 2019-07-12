@@ -14,11 +14,10 @@ const userData = {
 
 }
 
-// axios.get('https://api.meetup.com/members/self', {
-//   headers: {
-//     'Authorization': 'Bearer' + access_token
-//   }
-// });
+
+//1. Do we need password when we are using OAuth? We cannot extract this from meetup anyway
+//2. Meetup just has 'name', not first and last name
+
 
 async function create(req, res) {
     let {

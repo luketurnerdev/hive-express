@@ -57,13 +57,13 @@ async function meetupAuth (req, res) {
             config
         );
 
-        //Use a singleton pattern to store the tokens
-        //THIS IS A TEMPORARY SOLUTION - will store this info in the database later
-        //TODO - replace 'current-user' with user ID from database
-        meetupService.setItem("current-user", {
-            "access_token": response.data.access_token,
-            "refresh_token": response.data.refresh_token
-        });
+        // //Use a singleton pattern to store the tokens
+        // //THIS IS A TEMPORARY SOLUTION - will store this info in the database later
+        // //TODO - replace 'current-user' with user ID from database
+        // meetupService.setItem("current-user", {
+        //     "access_token": response.data.access_token,
+        //     "refresh_token": response.data.refresh_token
+        // });
 
         //axios request for user data.
         //store it in a var
@@ -76,7 +76,20 @@ async function meetupAuth (req, res) {
                 "Authorization": `Bearer ${response.data.access_token}`
             }
         }).then (function(response) {
-            console.log("getting user profile, ", response);
+
+            //Take the params that meetup allows us to take and store this in an object
+            let userProfileInfo = {
+                meetup_uid: response.data.id,
+                email: response.data.email,
+                firstName: response.data.name,
+                city: response.data.city,
+                avatar: response.data.photo.photo_link,
+                access_token: response.data.access_token,
+                refresh_token: response.data.refresh_token
+            }
+
+
+
         }).catch (function(error) {
             console.log(error);
         })
