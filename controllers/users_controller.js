@@ -1,16 +1,14 @@
 //Import the user model
 const User = require("./../database/models/user_model");
+const axios = require("axios");
 
 function index(req, res) {
     res.send("Users index");
   }
 
-function create() {
-    //Create a new user when they sign up
-    //Most of this information will be pulled from the Meetup API
+//Import access and refresh tokens from authorization
+//Do get request here for user info, store it in a variable and then write it to the DB
 
-    //We may need to insert checks to determine if the user already exists in the DB or not.
-}
 
 async function create(req, res) {
     let {
