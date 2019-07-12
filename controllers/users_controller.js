@@ -67,14 +67,12 @@ async function create(req, res) {
 
 }
 
-// async function create(req, res) {
-    // const { meetup_uid, email, password, firstName, lastName, city, avatar, admin, confirmed, access_token, refresh_token, created_at, updated_at } = req.body;
-    // req.user.bookmarks.push({ title, url });
-    // await req.user.save();
-    // res.json(req.body);
-// }
+async function update() {
+  // await ...
+}
 
 module.exports = {
     index,
-    create
+    create,
+    update
 }

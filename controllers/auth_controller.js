@@ -3,6 +3,9 @@ const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
 const redirect_uri = process.env.REDIRECT_URI;
 
+//User Model for creation and updating of users
+const User = require("./../database/models/user_model");
+
 //Packages / Imports
 require("dotenv").config();
 const axios = require('axios');
@@ -87,6 +90,27 @@ async function meetupAuth (req, res) {
                 access_token: response.data.access_token,
                 refresh_token: response.data.refresh_token
             }
+
+            const user = 
+            User.find({userProfileInfo}
+            ).then(
+                function(user) {
+                    console.log('found')
+                }
+            ).catch(
+                function(err) {
+                    console.log(err);
+                }
+            )
+            
+
+            // // //Does the user exist in the database?
+            // if (user) {
+            //     console.log('user found');
+            // } else {
+            //     console.log ('not found');
+            // }
+
 
 
 
