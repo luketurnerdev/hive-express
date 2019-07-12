@@ -77,8 +77,8 @@ async function meetupAuth (req, res) {
             if (user) {
                 //update user with new access and refresh tokens
             } else {
-                userController.create(testObj);
-                // console.log('make a new user')
+                userController.create(userProfileInfo);
+
             }
         
 
