@@ -5,6 +5,10 @@ const eventSchema = new Schema({
     type: String,
     required: true
   },
+  img_url: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
     required: true
@@ -36,6 +40,10 @@ const eventSchema = new Schema({
   },
   rsvp_limit: {
     type: Number,
+    required: true
+  },
+  description: {
+    type: String,
     required: true
   },
   attendees: [Number],
