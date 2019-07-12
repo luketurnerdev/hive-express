@@ -3,6 +3,8 @@ const router = express.Router();
 const eventsController = require("./../controllers/events_controller");
 
 // all paths are preceeded by "/events"
+
+// GET to "/events"
 router.get("/", eventsController.index);
 
 // POST to "/events"

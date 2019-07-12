@@ -1,8 +1,19 @@
 const Event = require("./../database/models/event_model");
+const axios = require("axios");
 
 async function index(req, res) {
   let events = await Event.find().sort({ created_at: "desc" });
-  res.render("events/index", { events });
+  let upcomingMeetups = await axios
+    .get(
+      `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`
+    )
+    .then(resp => {
+      console.log(resp.data);
+      return resp.data;
+    })
+    .catch(err => console.error(err.message));
+
+  res.render("events/index", { events, upcomingMeetups });
 }
 
 async function create(req, res) {
