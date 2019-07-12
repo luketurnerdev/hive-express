@@ -1,4 +1,6 @@
-
+function index (req, res) {
+    res.send('This is the register page.');
+}
 
 const axios = require('axios');
 const queryString = require('query-string');
@@ -57,5 +59,6 @@ async function meetupAuth (req, res) {
 
 
 module.exports = {
-    meetupAuth
+    meetupAuth,
+    index
 }
