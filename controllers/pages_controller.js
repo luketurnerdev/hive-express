@@ -2,4 +2,11 @@ function homepage(req, res) {
   res.render("pages/homepage");
 }
 
-module.exports = { homepage };
+function register(req, res) {
+  res.render("pages/register")
+}
+
+module.exports = {
+   homepage,
+   register
+  };

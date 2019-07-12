@@ -8,6 +8,9 @@ const pagesController = require("./../controllers/pages_controller");
 // Root / Homepage
 router.get("/", pagesController.homepage);
 
+// Register page
+router.get("/auth/register", pagesController.register);
+
 // Events Routes
 router.use("/events", eventsRoutes);
 
