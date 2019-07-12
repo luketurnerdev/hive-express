@@ -3,8 +3,12 @@ const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
 const redirect_uri = process.env.REDIRECT_URI;
 
+//User Model for creation and updating of users
+const User = require("./../database/models/user_model");
+const userController = require("./users_controller");
+
 //Packages / Imports
-require("dotenv").config();
+
 const axios = require('axios');
 const queryString = require('query-string');
 const meetupService = require('../services/meetupService');
@@ -32,49 +36,55 @@ async function meetupAuth (req, res) {
         
         console.log('This is the meetup authorization js file.')
 
-        //Define the headers as using URL-encoded format
-        const config = { headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }};
-    
-        //Client auth information to be used in the body.
-        //Use queryString.stringify to convert this information to url-encoded from JSON.
-        const body = queryString.stringify({
-            'client_id': process.env.CLIENT_ID,
-            'client_secret':process.env.CLIENT_SECRET,
-            'grant_type': 'authorization_code',
-            'redirect_uri': process.env.REDIRECT_URI,
-            'code':req.query.code
-        });
-    
-    
-       try {
-        //If auth successful, provide the response (including access and refresh token)
-        const response = await axios.post
-        (
-            'https://secure.meetup.com/oauth2/access',
-            body,
-            config
-        );
+       const tokens = await meetupService.getTokens(req.query.code);
+       const userData = await meetupService.getUserInfo(tokens.access_token);
+        //axios request for user data.
+        //store it in a var
+        // check if it exists in the db
+        // if not, create
+        // if it does, update
 
-        //Use a singleton pattern to store the tokens
-        //THIS IS A TEMPORARY SOLUTION - will store this info in the database later
-        //TODO - replace 'current-user' with user ID from database
-        meetupService.setItem("current-user", {
-            "access_token": response.data.access_token,
-            "refresh_token": response.data.refresh_token
-        });
+        console.log(userData);
 
-        console.log("Access token: " + response.data.access_token);
+            //Take the params that meetup allows us to take and store this in an object
+            let userProfileInfo = {
+                meetup_uid: userData.id,
+                email: userData.email,
+                firstName: userData.name,
+                city: userData.city,
+                avatar: userData.photo.photo_link,
+                access_token: userData.access_token,
+                refresh_token: userData.refresh_token
+
+            }
+            let testObj = {
+                // meetup_uid: 123,
+                email: 'sfe@Sent.com',
+                password: 'password',
+                firstName :'sirius',
+                lastName: 'black',
+                city: 'texas',
+                avatar: 'avatar.com',
+                admin: false,
+                confirmed: false,
+                access_token: 'abc123',
+                refresh_token: 'abc123',
+                created_at: 1234,
+                updated_at: 1245
+            }
+            //Does the user exist?
+            const user =  await User.findOne({"meetup_uid": userProfileInfo.meetup_uid})
+            if (user) {
+                //update user with new access and refresh tokens
+            } else {
+                userController.create(userProfileInfo);
+
+            }
+        
+
         return res.redirect("/");
     } 
-    
-       catch(err) {
-        console.log(err);
-       }
-
-
-    }
+ 
 
 
     
