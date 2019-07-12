@@ -2,6 +2,10 @@ function index (req, res) {
     res.send('This is the register page.');
 }
 
+// function meetupAuth(){
+
+// }
+
 const axios = require('axios');
 const queryString = require('query-string');
 const meetupService = require('../services/meetupService');

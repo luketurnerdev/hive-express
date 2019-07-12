@@ -46,6 +46,8 @@ async function create(req, res) {
       }).catch(err =>
         res.status(500).send(err)
       );
+
+      console.log(user);
       
       res.send(req.body);
 
