@@ -11,7 +11,7 @@ async function index(req, res) {
       console.log(resp.data);
       return resp.data;
     })
-    .catch(err => console.error(err.message));
+    .catch(err => console.error(err));
 
   res.render("events/index", { events, upcomingMeetups });
 }
@@ -29,19 +29,32 @@ async function create(req, res) {
     rsvp_limit
   } = req.body;
 
-  let event = await Event.create({
-    link,
-    name,
-    group,
-    local_date,
-    local_time,
-    how_to_find_us,
-    attendance_count,
-    guest_limit,
-    rsvp_limit
-  }).catch(err => res.status(500).send(err));
+  let event = await Event
+    .create({
+      link,
+      name,
+      group,
+      local_date,
+      local_time,
+      how_to_find_us,
+      attendance_count,
+      guest_limit,
+      rsvp_limit
+    })
+    .catch(err => res.status(500).send(err));
 
   res.send(req.body);
 }
 
-module.exports = { index, create };
+async function show(req, res) {
+  let event = await Event
+    .findById(req.params.id)
+    .catch(err => res.status(404).send(err));
+  res.render("events/show", { event })
+}
+
+module.exports = { 
+  index, 
+  create, 
+  show 
+};
