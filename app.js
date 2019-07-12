@@ -73,23 +73,6 @@ app.get('/', (req,res) => {
 });
 
 
-//Direct the user to authenticate on Meetup.com
-//This takes them to a callback route below
-//TODO - place this into a separate function and separate out variables for client_id and client_secret
-
-// app.get('/meetup', (req, res) => 
-// {
-//     //TODO: Add the 'scope' parameter in the headers to ask for more permissions, e.g., RSVP access etc.
-//     //Basic and RSVP
-//     res.redirect
-//         (`https://secure.meetup.com/oauth2/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}`);
-// });
-
-// //Return from meetup auth page and fetch access and refresh tokens
-// app.get('/callback', meetupAuth);
-
-
-
 //Application-level middleware goes here
 
 
