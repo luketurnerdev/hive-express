@@ -7,17 +7,22 @@ const axios = require("axios");
 */
 async function index(req, res) {
   let events = await Event.find().sort({ created_at: "desc" });
-  let upcomingMeetups = await axios
-    .get(
-      `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`
-    )
-    .then(resp => {
-      console.log(resp.data);
-      return resp.data;
-    })
-    .catch(err => console.error(err));
+  // let upcomingMeetups = await axios
+  //   .get(
+  //     `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`//,
+  //     // {
+  //     //   headers: {
+  //     //     "Authorization": `Bearer ${tokens.accessToken}`
+  //     //   }
+  //     // }
+  //   )
+  //   .then(resp => {
+  //     console.log(resp.data);
+  //     return resp.data;
+  //   })
+  //   .catch(err => console.error(err));
 
-  res.render("events/index", { events, upcomingMeetups });
+  res.render("events/index", { events });//, upcomingMeetups });
 }
 
 /*
