@@ -5,7 +5,7 @@ const eventSchema = new Schema({
     type: String,
     required: true
   },
-  img_url: {
+  photo_link: {
     type: String,
     required: true
   },
