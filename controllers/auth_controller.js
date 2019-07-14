@@ -5,7 +5,7 @@ const redirect_uri = process.env.REDIRECT_URI;
 
 //User Model for creation and updating of users
 const User = require("./../database/models/user_model");
-const userController = require("./users_controller");
+const usersController = require("./users_controller");
 
 //Packages / Imports
 
@@ -66,7 +66,7 @@ async function meetupAuth (req, res) {
             if (user) {
                 //update user with new access and refresh tokens
             } else {
-                userController.create(userProfileInfo);
+                usersController.create(userProfileInfo);
 
             }
         
