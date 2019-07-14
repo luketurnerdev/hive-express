@@ -22,9 +22,7 @@ async function create(req, res) {
     let {
       meetup_uid,
       email,
-      password,
-      firstName,
-      lastName,
+      name,
       city,
       avatar,
       admin,
