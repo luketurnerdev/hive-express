@@ -52,13 +52,13 @@ async function meetupAuth (req, res) {
                 email: userData.email,
                 name: userData.name,
                 city: userData.city,
-                avatar: userData.photo.photo_link,
-                admin:false,
-                confirmed:false,
+                photo: userData.photo.photo_link,
+                admin: false,
+                confirmed: false,
                 created_at: null,
                 updated_at: null,
-                access_token: userData.access_token,
-                refresh_token: userData.refresh_token
+                access_token: tokens.access_token,
+                refresh_token: tokens.refresh_token
 
             }
             //Does the user exist?
