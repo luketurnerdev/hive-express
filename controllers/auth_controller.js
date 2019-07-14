@@ -44,7 +44,7 @@ async function meetupAuth (req, res) {
         // if not, create
         // if it does, update
 
-        console.log(userData);
+        // console.log(userData);
 
             //Take the params that meetup allows us to take and store this in an object
             let userProfileInfo = {
@@ -55,20 +55,51 @@ async function meetupAuth (req, res) {
                 avatar: userData.photo.photo_link,
                 admin:false,
                 confirmed:false,
-                created_at: Date.now,
-                updated_at: Date.now,
+                created_at: null,
+                updated_at: null,
                 access_token: userData.access_token,
                 refresh_token: userData.refresh_token
 
             }
             //Does the user exist?
             const user =  await User.findOne({"meetup_uid": userProfileInfo.meetup_uid})
-            if (user) {
-                //update user with new access and refresh tokens
-            } else {
-                usersController.create(userProfileInfo);
 
+            //If user doesn't exist, create it
+            if (!user) {
+                //Create new user
+                const config = { headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }};
+
+                const body = queryString.stringify(userProfileInfo);
+
+
+                axios.post('http://localhost:3000/auth/register', body, config)
+                .then(function (response) {
+                    console.log("Sucess!" + response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            } else {
+                //Update the user's tokens
+                console.log('already in the db')
             }
+
+
+                
+
+            
+            
+            
+            
+            
+            // if (user) {
+            //     //update user with new access and refresh tokens
+            // } else {
+            //     usersController.create(userProfileInfo);
+
+            // }
         
 
         return res.redirect("/");
