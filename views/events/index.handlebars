@@ -11,9 +11,12 @@
 <p>There are no events to display.</p>
 {{/each}}
 
-{{#each upcomingEvents}}
+{{#each upcomingMeetups}}
 <p>
-  {{name}}
+  {{name}} - 
+  {{#group}}
+    Hosted By: {{name}}
+  {{/group}}
 </p>
 {{else}}
 <p>No upcoming events to show.</p>
