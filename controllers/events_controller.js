@@ -12,14 +12,12 @@ async function index(req, res) {
       `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`,
       {
         headers: {
+          // TODO: Get this dynamically from the current user's database document
           "Authorization": "Bearer 98a5e98c4d17a532c8c6499129b78e9b"
         }
       }
     )
-    .then(resp => {
-      console.log(resp.data.events);
-      return resp.data.events;
-    })
+    .then(resp => resp.data.events)
     .catch(err => console.error(err));
     
   res.render("events/index", { events, upcomingMeetups });
@@ -56,7 +54,7 @@ async function create(req, res) {
     })
     .catch(err => res.status(500).send(err));
 
-  res.send(req.body);
+  res.redirect("/events");
 }
 
 /*
