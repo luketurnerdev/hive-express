@@ -15,15 +15,13 @@
 <hr>
 
 {{#each upcomingMeetups}}
-<p>
-  {{name}}
-</p>
 <p> 
   {{#group}}
     Hosted By: {{name}}
   {{/group}}
 </p>
 <p>
+  <a href="/events/{{#group}}{{urlname}}{{/group}}/{{id}}">View</a>
   <button type="button">Attend</button>
   <button type="button">Suggest</button>
 </p>

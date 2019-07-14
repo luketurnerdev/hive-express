@@ -16,4 +16,8 @@ router.post("/", eventsController.create);
 // Show One Event
 router.get("/:id", eventsController.show);
 
+// GET to "/events/:id"
+// Show One Event
+router.get("/:group/:id", eventsController.showMeetup);
+
 module.exports = router;

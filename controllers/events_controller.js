@@ -62,14 +62,34 @@ async function create(req, res) {
   // Show one event
 */
 async function show(req, res) {
-  let event = await Event
+  let meetup = await Event
     .findById(req.params.id)
     .catch(err => res.status(404).send(err));
-  res.render("events/show", { event })
+  res.render("events/show", { meetup })
+}
+
+async function showMeetup(req, res) {
+  let { group, id } = req.params;
+
+  let meetup = await axios
+    .get(
+      `https://api.meetup.com/${group}/events/${id}`,
+      {
+        headers: {
+          // TODO: Get this dynamically from the current user's database document
+          "Authorization": "Bearer 98a5e98c4d17a532c8c6499129b78e9b"
+        }
+      }
+    )
+    .then(resp => resp.data)
+    .catch(err => console.error(err));
+
+  res.render("events/show", { meetup })
 }
 
 module.exports = { 
   index, 
   create, 
-  show 
+  show,
+  showMeetup
 };
