@@ -22,7 +22,6 @@ async function index(req, res) {
     })
     .catch(err => console.error(err));
     
-  // upComingMeetups isn't being passed to the view like I want it to below
   res.render("events/index", { events, upcomingMeetups });
 }
 
