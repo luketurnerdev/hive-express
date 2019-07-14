@@ -55,20 +55,26 @@ async function create(req, res) {
 
 }
 
-async function update(req, res) {
-  // await ...
-  // const user =  await User.findOne({"meetup_uid": userProfileInfo.meetup_uid});
-  // User.updateOne(user, {$set {'access_token': 'new_token'});
+async function update(id, newValues) {
 
-  User.update(
-    { _id: 100 },
+console.log('new token: ' + newValues.access_token);
+  await User.update(
+    { meetup_uid: id },
     { $set:
        {
-         access_token: 500,
-         refresh_token: { model: "14Q3", make: "xyz" },
-      }
+         'access_token' : newValues.access_token,
+         'refresh_token' : newValues.refresh_token
+
+       }
     }
- )
+ ).then(item => {
+   console.log(item);
+
+
+ }).catch(err => {
+   console.log(err);
+ })
+
 
 }
 

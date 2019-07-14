@@ -12,7 +12,7 @@ router.get("/register", authController.index);
 router.post("/register", usersController.create);
 
 //Update a user's tokens
-router.put("register", usersController.update);
+router.put("/register", usersController.update);
 
 //Direct the user to authenticate on Meetup.com
 //This takes them to a callback route below

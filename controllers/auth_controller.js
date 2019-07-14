@@ -38,13 +38,13 @@ async function meetupAuth (req, res) {
 
        const tokens = await meetupService.getTokens(req.query.code);
        const userData = await meetupService.getUserInfo(tokens.access_token);
+
         //axios request for user data.
         //store it in a var
         // check if it exists in the db
         // if not, create
         // if it does, update
 
-        // console.log(userData);
 
             //Take the params that meetup allows us to take and store this in an object
             let userProfileInfo = {
@@ -74,32 +74,24 @@ async function meetupAuth (req, res) {
                 const body = queryString.stringify(userProfileInfo);
 
 
-                axios.post('http://localhost:3000/auth/register', body, config)
+                axios.post(`${process.env.ROOT_SERVER}/auth/register`, body, config)
                 .then(function (response) {
-                    console.log("Sucess!" + response);
+                    console.log(`Sucessfully created user ${userData.name}: ${response}`);
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             } else {
+
                 //Update the user's tokens
-                console.log('Updating tokens')
-                const config = { headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }};
-
-                const body = queryString.stringify(userProfileInfo);
-
-
-                axios.put('http://localhost:3000/auth/register', body, config)
-                .then(function (response) {
-                    console.log("Sucess!" + response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-                //axois put / patch
+                // console.log('Updating tokens with ' + tokens.access_token);
+                //Call the controller method with the id of document,
+                // and the new values to apply
+                const newValues = {
+                    'access_token' : tokens.access_token,
+                    'refresh_token': tokens.refresh_token
+                };
+                usersController.update(userData.id, newValues);
             }
 
 
