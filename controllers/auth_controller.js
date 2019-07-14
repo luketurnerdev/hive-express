@@ -62,7 +62,7 @@ async function meetupAuth (req, res) {
 
             }
             //Does the user exist?
-            const user =  await User.findOne({"meetup_uid": userProfileInfo.meetup_uid})
+            const user =  await User.findOne({"meetup_uid": userProfileInfo.meetup_uid});
 
             //If user doesn't exist, create it
             if (!user) {
@@ -83,7 +83,23 @@ async function meetupAuth (req, res) {
                 });
             } else {
                 //Update the user's tokens
-                console.log('already in the db')
+                console.log('Updating tokens')
+                const config = { headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }};
+
+                const body = queryString.stringify(userProfileInfo);
+
+
+                axios.put('http://localhost:3000/auth/register', body, config)
+                .then(function (response) {
+                    console.log("Sucess!" + response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+                //axois put / patch
             }
 
 
