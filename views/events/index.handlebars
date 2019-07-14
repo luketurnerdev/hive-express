@@ -1,4 +1,5 @@
 <h1>Events Index</h1>
+
 {{#each events}}
 <p>
   Event Name: {{name}}
@@ -11,10 +12,20 @@
 <p>There are no events to display.</p>
 {{/each}}
 
-{{#each upcomingEvents}}
-<p>
-  {{name}}
+<hr>
+
+{{#each upcomingMeetups}}
+<p> 
+  {{#group}}
+    Hosted By: {{name}}
+  {{/group}}
 </p>
+<p>
+  <a href="/events/{{#group}}{{urlname}}{{/group}}/{{id}}">View</a>
+  <button type="button">Attend</button>
+  <button type="button">Suggest</button>
+</p>
+<hr>
 {{else}}
 <p>No upcoming events to show.</p>
 {{/each}}
