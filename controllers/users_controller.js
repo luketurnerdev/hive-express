@@ -19,6 +19,7 @@ const userData = {
 //2. Meetup just has 'name', not first and last name
 
 async function create(req, res) {
+  console.log('creating user');
     let {
       meetup_uid,
       email,

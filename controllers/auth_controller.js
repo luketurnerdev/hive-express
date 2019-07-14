@@ -5,7 +5,7 @@ const redirect_uri = process.env.REDIRECT_URI;
 
 //User Model for creation and updating of users
 const User = require("./../database/models/user_model");
-const userController = require("./users_controller");
+const usersController = require("./users_controller");
 
 //Packages / Imports
 
@@ -51,10 +51,16 @@ async function meetupAuth (req, res) {
                 meetup_uid: userData.id,
                 email: userData.email,
                 firstName: userData.name,
+                lastName: undefined,
                 city: userData.city,
                 avatar: userData.photo.photo_link,
                 access_token: userData.access_token,
-                refresh_token: userData.refresh_token
+                refresh_token: userData.refresh_token,
+                admin: false,
+                confirmed: false,
+                created_at: Date.now,
+                updated_at: Date.now
+
 
             }
             let testObj = {
@@ -76,9 +82,10 @@ async function meetupAuth (req, res) {
             const user =  await User.findOne({"meetup_uid": userProfileInfo.meetup_uid})
             if (user) {
                 //update user with new access and refresh tokens
-            } else {
-                userController.create(userProfileInfo);
 
+            } else {   
+                //We may need to check here if the user needs to be an admin
+                usersController.create(userProfileInfo);
             }
         
 
