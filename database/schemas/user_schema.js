@@ -12,17 +12,7 @@ const userSchema = new Schema({
     required: true,
     trim: true
   },
-  password: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  firstName: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  lastName: {
+  name: {
     type: String,
     required: true,
     trim: true
@@ -31,7 +21,7 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  avatar: {
+  photo: {
     type: String
   },
   admin: {
