@@ -11,6 +11,9 @@ router.get("/register", authController.index);
 // Create a user
 router.post("/register", usersController.create);
 
+//Update a user's tokens
+router.put("/register", usersController.update);
+
 //Direct the user to authenticate on Meetup.com
 //This takes them to a callback route below
 router.get('/meetup', authController.meetupRedirect);

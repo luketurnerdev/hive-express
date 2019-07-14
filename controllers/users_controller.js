@@ -50,21 +50,32 @@ async function create(req, res) {
       .catch(err =>
         res.status(500).send(err)
       );
-
-      
-
-      // user.save().then (user => {
-      //   res.send('User saved to database!');
-      // }) .catch(error => {
-      //   res.status(400).send("Unable to save the database.");
-      // })
       
       res.send(req.body);
 
 }
 
-async function update() {
-  // await ...
+async function update(id, newValues) {
+
+console.log('new token: ' + newValues.access_token);
+  await User.update(
+    { meetup_uid: id },
+    { $set:
+       {
+         'access_token' : newValues.access_token,
+         'refresh_token' : newValues.refresh_token
+
+       }
+    }
+ ).then(item => {
+   console.log(item);
+
+
+ }).catch(err => {
+   console.log(err);
+ })
+
+
 }
 
 module.exports = {
