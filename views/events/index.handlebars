@@ -1,0 +1,20 @@
+<h1>Events Index</h1>
+{{#each events}}
+<p>
+  Event Name: {{name}}
+  <br>
+  Link: {{link}}
+  <br>
+  ID: {{_id}}
+</p>
+{{else}}
+<p>There are no events to display.</p>
+{{/each}}
+
+{{#each upcomingEvents}}
+<p>
+  {{name}}
+</p>
+{{else}}
+<p>No upcoming events to show.</p>
+{{/each}}
