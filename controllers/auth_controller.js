@@ -57,8 +57,8 @@ async function meetupAuth (req, res) {
                 confirmed: false,
                 created_at: null,
                 updated_at: null,
-                access_token: userData.access_token,
-                refresh_token: userData.refresh_token
+                access_token: tokens.access_token,
+                refresh_token: tokens.refresh_token
 
             }
             //Does the user exist?
