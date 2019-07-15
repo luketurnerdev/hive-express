@@ -3,13 +3,17 @@ const express = require("express");
 const router = express.Router();
 const usersController = require("./../controllers/users_controller");
 const authController = require("./../controllers/auth_controller");
+const pagesController = require("./../controllers/pages_controller");
 
 // Register page
-router.get("/register", authController.index);
+router.get("/register", pagesController.register);
 
 // POST to "/register"
 // Create a user
 router.post("/register", usersController.create);
+
+//Update a user's tokens
+router.put("/register", usersController.update);
 
 //Direct the user to authenticate on Meetup.com
 //This takes them to a callback route below

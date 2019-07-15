@@ -4,71 +4,84 @@ const meetupService = require("./../services/meetupService");
 const axios = require("axios");
 
 function index(req, res) {
-    res.send("Users index");
-  }
+  res.send("Users index");
+}
 
 //Import access and refresh tokens from authorization
 //Do get request here for user info, store it in a variable and then write it to the DB
 
-const userData = {
-
-}
-
-
-//1. Do we need password when we are using OAuth? We cannot extract this from meetup anyway
-//2. Meetup just has 'name', not first and last name
 
 async function create(req, res) {
-    let {
-      meetup_uid,
-      email,
-      name,
-      city,
-      photo,
-      admin,
-      confirmed,
-      access_token,
-      refresh_token,
-      created_at,
-      updated_at
-    } = req.body;
+  let {
+    meetup_uid,
+    email,
+    name,
+    city,
+    photo,
+    admin,
+    confirmed,
+    access_token,
+    refresh_token,
+    created_at,
+    updated_at
+  } = req.body;
 
-    let user = await User.create({
-      meetup_uid,
-      email,
-      name,
-      city,
-      photo,
-      admin,
-      confirmed,
-      access_token,
-      refresh_token,
-      created_at,
-      updated_at
-      })
-      
-      .catch(err =>
-        res.status(500).send(err)
-      );
+  let user = await User.create({
+    meetup_uid,
+    email,
+    name,
+    city,
+    photo,
+    admin,
+    confirmed,
+    access_token,
+    refresh_token,
+    created_at,
+    updated_at
+  }).then(response => {
+    console.log("Successfully created new user!")
+  }).catch(err => res.status(500).send(err));
 
-      
-
-      // user.save().then (user => {
-      //   res.send('User saved to database!');
-      // }) .catch(error => {
-      //   res.status(400).send("Unable to save the database.");
-      // })
-      
-      res.send(req.body);
-
+  res.send(req.body);
 }
 
-async function update() {
-  // await ...
+async function update(id, newValues) {
+  await User.update(
+    { meetup_uid: id },
+    {
+      $set: {
+        access_token: newValues.access_token,
+        refresh_token: newValues.refresh_token
+      }
+    }
+  )
+    .then(item => {
+      console.log(`Successfully updated access tokens for user with id: ${id}`);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
+
+//'delete' is a reserved word, using deleteUser instead
+async function deleteUser(id) {
+  user = User.findById(id);
+  User.deleteOne({id: id});
+  }
+
+
+async function show(req, res) {
+  let user = await User.findById(req.params.id).catch(err => {
+    res.status(404).send(err);
+  });
+  res.render("users/show", { user });
+}
+
 
 module.exports = {
-    index,
-    create,
-    update
-}
+  index,
+  create,
+  update,
+  show,
+  deleteUser
+};

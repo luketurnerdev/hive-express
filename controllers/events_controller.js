@@ -1,4 +1,5 @@
 const Event = require("./../database/models/event_model");
+const User = require("./../database/models/user_model");
 const axios = require("axios");
 
 /*
@@ -6,23 +7,10 @@ const axios = require("axios");
   // Show all events
 */
 async function index(req, res) {
+  //Create a list of events sorted by their creation date
   let events = await Event.find().sort({ created_at: "desc" });
-  // let upcomingMeetups = await axios
-  //   .get(
-  //     `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`//,
-  //     // {
-  //     //   headers: {
-  //     //     "Authorization": `Bearer ${tokens.accessToken}`
-  //     //   }
-  //     // }
-  //   )
-  //   .then(resp => {
-  //     console.log(resp.data);
-  //     return resp.data;
-  //   })
-  //   .catch(err => console.error(err));
-
-  res.render("events/index", { events });//, upcomingMeetups });
+    
+  res.render("events/index", { events });
 }
 
 /*
@@ -56,7 +44,7 @@ async function create(req, res) {
     })
     .catch(err => res.status(500).send(err));
 
-  res.send(req.body);
+  res.redirect("/events");
 }
 
 /*
@@ -64,14 +52,39 @@ async function create(req, res) {
   // Show one event
 */
 async function show(req, res) {
-  let event = await Event
+  let meetup = await Event
     .findById(req.params.id)
     .catch(err => res.status(404).send(err));
-  res.render("events/show", { event })
+  res.render("events/show", { meetup })
+}
+
+async function showMeetup(req, res) {
+  let { group, id } = req.params;
+  let accessToken = req.cookies.tokens.access_token;
+
+  let meetup = await axios
+    .get(
+      `https://api.meetup.com/${group}/events/${id}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${accessToken}`
+        }
+      }
+    )
+    .then(resp => resp.data)
+    .catch(err => console.error(err));
+
+  res.render("events/show", { meetup })
+}
+
+function newSuggestion(req, res) {
+  res.render("events/suggest");
 }
 
 module.exports = { 
   index, 
   create, 
-  show 
+  show,
+  showMeetup,
+  newSuggestion
 };
