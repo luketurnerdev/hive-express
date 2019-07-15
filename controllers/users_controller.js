@@ -63,6 +63,13 @@ async function update(id, newValues) {
     });
 }
 
+//'delete' is a reserved word, using deleteUser instead
+async function deleteUser(id) {
+  user = User.findById(id);
+  User.deleteOne({id: id});
+  }
+
+
 async function show(req, res) {
   let user = await User.findById(req.params.id).catch(err => {
     res.status(404).send(err);
@@ -70,9 +77,11 @@ async function show(req, res) {
   res.render("users/show", { user });
 }
 
+
 module.exports = {
   index,
   create,
   update,
-  show
+  show,
+  deleteUser
 };
