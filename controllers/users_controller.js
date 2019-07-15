@@ -38,13 +38,14 @@ async function create(req, res) {
     refresh_token,
     created_at,
     updated_at
+  }).then(response => {
+    console.log("Successfully created new user!")
   }).catch(err => res.status(500).send(err));
 
   res.send(req.body);
 }
 
 async function update(id, newValues) {
-  console.log("new token: " + newValues.access_token);
   await User.update(
     { meetup_uid: id },
     {
@@ -55,12 +56,19 @@ async function update(id, newValues) {
     }
   )
     .then(item => {
-      console.log(item);
+      console.log(`Successfully updated access tokens for user with id: ${id}`);
     })
     .catch(err => {
       console.log(err);
     });
 }
+
+//'delete' is a reserved word, using deleteUser instead
+async function deleteUser(id) {
+  user = User.findById(id);
+  User.deleteOne({id: id});
+  }
+
 
 async function show(req, res) {
   let user = await User.findById(req.params.id).catch(err => {
@@ -69,9 +77,11 @@ async function show(req, res) {
   res.render("users/show", { user });
 }
 
+
 module.exports = {
   index,
   create,
   update,
-  show
+  show,
+  deleteUser
 };

@@ -36,7 +36,6 @@ class meetupService {
             body,
             config
         );
-
         return response.data;
     }
 

@@ -1,4 +1,5 @@
 const { Schema } = require("mongoose");
+const date = new Date();
 
 //These are the attributes a user will have
 //A lot of these will be pulled from the user's Meetup.com profile
@@ -17,7 +18,7 @@ const userSchema = new Schema({
     required: true,
     trim: true
   },
-  city: {
+  city: { 
     type: String,
     required: true
   },

@@ -10,7 +10,7 @@ const pagesController = require("./../controllers/pages_controller");
 router.get("/", pagesController.homepage);
 
 // Register page
-router.get("/auth/register", pagesController.register);
+// router.get("/auth/register", pagesController.register);
 
 // Events Routes
 router.use("/events", eventsRoutes);
