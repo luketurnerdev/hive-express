@@ -7,10 +7,15 @@ function homepage(req, res) {
 // GET to "/register"
 
 function register(req, res) {
-  res.render("pages/register")
+  res.render("pages/register");
+}
+
+function dashboard(req, res) {
+  res.render("pages/dashboard");
 }
 
 module.exports = {
    homepage,
-   register
-  };
+   register,
+   dashboard
+};
