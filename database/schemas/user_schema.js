@@ -36,14 +36,20 @@ const userSchema = new Schema({
   },
   access_token: String,
   refresh_token: String,
-  created_at: {
-    type: Date,
-    default: Date.now
-  },
-  updated_at: {
-    type: Date,
-    default: Date.now
-  }
-});
+  // created_at: {
+  //   required: true,
+  //   type: Date,
+  //   default: Date.now
+  // },
+  // updated_at: {
+  //   required: true,
+  //   type: Date,
+  //   default: Date.now
+  // }
+},
+{
+  timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
+}
+);
 
 module.exports = userSchema;

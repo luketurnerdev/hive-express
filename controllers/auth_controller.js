@@ -55,8 +55,6 @@ async function meetupAuth (req, res) {
                 photo: userData.photo.photo_link,
                 admin: false,
                 confirmed: false,
-                created_at: null,
-                updated_at: null,
                 access_token: tokens.access_token,
                 refresh_token: tokens.refresh_token
 
