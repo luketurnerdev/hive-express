@@ -7,15 +7,18 @@ const morgan = require("morgan");
 const methodOverride = require("method-override");
 const app = express();
 const bodyParser = require('body-parser');
-
+const cookieParser = require('cookie-parser');
 
 // Handlebars view engine
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+// Cookie Parser
+app.use(cookieParser());
+
 // Body parser, get streams as json
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+//app.use(express.urlencoded({ extended: false }));
+//app.use(express.json());
 
 // Method Override
 app.use(methodOverride("_method"));
