@@ -33,7 +33,11 @@ events = [
     attendees:         [Number],
     hive_attendees:    [user],
     ca_recommended:    Boolean,
-    student_suggested: Boolean
+    suggested: {
+      is_suggested:    Boolean,
+      suggested_by:    Number,
+      message:         String
+    }
   }
 ]
 

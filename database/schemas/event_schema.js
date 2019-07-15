@@ -53,10 +53,14 @@ const eventSchema = new Schema({
     required: true,
     default: false
   },
-  student_suggested: {
-    type: Boolean,
-    required: true,
-    default: false
+  suggested: {
+    is_suggested: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    suggested_by: Number,
+    message: String,
   },
   created_at: {
     type: Date,
