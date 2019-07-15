@@ -1,5 +1,5 @@
 const Event = require("./../database/models/event_model");
-//const User = require("./../database/models/user_model");
+const User = require("./../database/models/user_model");
 const axios = require("axios");
 
 
@@ -25,13 +25,9 @@ async function dashboard(req, res) {
     return res.redirect("/")
   }
 
+  // Find current user
   let accessToken = req.cookies.tokens.access_token;
-
-  // let user = await User
-  //   .findOne({"access_token": accessToken})
-  //   .catch(err => res.status(404).send(err));
-
-  // console.log(user);
+  let user = await User.findOne({access_token: accessToken});
 
   let upcomingMeetups = await axios
     .get(
@@ -45,7 +41,7 @@ async function dashboard(req, res) {
     .then(resp => resp.data.events)
     .catch(err => console.error(err));
 
-  res.render("pages/dashboard", { upcomingMeetups });
+  res.render("pages/dashboard", { upcomingMeetups, user });
 }
 
 module.exports = {
