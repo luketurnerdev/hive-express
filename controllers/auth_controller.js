@@ -27,10 +27,22 @@ function index (req, res) {
 function meetupRedirect(req, res) {
         //TODO: Add the 'scope' parameter in the headers to ask for more permissions, e.g., RSVP access etc.
         //Basic and RSVP
-        const scope = {};
-        res.redirect
-            (`https://secure.meetup.com/oauth2/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}`);
-        };
+        const scopes = "basic";
+        const queryString = encodeURIComponent(`client_id=${client_id}&
+        response_type=code&
+        redirect_uri=${redirect_uri}&
+        X-OAuth-Scopes: ${scopes}&
+        X-Accepted-OAuth-Scopes: ${scopes}`);
+
+        // res.redirect(`https://secure.meetup.com/oauth2/authorize?${queryString}`);
+        res.redirect(`https://secure.meetup.com/oauth2/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}&X-OAuth-Scopes=basic,ageless,rsvp&X-Accepted-OAuth-Scopes=basic,ageless,rsvp`);
+
+        //Old
+
+        // res.redirect
+            // (`https://secure.meetup.com/oauth2/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}`);
+        // };
+    };
 
 async function meetupAuth (req, res) {
         
