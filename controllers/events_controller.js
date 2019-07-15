@@ -60,14 +60,14 @@ async function show(req, res) {
 
 async function showMeetup(req, res) {
   let { group, id } = req.params;
+  let accessToken = req.cookies.tokens.access_token;
 
   let meetup = await axios
     .get(
       `https://api.meetup.com/${group}/events/${id}`,
       {
         headers: {
-          // TODO: Get this dynamically from the current user's database document
-          "Authorization": "Bearer 98a5e98c4d17a532c8c6499129b78e9b"
+          "Authorization": `Bearer ${accessToken}`
         }
       }
     )
