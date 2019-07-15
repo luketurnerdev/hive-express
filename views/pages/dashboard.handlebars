@@ -1,0 +1,20 @@
+<h1>Dashboard</h1>
+<p>If there is no user currently logged in, they should be redirected away from this page.</p>
+
+<hr>
+
+{{#each upcomingMeetups}}
+<p> 
+  {{#group}}
+    Hosted By: {{name}}
+  {{/group}}
+</p>
+<p>
+  <a href="/events/{{#group}}{{urlname}}{{/group}}/{{id}}">View</a>
+  <button type="button">Attend</button>
+  <button type="button">Suggest</button>
+</p>
+<hr>
+{{else}}
+<p>No upcoming events to show.</p>
+{{/each}}

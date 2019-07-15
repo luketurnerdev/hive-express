@@ -1,8 +1,6 @@
 const Event = require("./../database/models/event_model");
-const axios = require("axios");
-
-//User Model for creation and updating of users
 const User = require("./../database/models/user_model");
+const axios = require("axios");
 
 /*
   // GET to "/"
@@ -11,27 +9,8 @@ const User = require("./../database/models/user_model");
 async function index(req, res) {
   //Create a list of events sorted by their creation date
   let events = await Event.find().sort({ created_at: "desc" });
-  
-  /* Psuedocode 
-
-  // let accessToken = User.find({id: current_users_id}).access_token;
-
-  */
-
-  let upcomingMeetups = await axios
-    .get(
-      `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`,
-      {
-        headers: {
-          // TODO: Get this dynamically from the current user's database document
-          "Authorization": "Bearer 98a5e98c4d17a532c8c6499129b78e9b"
-        }
-      }
-    )
-    .then(resp => resp.data.events)
-    .catch(err => console.error(err));
     
-  res.render("events/index", { events, upcomingMeetups });
+  res.render("events/index", { events });
 }
 
 /*
@@ -98,9 +77,14 @@ async function showMeetup(req, res) {
   res.render("events/show", { meetup })
 }
 
+function newSuggestion(req, res) {
+  res.render("events/suggest");
+}
+
 module.exports = { 
   index, 
   create, 
   show,
-  showMeetup
+  showMeetup,
+  newSuggestion
 };
