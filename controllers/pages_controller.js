@@ -1,6 +1,7 @@
 const Event = require("./../database/models/event_model");
-const axios = require("axios");
 //const User = require("./../database/models/user_model");
+const axios = require("axios");
+
 
 // GET to "/"
 // Show homepage
@@ -24,12 +25,20 @@ async function dashboard(req, res) {
     return res.redirect("/")
   }
 
+  let accessToken = req.cookies.tokens.access_token;
+
+  // let user = await User
+  //   .findOne({"access_token": accessToken})
+  //   .catch(err => res.status(404).send(err));
+
+  // console.log(user);
+
   let upcomingMeetups = await axios
     .get(
       `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`,
       {
         headers: {
-          "Authorization": `Bearer ${req.cookies.tokens.access_token}`
+          "Authorization": `Bearer ${accessToken}`
         }
       }
     )
