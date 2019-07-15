@@ -36,8 +36,6 @@ class meetupService {
             body,
             config
         );
-        console.log("HERE IS THE RESPONSE !!!!!!!!!!!!!!" );
-        console.log(response);
         return response.data;
     }
 

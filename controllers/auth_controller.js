@@ -41,8 +41,8 @@ async function meetupAuth (req, res) {
         //Use external service file to retrieve auth info via axios
 
         const tokens = await meetupService.getTokens(req.query.code);
-        // console.log(tokens);
         const userData = await meetupService.getUserInfo(tokens.access_token);
+        const date = new Date();
 
             //Take the params that meetup allows us to take and store this in an object
             let userProfileInfo = {
@@ -53,10 +53,10 @@ async function meetupAuth (req, res) {
                 photo: userData.photo.photo_link,
                 admin: false,
                 confirmed: false,
-                created_at: null,
-                updated_at: null,
                 access_token: tokens.access_token,
-                refresh_token: tokens.refresh_token
+                refresh_token: tokens.refresh_token,
+                created_at: new Date,
+                updated_at: new Date
 
             }
             //Does the user exist?
@@ -81,17 +81,19 @@ async function meetupAuth (req, res) {
                 });
             } else {
 
-                //Update the user's tokens
+                //Update the user's tokens and updated_at fields
 
                 //Call the controller method with the id of the user,
                 // and the new values to apply
 
                 const newValues = {
                     'access_token' : tokens.access_token,
-                    'refresh_token': tokens.refresh_token
+                    'refresh_token': tokens.refresh_token,
+                    'created_at': Date.now(),
+                    'updated_at': Date.now()
                 };
 
-                
+                console.log(`Updating the user's access token to ${newValues.access_token} and refresh token to ${newValues.refresh_token}`)
 
                 usersController.update(userData.id, newValues);
             }
