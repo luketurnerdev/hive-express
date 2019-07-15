@@ -95,8 +95,8 @@ async function meetupAuth (req, res) {
     }
     
     res.cookie("tokens", {
-        "access_token": user.access_token,
-        "refresh_token": user.refresh_token
+        "access_token": tokens.access_token,
+        "refresh_token": tokens.refresh_token
     });
         
     //Return to homepage (TODO: add confirmation that they have logged in (front end))
