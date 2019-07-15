@@ -3,31 +3,33 @@ const axios = require("axios");
 //const User = require("./../database/models/user_model");
 
 // GET to "/"
+// Show homepage
 function homepage(req, res) {
-  console.log(req.cookies);
+  console.log("COOKIES:", req.cookies);
   res.render("pages/homepage");
 }
-// GET to "/register"
 
+// GET to "/register"
+// Login/Register the meetup.com user
 function register(req, res) {
   res.render("pages/register");
 }
 
+// Show dashboard with user's events and list upcoming meetups
 async function dashboard(req, res) {
 
-  /* Psuedocode 
-
-  // let accessToken = User.find({id: current_users_id}).access_token;
-
-  */
+  // if "tokens" cookie isn't found
+  if (!req.cookies.tokens) {
+    // redirect to homepage
+    return res.redirect("/")
+  }
 
   let upcomingMeetups = await axios
     .get(
       `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`,
       {
         headers: {
-          // TODO: Get this dynamically from the current user's database document
-          "Authorization": "Bearer 98a5e98c4d17a532c8c6499129b78e9b"
+          "Authorization": `Bearer ${req.cookies.tokens.access_token}`
         }
       }
     )
