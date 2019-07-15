@@ -71,12 +71,13 @@ async function meetupAuth (req, res) {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }};
 
+                //Put the body data in the correct format
                 const body = queryString.stringify(userProfileInfo);
 
 
                 axios.post(`${process.env.ROOT_SERVER}/auth/register`, body, config)
                 .then(function (response) {
-                    console.log(`Sucessfully created user ${userData.name}: ${response}`);
+                    console.log(`Sucessfully created user ${userData.name}!`);
                 })
                 .catch(function (error) {
                     console.log(error);
