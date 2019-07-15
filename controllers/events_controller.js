@@ -1,12 +1,23 @@
 const Event = require("./../database/models/event_model");
 const axios = require("axios");
 
+//User Model for creation and updating of users
+const User = require("./../database/models/user_model");
+
 /*
   // GET to "/"
   // Show all events
 */
 async function index(req, res) {
+  //Create a list of events sorted by their creation date
   let events = await Event.find().sort({ created_at: "desc" });
+  
+  /* Psuedocode 
+
+  // let accessToken = User.find({id: current_users_id}).access_token;
+
+  */
+
   let upcomingMeetups = await axios
     .get(
       `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`,
