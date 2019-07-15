@@ -12,9 +12,7 @@
 {{#each upcomingMeetups}}
 <p>{{name}}</p>
 <p> 
-  {{#group}}
-    Hosted By: {{name}}
-  {{/group}}
+  Group: {{group.name}}
 </p>
 <p>
   <a href="/events/{{group.urlname}}/{{id}}">View</a>
