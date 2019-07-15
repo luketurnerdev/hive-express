@@ -7,22 +7,20 @@ const axios = require("axios");
 */
 async function index(req, res) {
   let events = await Event.find().sort({ created_at: "desc" });
-  // let upcomingMeetups = await axios
-  //   .get(
-  //     `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`//,
-  //     // {
-  //     //   headers: {
-  //     //     "Authorization": `Bearer ${tokens.accessToken}`
-  //     //   }
-  //     // }
-  //   )
-  //   .then(resp => {
-  //     console.log(resp.data);
-  //     return resp.data;
-  //   })
-  //   .catch(err => console.error(err));
-
-  res.render("events/index", { events });//, upcomingMeetups });
+  let upcomingMeetups = await axios
+    .get(
+      `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`,
+      {
+        headers: {
+          // TODO: Get this dynamically from the current user's database document
+          "Authorization": "Bearer 98a5e98c4d17a532c8c6499129b78e9b"
+        }
+      }
+    )
+    .then(resp => resp.data.events)
+    .catch(err => console.error(err));
+    
+  res.render("events/index", { events, upcomingMeetups });
 }
 
 /*
@@ -56,7 +54,7 @@ async function create(req, res) {
     })
     .catch(err => res.status(500).send(err));
 
-  res.send(req.body);
+  res.redirect("/events");
 }
 
 /*
@@ -64,14 +62,34 @@ async function create(req, res) {
   // Show one event
 */
 async function show(req, res) {
-  let event = await Event
+  let meetup = await Event
     .findById(req.params.id)
     .catch(err => res.status(404).send(err));
-  res.render("events/show", { event })
+  res.render("events/show", { meetup })
+}
+
+async function showMeetup(req, res) {
+  let { group, id } = req.params;
+
+  let meetup = await axios
+    .get(
+      `https://api.meetup.com/${group}/events/${id}`,
+      {
+        headers: {
+          // TODO: Get this dynamically from the current user's database document
+          "Authorization": "Bearer 98a5e98c4d17a532c8c6499129b78e9b"
+        }
+      }
+    )
+    .then(resp => resp.data)
+    .catch(err => console.error(err));
+
+  res.render("events/show", { meetup })
 }
 
 module.exports = { 
   index, 
   create, 
-  show 
+  show,
+  showMeetup
 };
