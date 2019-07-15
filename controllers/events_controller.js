@@ -98,9 +98,14 @@ async function showMeetup(req, res) {
   res.render("events/show", { meetup })
 }
 
+function newSuggestion(req, res) {
+  res.render("events/suggest");
+}
+
 module.exports = { 
   index, 
   create, 
   show,
-  showMeetup
+  showMeetup,
+  newSuggestion
 };
