@@ -36,15 +36,10 @@ async function meetupAuth (req, res) {
         
         console.log('This is the meetup authorization js file.')
 
-       const tokens = await meetupService.getTokens(req.query.code);
-       const userData = await meetupService.getUserInfo(tokens.access_token);
+        //Use external service file to retrieve auth info via axios
 
-        //axios request for user data.
-        //store it in a var
-        // check if it exists in the db
-        // if not, create
-        // if it does, update
-
+        const tokens = await meetupService.getTokens(req.query.code);
+        const userData = await meetupService.getUserInfo(tokens.access_token);
 
             //Take the params that meetup allows us to take and store this in an object
             let userProfileInfo = {
@@ -62,9 +57,9 @@ async function meetupAuth (req, res) {
 
             }
             //Does the user exist?
-            const user =  await User.findOne({"meetup_uid": userProfileInfo.meetup_uid});
+            //If user doesn't exist, create them
 
-            //If user doesn't exist, create it
+            const user =  await User.findOne({"meetup_uid": userProfileInfo.meetup_uid});
             if (!user) {
                 //Create new user
                 const config = { headers: {
@@ -73,8 +68,7 @@ async function meetupAuth (req, res) {
 
                 //Put the body data in the correct format
                 const body = queryString.stringify(userProfileInfo);
-
-
+                
                 axios.post(`${process.env.ROOT_SERVER}/auth/register`, body, config)
                 .then(function (response) {
                     console.log(`Sucessfully created user ${userData.name}!`);
@@ -85,38 +79,22 @@ async function meetupAuth (req, res) {
             } else {
 
                 //Update the user's tokens
-                // console.log('Updating tokens with ' + tokens.access_token);
-                //Call the controller method with the id of document,
+
+                //Call the controller method with the id of the user,
                 // and the new values to apply
+
                 const newValues = {
                     'access_token' : tokens.access_token,
                     'refresh_token': tokens.refresh_token
                 };
+
                 usersController.update(userData.id, newValues);
             }
-
-
-                
-
-            
-            
-            
-            
-            
-            // if (user) {
-            //     //update user with new access and refresh tokens
-            // } else {
-            //     usersController.create(userProfileInfo);
-
-            // }
         
-
+            //Return to homepage (TODO: add confirmation that they have logged in (front end))
+            //Will also need to send them to a 'request pending' splash page if their account is not approved by staff
         return res.redirect("/");
     } 
- 
-
-
-    
 
 
 module.exports = {
