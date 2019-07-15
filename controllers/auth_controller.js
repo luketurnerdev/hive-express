@@ -25,25 +25,15 @@ function index (req, res) {
 */
 
 function meetupRedirect(req, res) {
-        //TODO: Add the 'scope' parameter in the headers to ask for more permissions, e.g., RSVP access etc.
-        //Basic and RSVP
-        const scopes = "basic";
-        const queryString = encodeURIComponent(`client_id=${client_id}&
-        response_type=code&
-        redirect_uri=${redirect_uri}&
-        X-OAuth-Scopes: ${scopes}&
-        X-Accepted-OAuth-Scopes: ${scopes}`);
 
-        // res.redirect(`https://secure.meetup.com/oauth2/authorize?${queryString}`);
-        res.redirect(`https://secure.meetup.com/oauth2/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}&X-OAuth-Scopes=basic,ageless,rsvp&X-Accepted-OAuth-Scopes=basic,ageless,rsvp`);
+        //Scopes are passed through in the redirect URL, separated by spaces
+        //We are using ageless (for longer tokens) and RSVP (for enabling users to RSVP via hive)
+        const scopes = "ageless rsvp";
+        res.redirect(`https://secure.meetup.com/oauth2/authorize?client_id=${client_id}&scope=${scopes}&response_type=code&redirect_uri=${redirect_uri}`);
 
-        //Old
-
-        // res.redirect
-            // (`https://secure.meetup.com/oauth2/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}`);
-        // };
-    };
-
+        //Note - getting output that the RSVP is working is difficult (confirmed ageless works)
+        // However, Hamish and I have tested it and it should be working based several console.log debugs
+     }
 async function meetupAuth (req, res) {
         
         console.log('This is the meetup authorization js file.')
@@ -51,6 +41,7 @@ async function meetupAuth (req, res) {
         //Use external service file to retrieve auth info via axios
 
         const tokens = await meetupService.getTokens(req.query.code);
+        // console.log(tokens);
         const userData = await meetupService.getUserInfo(tokens.access_token);
 
             //Take the params that meetup allows us to take and store this in an object
@@ -99,6 +90,8 @@ async function meetupAuth (req, res) {
                     'access_token' : tokens.access_token,
                     'refresh_token': tokens.refresh_token
                 };
+
+                
 
                 usersController.update(userData.id, newValues);
             }
