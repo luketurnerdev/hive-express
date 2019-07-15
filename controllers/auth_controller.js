@@ -100,7 +100,13 @@ async function meetupAuth (req, res) {
         
             //Return to homepage (TODO: add confirmation that they have logged in (front end))
             //Will also need to send them to a 'request pending' splash page if their account is not approved by staff
-        return res.redirect("/");
+
+        res.cookie("tokens", {
+            "access_token": user.access_token,
+            "refresh_token": user.refresh_token
+        });
+        res.redirect("/");
+        
     } 
 
 

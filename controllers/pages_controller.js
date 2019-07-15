@@ -4,6 +4,7 @@ const axios = require("axios");
 
 // GET to "/"
 function homepage(req, res) {
+  console.log(req.cookies);
   res.render("pages/homepage");
 }
 // GET to "/register"
