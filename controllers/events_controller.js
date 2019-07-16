@@ -105,11 +105,16 @@ async function suggestions(req, res) {
   res.render("events/suggestions", { events });
 }
 
+function recommend(req, res) {
+  res.send(req.params.id);
+}
+
 module.exports = {
   index,
   create,
   show,
   showMeetup,
   newSuggestion,
-  suggestions
+  suggestions,
+  recommend
 };

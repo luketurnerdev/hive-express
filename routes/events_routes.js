@@ -15,7 +15,10 @@ router.post("/", eventsController.create);
 router.get("/suggest/:id", eventsController.newSuggestion);
 
 // **TODO** POST to "/events/suggest/:id"
-//          Save the suggestion
+//          Save the suggestion/event to database
+
+// **TODO** DELETE to "/events/suggest/:id"
+//          Remove event from database
 
 // GET to "/events/suggestions"
 // Display events that have been suggested for admin's approval.
@@ -25,6 +28,10 @@ router.get("/suggestions", eventsController.suggestions);
 // GET to "/events/:id"
 // Show One Event
 router.get("/:id", eventsController.show);
+
+// PUT to "/events/recommend/:id"
+// Update a suggested event to be recommended
+router.put("/recommend/:id", eventsController.recommend);
 
 // GET to "/events/:group/:id"
 // Show One Meetup (that isn't saved yet)
