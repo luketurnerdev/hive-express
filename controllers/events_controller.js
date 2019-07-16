@@ -72,8 +72,8 @@ async function create(req, res) {
       status,
       "location": {
         "name": venue_name,
-        "address": venue_name,
-        "city": venue_name,
+        "address": venue_address,
+        "city": venue_city,
         "how_to_find_us": how_to_find_us
       },
       rsvp_limit,
