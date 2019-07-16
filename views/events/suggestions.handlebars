@@ -2,4 +2,12 @@
 
 <p>Show list of suggested events with buttons to confirm them as recommended events.</p>
 
-{{!}}
+{{#each events}}
+<p>
+  {{name}} -
+  <a href="{{link}}">Link</a>
+</p>
+<p></p>
+{{else}}
+<p>There currently aren't any suggested events to show.</p>
+{{/each}}

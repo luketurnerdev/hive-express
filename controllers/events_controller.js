@@ -94,14 +94,21 @@ async function newSuggestion(req, res) {
   res.render("events/suggest", { meetup });
 }
 
-function suggestions(req, res) {
+async function suggestions(req, res) {
   // Find all events which where is_suggested == true and store in variable
-  let events = Event.find({ suggested: { is_suggested: true } }).catch(err =>
-    console.log(err)
-  );
+  let events = await Event.find({
+    ca_recommended: false,
+    suggested: {
+      is_suggested: true,
+      suggested_by: 274687140,
+      message: "This would be a great meetup for everyone at CA!"
+    }
+  });
+
   console.log(events);
+
   // Pass the suggested events to the view
-  res.render("events/suggestions");
+  res.render("events/suggestions", { events });
 }
 
 module.exports = {
