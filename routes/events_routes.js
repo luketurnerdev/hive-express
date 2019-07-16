@@ -10,16 +10,21 @@ router.get("/", eventsController.index);
 // Create an Event
 router.post("/", eventsController.create);
 
-// GET to "/events/:id"
-// Show One Event
-router.get("/:id", eventsController.show);
-
 // GET to "/events/suggest/:id"
 // Compose a message to send with the event for suggestion to admin.
 router.get("/suggest/:id", eventsController.newSuggestion);
 
 // **TODO** POST to "/events/suggest/:id"
 //          Save the suggestion
+
+// GET to "/events/suggestions"
+// Display events that have been suggested for admin's approval.
+// **TODO** RESTRICTED TO: ADMIN ONLY
+router.get("/suggestions", eventsController.suggestions);
+
+// GET to "/events/:id"
+// Show One Event
+router.get("/:id", eventsController.show);
 
 // GET to "/events/:group/:id"
 // Show One Meetup (that isn't saved yet)
