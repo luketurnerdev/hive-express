@@ -5,9 +5,9 @@ const axios = require("axios");
 // GET to "/events"
 // Show all events in DB
 async function index(req, res) {
-  //Create a list of events sorted by their creation date
+  // Find all events and sort by their creation date
   let events = await Event.find().sort({ created_at: "desc" });
-
+  // pass list of events to the view
   res.render("events/index", { events });
 }
 
@@ -16,10 +16,15 @@ async function index(req, res) {
 async function create(req, res) {
   // destructure form values
   let { id, groupUrlname, message } = req.body;
-
-  // ** TODO ** validate for empty message.  
+  
+  // ** TODO ** 
+  // validate for empty message.  
   // (it's required in the schema)
   
+  // ** TODO ** 
+  // Handle events with no venue...
+  // Maybe just don't recommend those in dashboard
+
   // get user with access_token
   let accessToken = req.cookies.tokens.access_token;
   let user = await User
@@ -142,10 +147,12 @@ async function showMeetup(req, res) {
 // Display events which are suggested and not recommended
 async function suggestions(req, res) {
   // Find suggested events
-  let events = await Event.find({
-    ca_recommended: false,
-    "suggested.is_suggested": true
-  });
+  let events = await Event
+    .find({
+      ca_recommended: false,
+      "suggested.is_suggested": true
+    })
+    .sort({ created_at: "desc" });
 
   // Pass the suggested events to the view
   res.render("events/suggestions", { events });
