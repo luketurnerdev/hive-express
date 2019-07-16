@@ -16,11 +16,18 @@ async function index(req, res) {
 async function create(req, res) {
   // destructure form values
   let { id, groupUrlname, message } = req.body;
+
+  // ** TODO ** validate for empty message.  
+  // (it's required in the schema)
   
   // get user with access_token
   let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({access_token: accessToken});
-  console.log(user); // debugging
+  let user = await User
+    .findOne({access_token: accessToken})
+    .catch(err => console.error(
+      `COULD NOT FIND USER WITH access_token: ${accessToken}\n`,
+      err.message
+    ));
 
   // get event with req.body.id
   let meetup = await axios
@@ -30,13 +37,11 @@ async function create(req, res) {
       }
     })
     .then(resp => resp.data)
-    .catch(err => console.error(err));
-
-  console.log(meetup);
+    .catch(err => console.error(`COULD NOT FIND EVENT\n`, err.message));
 
   // destructure necessary values from meetup
   let {
-    id: meetup_uid, // rename id to meetup_uid
+    id: meetup_id, // rename id to meetup_uid
     name,
     link,
     rsvp_limit,
@@ -56,27 +61,34 @@ async function create(req, res) {
   } = meetup;
 
   // create a new event document in the DB
-  // let event = await Event
-  //   .create({
-  //     link: meetup.link
-  //    });
+  let event = await Event
+    .create({
+      meetup_id,
+      link,
+      name,
+      group,
+      local_date,
+      local_time,
+      status,
+      "location": {
+        "name": venue_name,
+        "address": venue_name,
+        "city": venue_name,
+        "how_to_find_us": how_to_find_us
+      },
+      rsvp_limit,
+      description,
+      "attendees": [],
+      "hive_attendees": [],
+      "suggested": {
+        "is_suggested": true,
+        "suggested_by": user.id,
+        "message": message
+      }
+    });
 
-
-  
-
-  // let event = await Event.create({
-  //   link,
-  //   name,
-  //   group,
-  //   local_date,
-  //   local_time,
-  //   how_to_find_us,
-  //   attendance_count,
-  //   guest_limit,
-  //   rsvp_limit
-  // }).catch(err => res.status(500).send(err));
-
-  // res.redirect("/events");
+  // Redirect to events index.
+  res.redirect("/events");
 }
 
 // GET to "/events/suggest/:id"
