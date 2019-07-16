@@ -2,10 +2,8 @@ const Event = require("./../database/models/event_model");
 const User = require("./../database/models/user_model");
 const axios = require("axios");
 
-/*
-  // GET to "/"
-  // Show all events
-*/
+// GET to "/events"
+// Show all events in DB
 async function index(req, res) {
   //Create a list of events sorted by their creation date
   let events = await Event.find().sort({ created_at: "desc" });
@@ -13,10 +11,8 @@ async function index(req, res) {
   res.render("events/index", { events });
 }
 
-/*
-  // POST to "/create"
-  // Create an event
-*/
+// POST to "/events/create"
+// Create an event and add to DB
 async function create(req, res) {
   let {
     link,
@@ -45,10 +41,8 @@ async function create(req, res) {
   res.redirect("/events");
 }
 
-/*
-  // GET to "/:id"
-  // Show one event
-*/
+// GET to "/events/:id"
+// Find (in DB) and show one event's details
 async function show(req, res) {
   let meetup = await Event.findById(req.params.id).catch(err =>
     res.status(404).send(err)
@@ -56,6 +50,8 @@ async function show(req, res) {
   res.render("events/show", { meetup });
 }
 
+// GET to "/events/:group/:id"
+// Request and display event data from meetup API
 async function showMeetup(req, res) {
   let { group, id } = req.params;
   let accessToken = req.cookies.tokens.access_token;
@@ -94,6 +90,8 @@ async function newSuggestion(req, res) {
   res.render("events/suggest", { meetup });
 }
 
+// GET to "/events/suggestions"
+// Display events which are suggested and not recommended
 async function suggestions(req, res) {
   // Find suggested events
   let events = await Event.find({
@@ -111,10 +109,11 @@ async function recommend(req, res) {
   await Event.findByIdAndUpdate(req.params.id, {
     ca_recommended: true
   });
-  res.redirect("/suggestions");
+  res.redirect("events/suggestions");
 }
 
 // DELETE to "/events/:id"
+// Remove this event from the DB
 async function destroy(req, res) {
   await Event.findByIdAndRemove(req.params.id);
   res.redirect("/events");
