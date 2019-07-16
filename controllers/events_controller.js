@@ -77,10 +77,31 @@ async function showMeetup(req, res) {
   res.render("events/show", { meetup })
 }
 
-function newSuggestion(req, res) {
-  //Render the suggestion form with the id of the event
-  let event = req.params.id;
-  res.render("events/suggest", {event});
+async function newSuggestion(req, res) {
+  //Render the suggestion form with the event info from request params
+
+  let accessToken = req.cookies.tokens.access_token;
+  let group = req.query;
+  let id = req.params.id;
+
+  // let { group, id } = req.params;
+  let meetup = await axios
+  .get(
+    `https://api.meetup.com/${group}/events/${id}
+    `,
+    {
+      headers: {
+        "Authorization": `Bearer ${accessToken}`
+      }
+    }
+  )
+  .then(resp => resp.data)
+  .catch(err => console.error(err));
+
+
+  
+
+  res.render("events/suggest", { meetup })
 }
 
 module.exports = { 
