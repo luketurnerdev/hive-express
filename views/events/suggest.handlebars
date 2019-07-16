@@ -1,2 +1,8 @@
 <h1>Suggest Event</h1>
-<p>{{event}}</p>
+
+<ul>
+    <li>Event name: {{meetup.name}}</li>
+    <li>Event description: {{meetup.description}}</li>
+    <li>Time / Date: {{meetup.local_date}}, at {{meetup.local_time}}</li>
+    <li>Location: {{meetup.venue.name}}, at {{meetup.venue.address_1}}</li>
+</ul>
