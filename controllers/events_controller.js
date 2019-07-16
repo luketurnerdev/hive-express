@@ -106,8 +106,12 @@ async function suggestions(req, res) {
 }
 
 // PUT to "/events/recommend/:id"
-function recommend(req, res) {
-  res.send(req.body);
+// Update this event so that ca_recommended = true.
+async function recommend(req, res) {
+  await Event.findByIdAndUpdate(req.params.id, {
+    ca_recommended: true
+  });
+  res.redirect("/suggestions");
 }
 
 // DELETE to "/events/:id"
