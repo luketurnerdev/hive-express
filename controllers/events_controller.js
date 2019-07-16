@@ -78,7 +78,9 @@ async function showMeetup(req, res) {
 }
 
 function newSuggestion(req, res) {
-  res.render("events/suggest");
+  //Render the suggestion form with the id of the event
+  let event = req.params.id;
+  res.render("events/suggest", {event});
 }
 
 module.exports = { 
