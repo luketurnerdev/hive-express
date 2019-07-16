@@ -68,14 +68,13 @@ async function showMeetup(req, res) {
   res.render("events/show", { meetup });
 }
 
+// GET to "/events/suggest/:id"
+// Display a form for the user to write a message for suggesting/creating an event.
 async function newSuggestion(req, res) {
   //Render the suggestion form with the event info from request params
-
-  console.log(req.query.group);
   let accessToken = req.cookies.tokens.access_token;
   let group = req.query.group;
   let id = req.params.id;
-  console.log(group);
 
   let meetup = await axios
     .get(`https://api.meetup.com/${group}/events/${id}`, {
@@ -84,7 +83,6 @@ async function newSuggestion(req, res) {
       }
     })
     .then(resp => resp.data)
-
     .catch(err => console.error(err));
 
   res.render("events/suggest", { meetup });

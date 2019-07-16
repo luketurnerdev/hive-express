@@ -7,15 +7,12 @@ const eventsController = require("./../controllers/events_controller");
 router.get("/", eventsController.index);
 
 // POST to "/events"
-// Create an Event
+// Suggest / Create an event in the DB
 router.post("/", eventsController.create);
 
 // GET to "/events/suggest/:id"
 // Compose a message to send with the event for suggestion to admin.
 router.get("/suggest/:id", eventsController.newSuggestion);
-
-// **TODO** POST to "/events/suggest/:id"
-//          Save the suggestion/event to database
 
 // GET to "/events/suggestions"
 // Display events that have been suggested for admin's approval.
@@ -27,7 +24,7 @@ router.get("/suggestions", eventsController.suggestions);
 router.get("/:id", eventsController.show);
 
 // DELETE to "/events/:id"
-// Remove event from DB
+// Remove event from the DB
 router.delete("/:id", eventsController.destroy);
 
 // PUT to "/events/recommend/:id"
