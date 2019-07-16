@@ -65,8 +65,9 @@ async function update(id, newValues) {
 
 //'delete' is a reserved word, using deleteUser instead
 async function deleteUser(id) {
-  user = User.findById(id);
-  User.deleteOne({id: id});
+  user = User.find({_id:id});
+  User.deleteOne(user);
+  console.log("Deleted user.");
   }
 
 
