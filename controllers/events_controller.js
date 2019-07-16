@@ -14,16 +14,31 @@ async function index(req, res) {
 // POST to "/events/create"
 // Create an event and add to DB
 async function create(req, res) {
-  let { id, message } = req.body;
+  // destructure form values
+  let { id, groupUrlname, message } = req.body;
   
   // get user with access_token
   let accessToken = req.cookies.tokens.access_token;
   let user = await User.findOne({access_token: accessToken});
+  console.log(user); // debugging
 
-  // get event with req.params.id
+  // get event with req.body.id
+  let event = await axios
+    .get(`https://api.meetup.com/${groupUrlname}/events/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+    .then(resp => resp.data)
+    .catch(err => console.error(err));
+
+  console.log(event);
+
   // destructure necessary values from event data
   // create a new event document in the DB
   // 
+
+
   // let {
   //   link,
   //   name,
