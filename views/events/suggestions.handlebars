@@ -9,7 +9,14 @@
 </p>
 <p>Suggested By: {{suggested.suggested_by}} (meetup_uid)</p>
 <p>Message: {{suggested.message}}</p>
-<p><a href="/events/recommend/{{_id}}">Recommend Event to Students</a></p>
+<p>
+  <form action="/events/recommend/{{_id}}?_method=PUT" method="post">
+    <input type="hidden" name="_method" value="PUT">
+    <input type="radio" name="recommend" value="true"> Recommend <br>
+    <input type="radio" name="recommend" value="false" checked> Reject <br>
+    <input type="submit" class="linkButton" value="Submit">
+  </form>
+</p>
 <hr>
 {{else}}
 <p>There currently aren't any suggested events to show.</p>
