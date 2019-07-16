@@ -11,10 +11,37 @@
       background: #FFFCD4;
       color: #2C2140;
     }
+
+    nav.navbar ul {
+      margin: 25px 0;
+      padding: 0;
+    }
+
+    nav.navbar ul li {
+      display: inline-block;
+      padding-right: 25px;
+    }
   </style>
 </head>
 
 <body>
+  <nav class="navbar">
+    <ul>
+      <li>
+        <a href="/auth/register">Register/Login</a>
+      </li>
+      <li>
+        <a href="/events">Events Index</a>
+      </li>
+      <li>
+        <a href="/dashboard">My Dashboard</a>
+      </li>
+      <li>
+        <a href="/suggestions">Suggested Events</a>
+      </li>
+    </ul>
+  </nav>
+
   {{{body}}}
 </body>
 
