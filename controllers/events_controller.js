@@ -52,12 +52,8 @@ async function create(req, res) {
       name: group
     },
     description,
-    how_to_find_us,
-    attendance_count,
-    guest_limit,
+    how_to_find_us
   } = meetup;
-
-  console.log(venue_city)
 
   // create a new event document in the DB
   // let event = await Event
