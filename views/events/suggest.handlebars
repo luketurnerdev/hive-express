@@ -1,14 +1,24 @@
 <h1>Suggest Event</h1>
 
+<h3>{{meetup.name}}</h3>
+
 <ul>
-    <li>Event name: {{meetup.name}}</li>
-    <li>Event description: {{meetup.description}}</li>
-    <li>Time / Date: {{meetup.local_date}}, at {{meetup.local_time}}</li>
-    <li>Location: {{meetup.venue.name}}, at {{meetup.venue.address_1}}</li>
+	<li>Time / Date: {{meetup.local_date}}, at {{meetup.local_time}}</li>
+	{{! ** TODO ** DISPLAY PRICE IF THE meetup.fee.amount ISN'T NOTHING }}
+	{{! ** TODO ** Use the markup in meetup.description instead of displaying it (ask G-man?)}}
+	<li>Event description: {{meetup.description}}</li>
+	<li>Location: {{meetup.venue.name}}, at {{meetup.venue.address_1}}</li>
 </ul>
 
-<p>
-    <form action="/events" method="post">
-        
-    </form>
-</p>
+<form action="/events" method="post">
+	<input type="hidden" name="id" value="{{meetup.id}}">
+	<p>
+		Please leave a message:
+	</p>
+	<p>
+		<textarea name="message"></textarea>
+	</p>
+	<p>
+		<input type="submit" value="Submit">
+	</p>
+</form>

@@ -14,31 +14,62 @@ async function index(req, res) {
 // POST to "/events/create"
 // Create an event and add to DB
 async function create(req, res) {
-  let {
-    link,
-    name,
-    group,
-    local_date,
-    local_time,
-    how_to_find_us,
-    attendance_count,
-    guest_limit,
-    rsvp_limit
-  } = req.body;
+  let { id, message } = req.body;
+  
+  // get user with access_token
+  let accessToken = req.cookies.tokens.access_token;
+  let user = await User.findOne({access_token: accessToken});
 
-  let event = await Event.create({
-    link,
-    name,
-    group,
-    local_date,
-    local_time,
-    how_to_find_us,
-    attendance_count,
-    guest_limit,
-    rsvp_limit
-  }).catch(err => res.status(500).send(err));
+  // get event with req.params.id
+  // destructure necessary values from event data
+  // create a new event document in the DB
+  // 
+  // let {
+  //   link,
+  //   name,
+  //   group,
+  //   local_date,
+  //   local_time,
+  //   how_to_find_us,
+  //   attendance_count,
+  //   guest_limit,
+  //   rsvp_limit
+  // } = req.body;
+  
 
-  res.redirect("/events");
+  // let event = await Event.create({
+  //   link,
+  //   name,
+  //   group,
+  //   local_date,
+  //   local_time,
+  //   how_to_find_us,
+  //   attendance_count,
+  //   guest_limit,
+  //   rsvp_limit
+  // }).catch(err => res.status(500).send(err));
+
+  // res.redirect("/events");
+}
+
+// GET to "/events/suggest/:id"
+// Display a form for the user to write a message for suggesting/creating an event.
+async function newSuggestion(req, res) {
+  //Render the suggestion form with the event info from request params
+  let accessToken = req.cookies.tokens.access_token;
+  let group = req.query.group;
+  let id = req.params.id;
+
+  let meetup = await axios
+    .get(`https://api.meetup.com/${group}/events/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+    .then(resp => resp.data)
+    .catch(err => console.error(err));
+
+  res.render("events/suggest", { meetup });
 }
 
 // GET to "/events/:id"
@@ -66,26 +97,6 @@ async function showMeetup(req, res) {
     .catch(err => console.error(err));
 
   res.render("events/show", { meetup });
-}
-
-// GET to "/events/suggest/:id"
-// Display a form for the user to write a message for suggesting/creating an event.
-async function newSuggestion(req, res) {
-  //Render the suggestion form with the event info from request params
-  let accessToken = req.cookies.tokens.access_token;
-  let group = req.query.group;
-  let id = req.params.id;
-
-  let meetup = await axios
-    .get(`https://api.meetup.com/${group}/events/${id}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
-    })
-    .then(resp => resp.data)
-    .catch(err => console.error(err));
-
-  res.render("events/suggest", { meetup });
 }
 
 // GET to "/events/suggestions"
