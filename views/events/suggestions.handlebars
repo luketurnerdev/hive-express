@@ -3,17 +3,23 @@
 <hr>
 
 {{#each events}}
-<p>
-  {{name}} -
-  <a href="{{link}}">Link</a>
-</p>
-<p>Suggested By: {{suggested.suggested_by}} (meetup_uid)</p>
+<h4>{{name}}</h4>
+<p><a href="{{link}}">View on Meetup</a></p>
+<p>Suggested By: {{suggested.suggested_by}} (user id)</p>
 <p>Message: {{suggested.message}}</p>
 <p>
-  <form action="/events/recommend/{{_id}}?_method=PUT" method="post">
+  <form
+    style="display: inline-block;" 
+    action="/events/recommend/{{_id}}?_method=PUT" 
+    method="post"
+  >
     <button type="submit">Recommend</button>
   </form>
-  <form action="/events/{{_id}}?_method=DELETE" method="post">
+  <form 
+    style="display: inline-block;"
+    action="/events/{{_id}}?_method=DELETE" 
+    method="post"
+  >
     <button type="submit">Remove</button>
   </form>
 </p>
