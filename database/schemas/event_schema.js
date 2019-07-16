@@ -32,11 +32,11 @@ const eventSchema = new Schema({
   },
   attendance_count: {
     type: Number,
-    required: true
+    //required: true
   },
   guest_limit: {
     type: Number,
-    required: true
+    //required: true
   },
   rsvp_limit: {
     type: Number,

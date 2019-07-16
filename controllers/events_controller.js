@@ -23,7 +23,7 @@ async function create(req, res) {
   console.log(user); // debugging
 
   // get event with req.body.id
-  let event = await axios
+  let meetup = await axios
     .get(`https://api.meetup.com/${groupUrlname}/events/${id}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
@@ -32,24 +32,40 @@ async function create(req, res) {
     .then(resp => resp.data)
     .catch(err => console.error(err));
 
-  console.log(event);
+  console.log(meetup);
 
-  // destructure necessary values from event data
+  // destructure necessary values from meetup
+  let {
+    id: meetup_uid, // rename id to meetup_uid
+    name,
+    link,
+    rsvp_limit,
+    status,
+    local_date,
+    local_time,
+    venue: {
+      name: venue_name,
+      address_1: venue_address,
+      city: venue_city
+    },
+    group: {
+      name: group
+    },
+    description,
+    how_to_find_us,
+    attendance_count,
+    guest_limit,
+  } = meetup;
+
+  console.log(venue_city)
+
   // create a new event document in the DB
-  // 
+  // let event = await Event
+  //   .create({
+  //     link: meetup.link
+  //    });
 
 
-  // let {
-  //   link,
-  //   name,
-  //   group,
-  //   local_date,
-  //   local_time,
-  //   how_to_find_us,
-  //   attendance_count,
-  //   guest_limit,
-  //   rsvp_limit
-  // } = req.body;
   
 
   // let event = await Event.create({
