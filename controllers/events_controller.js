@@ -96,16 +96,12 @@ async function newSuggestion(req, res) {
       }
     }
   )
-  .then(resp => console.log(resp))
-  // .then(resp => console.log('ran'))
+  .then(resp=> resp.data)
 
   .catch(err => console.error(err));
 
 
-  
-
-  // res.render("events/suggest", { meetup })
-  // res.render("events/suggest", {meetup} )
+  res.render("events/suggest", {meetup} )
 
 }
 
