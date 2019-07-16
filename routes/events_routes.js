@@ -21,6 +21,11 @@ router.get("/suggest/:id", eventsController.newSuggestion);
 // **TODO** POST to "/events/suggest/:id"
 //          Save the suggestion
 
+// GET to "/events/suggestions"
+// Display events that have been suggested for admin's approval.
+// **TODO** RESTRICTED TO: ADMIN ONLY
+router.get("/suggestions", eventsController.suggestions);
+
 // GET to "/events/:group/:id"
 // Show One Meetup (that isn't saved yet)
 router.get("/:group/:id", eventsController.showMeetup);
