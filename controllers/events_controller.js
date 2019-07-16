@@ -79,6 +79,12 @@ function newSuggestion(req, res) {
 }
 
 function suggestions(req, res) {
+  // Find all events which where is_suggested == true and store in variable
+  let events = Event.find({ suggested: { is_suggested: true } }).catch(err =>
+    console.log(err)
+  );
+  console.log(events);
+  // Pass the suggested events to the view
   res.render("events/suggestions");
 }
 
