@@ -95,8 +95,11 @@ async function newSuggestion(req, res) {
 }
 
 async function suggestions(req, res) {
-  // Find all events where is_suggested == true and store in variable
-  let events = await Event.find({ "suggested.is_suggested": true });
+  // Find suggested events
+  let events = await Event.find({
+    ca_recommended: false,
+    "suggested.is_suggested": true
+  });
 
   // Pass the suggested events to the view
   res.render("events/suggestions", { events });
