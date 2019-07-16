@@ -81,23 +81,27 @@ async function newSuggestion(req, res) {
   let id = req.params.id;
   console.log(group);
 
-
   let meetup = await axios
-  .get(
-    `https://api.meetup.com/${group}/events/${id}`,
-    {
+    .get(`https://api.meetup.com/${group}/events/${id}`, {
       headers: {
-        "Authorization": `Bearer ${accessToken}`
+        Authorization: `Bearer ${accessToken}`
       }
-    }
-  )
-  .then(resp=> resp.data)
+    })
+    .then(resp => resp.data)
 
-  .catch(err => console.error(err));
+    .catch(err => console.error(err));
 
+  res.render("events/suggest", { meetup });
+}
 
-  res.render("events/suggest", {meetup} )
-
+function suggestions(req, res) {
+  // Find all events which where is_suggested == true and store in variable
+  let events = Event.find({ suggested: { is_suggested: true } }).catch(err =>
+    console.log(err)
+  );
+  console.log(events);
+  // Pass the suggested events to the view
+  res.render("events/suggestions");
 }
 
 module.exports = {
