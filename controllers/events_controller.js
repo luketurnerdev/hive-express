@@ -109,7 +109,7 @@ async function recommend(req, res) {
   await Event.findByIdAndUpdate(req.params.id, {
     ca_recommended: true
   });
-  res.redirect("events/suggestions");
+  res.redirect("/events/suggestions");
 }
 
 // DELETE to "/events/:id"
