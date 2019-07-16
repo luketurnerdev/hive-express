@@ -105,8 +105,15 @@ async function suggestions(req, res) {
   res.render("events/suggestions", { events });
 }
 
+// PUT to "/events/recommend/:id"
 function recommend(req, res) {
-  res.send(req.params.id);
+  res.send(req.body);
+}
+
+// DELETE to "/events/:id"
+async function destroy(req, res) {
+  await Event.findByIdAndRemove(req.params.id);
+  res.redirect("/events");
 }
 
 module.exports = {
@@ -116,5 +123,6 @@ module.exports = {
   showMeetup,
   newSuggestion,
   suggestions,
-  recommend
+  recommend,
+  destroy
 };
