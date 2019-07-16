@@ -48,7 +48,7 @@ const eventSchema = new Schema({
     },
     how_to_find_us: {
       type: String,
-      required: true,
+      //required: true,
       trim: true
     }
   },
