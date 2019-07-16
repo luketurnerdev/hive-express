@@ -3,9 +3,8 @@ const router = express.Router();
 const eventsRoutes = require("./events_routes");
 const authRoutes = require("./auth_routes");
 const usersRoutes = require("./users_routes");
-
 const pagesController = require("./../controllers/pages_controller");
-const usersController = require("./../controllers/users_controller")
+
 // Root / Homepage
 router.get("/", pagesController.homepage);
 
