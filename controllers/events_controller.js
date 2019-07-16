@@ -96,14 +96,7 @@ async function newSuggestion(req, res) {
 
 async function suggestions(req, res) {
   // Find all events which where is_suggested == true and store in variable
-  let events = await Event.find({
-    ca_recommended: false,
-    suggested: {
-      is_suggested: true,
-      suggested_by: 274687140,
-      message: "This would be a great meetup for everyone at CA!"
-    }
-  });
+  let events = await Event.find({ "suggested.is_suggested": true });
 
   console.log(events);
 
