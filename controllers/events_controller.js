@@ -18,6 +18,9 @@ async function create(req, res) {
   let { id, groupUrlname, message } = req.body;
   
   // ** TODO ** 
+  // Restrict this page to admin users only.
+
+  // ** TODO ** 
   // validate for empty message.  
   // (it's required in the schema)
   
