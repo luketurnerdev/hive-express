@@ -11,6 +11,9 @@ router.get("/", pagesController.homepage);
 // Pending accounts page
 router.get("/accountrequests", pagesController.accountRequests);
 
+// [DEBUG] Toggle user's 'confirmed' status on and off
+router.get("/toggleconfirmed", pagesController.toggleConfirmed);
+
 // Dashboard
 router.get("/dashboard", pagesController.dashboard);
 
