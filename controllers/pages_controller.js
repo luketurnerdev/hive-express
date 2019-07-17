@@ -30,6 +30,11 @@ async function accountRequests(req, res) {
   let accessToken = req.cookies.tokens.access_token;
   let user = await User.findOne({access_token: accessToken});
 
+  //TODO: Delete this after we have implemented account approval functionality for Mel
+  await User.findByIdAndUpdate(user._id, {
+    admin: true
+  });
+
   //Send the user to the dashboard if their account has already been approved
 
   if (user.confirmed) {
@@ -48,6 +53,7 @@ async function dashboard(req, res) {
   let user = await User.findOne({access_token: accessToken});
 
   //Debug for lukes account
+  //TODO: Delete this after we have implemented account approval functionality for Mel
   // await User.findByIdAndUpdate(user._id, {
   //   confirmed: false
   // });
