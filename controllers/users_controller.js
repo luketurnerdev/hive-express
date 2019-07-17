@@ -82,7 +82,9 @@ async function newAccountRequest(req, res) {
 }
 
 // PUT to "/users/request"
-function createAccountRequest(req, res) {}
+function createAccountRequest(req, res) {
+  res.send(req.body);
+}
 
 //'delete' is a reserved word, using deleteUser instead
 async function deleteUser(id) {

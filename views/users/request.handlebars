@@ -8,6 +8,7 @@
 
 <form action="/users/request?_method=PUT" method="post">
   <input type="hidden" name="_method" value="PUT">
+  <input type="hidden" name="id" value="{{user.id}}">
   <p>
     <textarea name="message"></textarea>
   </p>
