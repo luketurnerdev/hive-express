@@ -41,7 +41,7 @@ async function accountRequests(req, res) {
   //Send the user to the dashboard if their account has already been approved
 
   if (user.confirmed) {
-    return res.redirect("/dashboard")
+    // return res.redirect("/dashboard")
   }
 
   res.render("pages/accountrequests", {user})
