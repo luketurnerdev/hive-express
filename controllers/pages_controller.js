@@ -25,8 +25,9 @@ function accountrequests(req, res) {
 
 // Show dashboard with user's events and list upcoming meetups
 async function dashboard(req, res) {
-  let userConfirmed = false;
-  //Database call to ensure that user's account has been approved
+  // Find current user
+  let accessToken = req.cookies.tokens.access_token;
+  let user = await User.findOne({access_token: accessToken});
 
 
   // if "tokens" cookie isn't found
@@ -36,13 +37,11 @@ async function dashboard(req, res) {
   }
 
   //Redirect user if their account is unconfirmed
-  if (!userConfirmed) {
+  if (!user.confirmed) {
     return res.redirect("/accountrequests")
   }
 
-  // Find current user
-  let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({access_token: accessToken});
+  
 
   // Find upcoming meetups
   let upcomingMeetups = await axios
