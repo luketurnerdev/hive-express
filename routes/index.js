@@ -9,7 +9,7 @@ const pagesController = require("./../controllers/pages_controller");
 router.get("/", pagesController.homepage);
 
 // Pending accounts page
-router.get("/accountrequests", pagesController.accountrequests);
+router.get("/accountrequests", pagesController.accountRequests);
 
 // Dashboard
 router.get("/dashboard", pagesController.dashboard);

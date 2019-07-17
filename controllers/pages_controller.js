@@ -19,7 +19,18 @@ function register(req, res) {
 // Displays the users account approval status,
 // or a list of pending approvals for admins
 
-function accountrequests(req, res) {
+async function accountRequests(req, res) {
+
+  // Find current user
+  let accessToken = req.cookies.tokens.access_token;
+  let user = await User.findOne({access_token: accessToken});
+
+  //Send the user to the dashboard if their account has already been approved
+
+  if (user.confirmed) {
+    return res.redirect("/dashboard")
+  }
+
   res.render("pages/accountrequests")
 }
 
@@ -36,10 +47,10 @@ async function dashboard(req, res) {
     return res.redirect("/")
   }
 
-  //Debug for lukes account
-  await User.findByIdAndUpdate(user._id, {
-    confirmed: true
-  });
+  // //Debug for lukes account
+  // await User.findByIdAndUpdate(user._id, {
+  //   confirmed: true
+  // });
 
   //Redirect user if their account is unconfirmed
   if (!user.confirmed) {
@@ -99,5 +110,5 @@ module.exports = {
    homepage,
    register,
    dashboard,
-   accountrequests
+   accountRequests
 };
