@@ -5,9 +5,9 @@ const usersController = require("./../controllers/users_controller");
 // User's profile
 router.get("/:id", usersController.show);
 
-//Modify user data
+//Modify user confirmed status
 
-router.get("/:id", usersController.update);
+router.put("/:id", usersController.confirmUser);
 
 //Delete user
 router.delete("/:id/delete", usersController.deleteUser);

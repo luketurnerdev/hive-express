@@ -45,7 +45,7 @@ async function create(req, res) {
   res.send(req.body);
 }
 
-async function update(id, newValues) {
+async function updateTokens(id, newValues) {
   await User.update(
     { meetup_uid: id },
     {
@@ -61,6 +61,25 @@ async function update(id, newValues) {
     .catch(err => {
       console.log(err);
     });
+}
+
+async function confirmUser(req, res) {
+  let id = req.params.id;
+  await User.update(
+    { _id: id },
+    {
+      $set: {
+          confirmed:true
+      }
+    }
+  )
+    .then(item => {
+      console.log(`Successfully confirmed user with id: ${id}`);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    res.redirect("/accountrequests")
 }
 
 //'delete' is a reserved word, using deleteUser instead
@@ -82,7 +101,8 @@ async function show(req, res) {
 module.exports = {
   index,
   create,
-  update,
+  updateTokens,
+  confirmUser,
   show,
   deleteUser
 };

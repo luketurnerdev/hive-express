@@ -6,23 +6,21 @@
 {{!-- {{if user.admin }} --}}
 {{#if user.admin}}
     {{#each unconfirmedAccounts}}
-    <h4>{{this.name}}</h4>
+    <h4>{{this.name}} </h4>
+    <p>
+        Location: {{this.city}}
+        {{this._id}}
+    </p>
     <form
         style="display: inline-block;" 
-        action="/users/{{user._id}}?_method=PUT" 
+        action="/users/{{this._id}}?_method=PUT" 
         method="post"
     >
         <button type="submit">Confirm user</button>
     </form>
-    <form 
-        style="display: inline-block;"
-        action="/events/{{_id}}?_method=DELETE" 
-        method="post"
-    >
-        <button type="submit">Remove user</button>
-    </form>
+    
     </p>
-    <hr> --}}
+    <hr> 
     {{/each}}
 
 {{else}}
