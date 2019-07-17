@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(methodOverride("_method"));
 
 // Morgan
-app.use(morgan("combined"));
+app.use(morgan("tiny"));
 
 //Body-parser for converting to JSON
 app.use(bodyParser.json());
