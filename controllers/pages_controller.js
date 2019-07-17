@@ -5,6 +5,7 @@ const axios = require("axios");
 // Show homepage
 function homepage(req, res) {
   console.log("COOKIES:", req.cookies);
+  
   res.render("pages/homepage");
 }
 
@@ -55,20 +56,15 @@ async function dashboard(req, res) {
 
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({ access_token: accessToken })
-    .then(function (resp) {
-      console.log(resp)
-    })
-    .catch(err => {
-      console.log(err)
-    });
-    console.log(user)
+  let user = await User.findOne({ access_token: accessToken });
+
 
   //Debug for lukes account
   //TODO: Delete this after we have implemented account approval functionality for Mel
   // await User.findByIdAndUpdate(user._id, {
   //   confirmed: false
   // });
+
 
   //Redirect user if their account is unconfirmed
   if (!user.confirmed) {
@@ -127,6 +123,10 @@ async function toggleConfirmed(req, res) {
    let accessToken = req.cookies.tokens.access_token;
    let user = await User.findOne({access_token: accessToken});
   
+  
+  
+  
+  
   if (user.confirmed === false){
     console.log('user is unconfirmed');
     await User.findByIdAndUpdate(user._id, {
@@ -140,6 +140,7 @@ async function toggleConfirmed(req, res) {
     });
   }
   
+
   res.redirect("/");
 }
 
