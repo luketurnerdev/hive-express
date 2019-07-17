@@ -14,7 +14,7 @@ async function index(req, res) {
 // POST to "/events/create"
 // Create an event and add to DB
 async function create(req, res) {
-  // destructure form values
+  // destructure from values
   let { id, groupUrlname, message } = req.body;
   
   // ** TODO ** 
