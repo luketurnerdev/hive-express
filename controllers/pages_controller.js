@@ -5,7 +5,11 @@ const axios = require("axios");
 // Show homepage
 function homepage(req, res) {
   console.log("COOKIES:", req.cookies);
+  
   res.render("pages/homepage");
+
+
+
 }
 
 
@@ -20,6 +24,7 @@ function register(req, res) {
 // or a list of pending approvals for admins
 
 async function accountRequests(req, res) {
+ 
 
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
@@ -31,14 +36,21 @@ async function accountRequests(req, res) {
     return res.redirect("/dashboard")
   }
 
-  res.render("pages/accountrequests")
+  res.render("pages/accountrequests", {user})
 }
 
 // Show dashboard with user's events and list upcoming meetups
 async function dashboard(req, res) {
+    
+
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
   let user = await User.findOne({access_token: accessToken});
+
+  //Debug for lukes account
+  // await User.findByIdAndUpdate(user._id, {
+  //   confirmed: false
+  // });
 
 
   // if "tokens" cookie isn't found
@@ -47,11 +59,7 @@ async function dashboard(req, res) {
     return res.redirect("/")
   }
 
-  // //Debug for lukes account
-  // await User.findByIdAndUpdate(user._id, {
-  //   confirmed: true
-  // });
-
+  
   //Redirect user if their account is unconfirmed
   if (!user.confirmed) {
     return res.redirect("/accountrequests")
