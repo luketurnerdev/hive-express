@@ -55,7 +55,14 @@ async function dashboard(req, res) {
 
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({ access_token: accessToken });
+  let user = await User.findOne({ access_token: accessToken })
+    .then(function (resp) {
+      console.log(resp)
+    })
+    .catch(err => {
+      console.log(err)
+    });
+    console.log(user)
 
   //Debug for lukes account
   //TODO: Delete this after we have implemented account approval functionality for Mel
