@@ -1,0 +1,15 @@
+<h1>New Account Request</h1>
+
+<p>Welcome {{user.name}}!</p>
+
+<p>Let's get your application started!</p>
+
+<p>Please tell us about you:</p>
+
+<form action="/users/request?_method=PUT" method="post">
+  <input type="hidden" name="_method" value="PUT">
+  <p>
+    <textarea name="message"></textarea>
+  </p>
+  <input type="submit" value="Submit">
+</form>
