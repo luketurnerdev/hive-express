@@ -64,8 +64,10 @@ async function updateTokens(id, newValues) {
 }
 
 async function confirmUser(req, res) {
-  let id = req.params.id;
-  await User.update(
+
+
+    let id = req.params.id || null;
+    await User.update(
     { _id: id },
     {
       $set: {
@@ -80,14 +82,20 @@ async function confirmUser(req, res) {
       console.log(err);
     });
     res.redirect("/accountrequests")
+  
 }
 
 //'delete' is a reserved word, using deleteUser instead
-async function deleteUser(id) {
-  user = User.find({_id:id});
-  User.deleteOne(user);
+async function deleteUser(req, res) {
+
+  let id = req.params.id;
+  console.log(id);
+  await User.findByIdAndRemove(id);
+
+
   console.log("Deleted user.");
-  }
+  res.redirect("/accountrequests");
+}
 
 
 async function show(req, res) {

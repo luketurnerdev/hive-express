@@ -9,7 +9,6 @@
     <h4>{{this.name}} </h4>
     <p>
         Location: {{this.city}}
-        {{this._id}}
     </p>
     <form
         style="display: inline-block;" 
@@ -17,6 +16,14 @@
         method="post"
     >
         <button type="submit">Confirm user</button>
+    </form>
+
+    <form
+        style="display: inline-block;" 
+        action="/users/{{this._id}}?_method=DELETE" 
+        method="post"
+    >
+        <button type="submit">Delete user</button>
     </form>
     
     </p>

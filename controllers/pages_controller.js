@@ -28,7 +28,6 @@ async function accountRequests(req, res) {
       confirmed:false
     })
     .sort({ created_at: "desc" });
-    console.log(unconfirmedAccounts);
 
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
