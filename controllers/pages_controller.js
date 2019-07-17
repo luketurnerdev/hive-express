@@ -5,10 +5,8 @@ const axios = require("axios");
 // Show homepage
 function homepage(req, res) {
   console.log("COOKIES:", req.cookies);
-  
   res.render("pages/homepage");
 }
-
 
 // GET to "/register"
 // Login/Register the meetup.com user
@@ -21,7 +19,6 @@ function register(req, res) {
 // or a list of pending approvals for admins
 
 async function accountRequests(req, res) {
- 
   //Make a list of unconfirmed accounts
   let unconfirmedAccounts = await User
     .find({
@@ -31,7 +28,7 @@ async function accountRequests(req, res) {
 
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({access_token: accessToken});
+  let user = await User.findOne({ access_token: accessToken });
 
   //TODO: Delete this after we have implemented account approval functionality for Mel
   await User.findByIdAndUpdate(user._id, {
@@ -58,8 +55,7 @@ async function dashboard(req, res) {
 
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({access_token: accessToken});
-
+  let user = await User.findOne({ access_token: accessToken });
 
   //Debug for lukes account
   //TODO: Delete this after we have implemented account approval functionality for Mel
@@ -67,10 +63,9 @@ async function dashboard(req, res) {
   //   confirmed: false
   // });
 
-
   //Redirect user if their account is unconfirmed
   if (!user.confirmed) {
-    return res.redirect("/accountrequests")
+    return res.redirect("/accountrequests");
   }
 
   // Find upcoming meetups
@@ -79,7 +74,7 @@ async function dashboard(req, res) {
       `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`,
       {
         headers: {
-          "Authorization": `Bearer ${accessToken}`
+          Authorization: `Bearer ${accessToken}`
         }
       }
     )
@@ -91,17 +86,16 @@ async function dashboard(req, res) {
 }
 
 async function profile(req, res) {
-
   // if "tokens" cookie isn't found
   if (!req.cookies.tokens) {
     // redirect to homepage
-    return res.redirect("/")
+    return res.redirect("/");
   }
 
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({access_token: accessToken});
-  console.log('user info' + user);
+  let user = await User.findOne({ access_token: accessToken });
+  console.log("user info" + user);
 
   // Find upcoming meetups
   let upcomingMeetups = await axios
@@ -109,7 +103,7 @@ async function profile(req, res) {
       `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`,
       {
         headers: {
-          "Authorization": `Bearer ${accessToken}`
+          Authorization: `Bearer ${accessToken}`
         }
       }
     )
@@ -126,10 +120,6 @@ async function toggleConfirmed(req, res) {
    let accessToken = req.cookies.tokens.access_token;
    let user = await User.findOne({access_token: accessToken});
   
-  
-  
-  
-  
   if (user.confirmed === false){
     console.log('user is unconfirmed');
     await User.findByIdAndUpdate(user._id, {
@@ -143,7 +133,6 @@ async function toggleConfirmed(req, res) {
     });
   }
   
-
   res.redirect("/");
 }
 
