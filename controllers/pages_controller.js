@@ -8,19 +8,36 @@ function homepage(req, res) {
   res.render("pages/homepage");
 }
 
+
 // GET to "/register"
 // Login/Register the meetup.com user
 function register(req, res) {
   res.render("pages/register");
 }
 
+// GET to "/accountrequests"
+// Displays the users account approval status,
+// or a list of pending approvals for admins
+
+function accountrequests(req, res) {
+  res.render("pages/accountrequests")
+}
+
 // Show dashboard with user's events and list upcoming meetups
 async function dashboard(req, res) {
+  let userConfirmed = false;
+  //Database call to ensure that user's account has been approved
+
 
   // if "tokens" cookie isn't found
   if (!req.cookies.tokens) {
     // redirect to homepage
     return res.redirect("/")
+  }
+
+  //Redirect user if their account is unconfirmed
+  if (!userConfirmed) {
+    return res.redirect("/accountrequests")
   }
 
   // Find current user
@@ -77,5 +94,6 @@ async function profile(req, res) {
 module.exports = {
    homepage,
    register,
-   dashboard
+   dashboard,
+   accountrequests
 };
