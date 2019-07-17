@@ -25,6 +25,9 @@ function register(req, res) {
 
 async function accountRequests(req, res) {
  
+  //Make a list of unconfirmed accounts
+  let unconfirmedAccounts = User.find({confirmed:false});
+  console.log(unconfirmedAccounts);
 
   // Find current user
   let accessToken = req.cookies.tokens.access_token;

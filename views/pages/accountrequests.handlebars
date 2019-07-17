@@ -1,4 +1,12 @@
 <h1> Account requests</h1>
-<p> This page will contain conditional rendering; it will display 
-    'account pending' for users, and a list of accounts to approve for admins</p>
+<p> This page will contain placeholder conditional rendering; it will display 
+    'account pending' for users, and a list of accounts to approve for admins. This will be
+    done in react afterwards, just testing for now</p>
     <p>Is user an admin? {{user.admin}}</p>
+{{!-- {{if user.admin }} --}}
+{{#if user.admin}}
+    <p></p>
+
+{{else}}
+    <p>Is user</p>
+{{/if}}
