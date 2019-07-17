@@ -36,6 +36,11 @@ async function dashboard(req, res) {
     return res.redirect("/")
   }
 
+  //Debug for lukes account
+  await User.findByIdAndUpdate(user._id, {
+    confirmed: true
+  });
+
   //Redirect user if their account is unconfirmed
   if (!user.confirmed) {
     return res.redirect("/accountrequests")
