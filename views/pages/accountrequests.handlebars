@@ -5,7 +5,30 @@
     <p>Is user an admin? {{user.admin}}</p>
 {{!-- {{if user.admin }} --}}
 {{#if user.admin}}
-    <p></p>
+    {{#each unconfirmedAccounts}}
+    <h4>{{this.name}} </h4>
+    <p>
+        Location: {{this.city}}
+    </p>
+    <form
+        style="display: inline-block;" 
+        action="/users/{{this._id}}?_method=PUT" 
+        method="post"
+    >
+        <button type="submit">Confirm user</button>
+    </form>
+
+    <form
+        style="display: inline-block;" 
+        action="/users/{{this._id}}?_method=DELETE" 
+        method="post"
+    >
+        <button type="submit">Delete user</button>
+    </form>
+    
+    </p>
+    <hr> 
+    {{/each}}
 
 {{else}}
     <p>Is user</p>

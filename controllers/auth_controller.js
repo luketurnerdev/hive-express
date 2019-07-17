@@ -93,7 +93,7 @@ async function meetupAuth (req, res) {
 
         console.log(`Updating the user's access token to ${newValues.access_token} and refresh token to ${newValues.refresh_token}`)
 
-        usersController.update(userData.id, newValues);
+        usersController.updateTokens(userData.id, newValues);
     }
     
     res.cookie("tokens", {

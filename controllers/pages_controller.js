@@ -7,9 +7,6 @@ function homepage(req, res) {
   console.log("COOKIES:", req.cookies);
   
   res.render("pages/homepage");
-
-
-
 }
 
 
@@ -26,8 +23,11 @@ function register(req, res) {
 async function accountRequests(req, res) {
  
   //Make a list of unconfirmed accounts
-  let unconfirmedAccounts = User.find({confirmed:false});
-  console.log(unconfirmedAccounts);
+  let unconfirmedAccounts = await User
+    .find({
+      confirmed:false
+    })
+    .sort({ created_at: "desc" });
 
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
@@ -44,16 +44,22 @@ async function accountRequests(req, res) {
     // return res.redirect("/dashboard")
   }
 
-  res.render("pages/accountrequests", {user})
+  res.render("pages/accountrequests", {user, unconfirmedAccounts})
 }
 
 // Show dashboard with user's events and list upcoming meetups
 async function dashboard(req, res) {
     
+  // if "tokens" cookie isn't found
+  if (!req.cookies.tokens) {
+    // redirect to homepage
+    return res.redirect("/")
+  }
 
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
   let user = await User.findOne({access_token: accessToken});
+
 
   //Debug for lukes account
   //TODO: Delete this after we have implemented account approval functionality for Mel
@@ -62,19 +68,10 @@ async function dashboard(req, res) {
   // });
 
 
-  // if "tokens" cookie isn't found
-  if (!req.cookies.tokens) {
-    // redirect to homepage
-    return res.redirect("/")
-  }
-
-  
   //Redirect user if their account is unconfirmed
   if (!user.confirmed) {
     return res.redirect("/accountrequests")
   }
-
-  
 
   // Find upcoming meetups
   let upcomingMeetups = await axios
@@ -123,9 +120,38 @@ async function profile(req, res) {
   res.render("pages/dashboard", { upcomingMeetups, user });
 }
 
+async function toggleConfirmed(req, res) {
+
+   // Find current user
+   let accessToken = req.cookies.tokens.access_token;
+   let user = await User.findOne({access_token: accessToken});
+  
+  
+  
+  
+  
+  if (user.confirmed === false){
+    console.log('user is unconfirmed');
+    await User.findByIdAndUpdate(user._id, {
+       confirmed: true
+    });
+  } else {
+    console.log('user is confirmed');
+
+    await User.findByIdAndUpdate(user._id, {
+      confirmed: false
+    });
+  }
+  
+
+  res.redirect("/");
+}
+
+
 module.exports = {
    homepage,
    register,
    dashboard,
-   accountRequests
+   accountRequests,
+   toggleConfirmed
 };
