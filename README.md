@@ -172,11 +172,63 @@ In this project several libraries have been integrated.
 
 Jest is very easy to install, using either *npm or yarn package managers*, and easy to use. It is also fast, which increases the efficiency (read previous question) of the app, and thus, the quality of our software.
 
-Another useful feature of Jest are its *mocks*. A mock object is "a simulated object that mimics the behavior of the smallest testable parts of an application in controlled ways[,]"makes use of the same interface as the element of code it is intended to imitate and is often used in unit testing to scrutinize the performance of an actual object. 
+One thing to note is *coverage*. You set it up just by adding the flag **--coverage**, and you are able to collect code coverage information from entire projects, including untested files. However, the tests are as good as the coverage. Eg: if you just test 50% of the system's code, then the remaining half can contain bugs.
+
+To finish with, Jest has simple *mock functions*, because "uses a custom resolver for imports in your tests" ([Jest Doc](https://jestjs.io/)). A mock object is "a simulated object that mimics the behavior of the smallest testable parts of an application in controlled ways[,]"makes use of the same interface as the element of code it is intended to imitate and is often used in unit testing to scrutinize the performance of an actual object. 
 
 Therefore, it helps "isolate the component being tested from the components it depends on and applying mock objects effectively is an important part of test-driven development (TDD)" ([Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object)).
 
-Jest has simple mock functions, like 
+Bibliography:
+1. [Jest Doc](https://jestjs.io/).
+2. [jest. Facebook](https://github.com/facebook/jest).
+2. [Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object).
+
+####[react-big-calendar](https://www.npmjs.com/package/react-big-calendar)####
+
+A "[f]ull-featured calendar to visualize [and] add events" ([React.Rocks](https://react.rocks/example/react-big-calendar)), built for *React* and made for modern browsers. It is also characterisez by using *flexbox*.
+
+A key point regarding react-big-calendar is that it treats event start/end dates as an exclusive range. Therefore, the event doesn not include the end date. If we display events on whole days, end dates are rounded up to the next day. "So an event ending on Apr 8th 12:00:00 am will not appear on the 8th, whereas one ending on Apr 8th 12:01:00 am will. If you want inclusive ranges consider providing a function endAccessor that returns the end date + 1 day for those events that end at midnight" ([React Big Calendar Docs](https://intljusticemission.github.io/react-big-calendar/examples/index.html)).
+
+Bibliography:
+1. [React.Rocks](https://react.rocks/example/react-big-calendar).
+2. [React Big Calendar Docs](https://intljusticemission.github.io/react-big-calendar/examples/index.html).
+
+####[OAuth2-Meetup](http://www.passportjs.org/packages/passport-oauth2-meetup/)####
+
+As all the information of each event within our Hive will be grabbed from [Meetup.com](https://www.meetup.com), we decided to request for the Meetup account to sign in our Hive. According to this line of thinking, we chose the meetup promise for Passport. 
+
+OAuth2-Meetup would allow us to automatically get the username, identified as **meetup_<**meetupID**>**. Nevertheless, this promise has not been updated for 4 years, which made us wonder if it was our best option.
+
+Happily, we made it work, actually without even using that as a promise, but accessing the data through an axios request.
+
+####[axios](https://github.com/axios/axios)####
+
+**Axios** js is a JavaScript library built with the aim of *managing asynchronous programming with promises*. It makes *HTTP requests from node.js* or *XMLHttpRequests from the browser* and it supports the Promise API that is *native to JS ES6*. 
+
+It is also a secure option as it contains built in Cross Site Forgery (XSRF) protection. Moreover, it supports Google Chrome, Safari, Opera, Edge, and Internet Explorer verison 8 and newer, so it's *browser compatibility* is wider.
+
+We used axios all along the development process and the production of the front-end of the Hive, as a means of calling our fake json database, or our mongodb one, respectively. Therefore, we were able to perform CRUD operations in a very straightforward manner. 
+
+Bibliography:
+1. [axios. axios](https://github.com/axios/axios).
+2. [Jeff Lewis. Medium. HTTP Requests Compared: Why Axios Is Better Than Node-Fetch (Automatic Transformations, More Secure, Can Handle Errors Better, Interceptor Support, And More Browser Friendly)](https://medium.com/@jeffrey.allen.lewis/http-requests-compared-why-axios-is-better-than-node-fetch-more-secure-can-handle-errors-better-39fde869a4a6).
+3. [Jason Arnold. Medium. Fetch vs. Axios.js for making http requests](https://medium.com/@thejasonfile/fetch-vs-axios-js-for-making-http-requests-2b261cdd3af5).
+4. [Cecilio Alvarez. arquitectura java. Axios js una librería de promesas](https://www.arquitecturajava.com/axios-js-una-libreria-de-promesas/).
+5. [Janelle Wong. Medium. Why Use Axios in Your Next App](https://medium.com/@janelle.wg/why-use-axios-in-your-next-app-c44ad3508e93).
+
+####[react-router-dom](https://www.npmjs.com/package/react-router-dom) and [React Router](https://github.com/ReactTraining/react-router)####
+
+**react-router** is developed and maintained by [React Training](https://reacttraining.com/). It is a library used for DOM bindings for React Router (the routing components for websites).
+
+**React-Router** can be defined as "a collection of navigational components that compose declaratively with your applications" ([React Training](https://reacttraining.com/react-router/)).
+
+We used it for the set up of the different routes of our react (front-end) code, because "as React focuses only on building user interfaces, it doesn’t have a built-in solution for routing" ([Herrera, LogRocket](https://blog.logrocket.com/react-router-dom-set-up-essential-components-parameterized-routes-505dc93642f1/)).
+
+Bibliography:
+1. [react-router-dom npm](https://www.npmjs.com/package/react-router-dom).
+2. [react-router. ReactTraining. GitHub](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom).
+3. [React Training](https://reacttraining.com/react-router/).
+3. [Esteban Herrera. LogRocket](https://blog.logrocket.com/react-router-dom-set-up-essential-components-parameterized-routes-505dc93642f1/).
 
 3. A team is about to engage in a project, developing a website for a small business. What knowledge and skills would they need in order to develop the project?
 
