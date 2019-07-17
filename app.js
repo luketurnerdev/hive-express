@@ -34,12 +34,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require("./routes"));
 
 //Route specific middleware
-app.use("/", (req, res, next) => {
-  console.log("This is middleware for a specific route.");
-});
+// app.use("/", (req, res, next) => {
+//   console.log("This is middleware for a specific route.");
+// });
 
 module.exports = app;
-
 
 //API Keys
 require("dotenv").config();
@@ -59,8 +58,6 @@ const meetupAuth = require('./controllers/auth_controller').meetupAuth;
 // const tester = require('./controllers/auth_controller').tester;
 const meetupService = require("./services/meetupService");
 
-
-
 //Root page 
 app.get('/', (req,res) => {
     let access_token, refresh_token;
@@ -74,14 +71,5 @@ app.get('/', (req,res) => {
     console.log(meetupService);
 
 });
-
-
-//Application-level middleware goes here
-
-
-
-//Route specific middleware goes here
-
-
 
 module.exports = app;
