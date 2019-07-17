@@ -7,9 +7,6 @@ function homepage(req, res) {
   console.log("COOKIES:", req.cookies);
   
   res.render("pages/homepage");
-
-
-
 }
 
 
@@ -26,8 +23,12 @@ function register(req, res) {
 async function accountRequests(req, res) {
  
   //Make a list of unconfirmed accounts
-  let unconfirmedAccounts = User.find({confirmed:false});
-  console.log(unconfirmedAccounts);
+  let unconfirmedAccounts = await User
+    .find({
+      confirmed:false
+    })
+    .sort({ created_at: "desc" });
+    console.log(unconfirmedAccounts);
 
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
@@ -44,7 +45,7 @@ async function accountRequests(req, res) {
     // return res.redirect("/dashboard")
   }
 
-  res.render("pages/accountrequests", {user})
+  res.render("pages/accountrequests", {user, unconfirmedAccounts})
 }
 
 // Show dashboard with user's events and list upcoming meetups
