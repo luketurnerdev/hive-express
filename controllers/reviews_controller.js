@@ -27,7 +27,7 @@ async function index(req, res) {
     // so user.admin is undefined when it checks
 
     // if user is not an admin
-    if (!user.admin) {
+    if (user.admin === false) {
         // get all of the user's reviews
         console.log(user.admin)
         console.log("User is NOT an admin")
