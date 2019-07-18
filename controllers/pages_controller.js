@@ -15,7 +15,7 @@ function register(req, res) {
   res.render("pages/register");
 }
 
-// GET to "/accountrequests"
+// GET to "/account_requests"
 // Displays the users account approval status,
 // or a list of pending approvals for admins
 
@@ -42,7 +42,7 @@ async function accountRequests(req, res) {
     // return res.redirect("/dashboard")
   }
 
-  res.render("pages/accountrequests", {user, unconfirmedAccounts})
+  res.render("pages/account_requests", {user, unconfirmedAccounts})
 }
 
 // Show dashboard with user's events and list upcoming meetups
@@ -68,7 +68,7 @@ async function dashboard(req, res) {
 
   //Redirect user if their account is unconfirmed
   if (!user.confirmed) {
-    return res.redirect("/accountrequests");
+    return res.redirect("/account_requests")
   }
 
   // Find upcoming meetups

@@ -81,7 +81,7 @@ async function confirmUser(req, res) {
     .catch(err => {
       console.log(err);
     });
-    res.redirect("/accountrequests")
+    res.redirect("/account_requests")
   
 }
 
@@ -94,7 +94,7 @@ async function deleteUser(req, res) {
 
 
   console.log("Deleted user.");
-  res.redirect("/accountrequests");
+  res.redirect("/account_requests");
 }
 
 // GET to "/users/request"
