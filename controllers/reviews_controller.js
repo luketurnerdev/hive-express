@@ -62,25 +62,28 @@ async function newReview(req, res) {
 
 async function create(req, res) {
     console.log(req.body);
-    // let user = req.body.user_id;
-    let user = req.body.user;
 
-    let event = req.body.event_id;
-    let comment = req.body.message;
-    let ratings = {
+    // destructure values from req.body
+    let {
+        user_id: user,   // rename user_id to user
+        event_id: event, // rename event_id to event
+        message: comment // rename message to comment
+    } = req.body;
+
+    // dummy data for rating
+    let rating = {
         food: 5,
         drinks: 3,
         talks: 1,
         vibe: 4
     }
 
-
-    // //Create db entry
+    //Create db entry
     let review = await Review.create({
         user,
         event,
         comment,
-        ratings
+        rating
     })
     .then(response => {
         console.log(response);
@@ -90,7 +93,6 @@ async function create(req, res) {
     })
 
     res.redirect("/events");
-
 }
 
 module.exports = {
