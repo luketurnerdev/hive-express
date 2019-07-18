@@ -7,7 +7,7 @@ const User = require("./../database/models/user_model");
 const Event = require("./../database/models/event_model");
 
 //Review Model
-const Review = require("./../database/models/review_model")
+const Review = require("./../database/models/review_model");
 
 async function index(req, res) {
     // if "tokens" cookie isn't found
