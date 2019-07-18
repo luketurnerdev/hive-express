@@ -1,6 +1,6 @@
 const { Schema } = require("mongoose");
 
-const ratingSchema = new Schema({
+const reviewsSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     required: true
@@ -9,7 +9,7 @@ const ratingSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: true
   },
-  score: {
+  ratings: {
     food: {
       type: Number,
       required: true,
@@ -42,4 +42,4 @@ const ratingSchema = new Schema({
   }
 });
 
-module.exports = ratingSchema;
+module.exports = reviewsSchema;
