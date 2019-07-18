@@ -3,6 +3,8 @@ const router = express.Router();
 const eventsRoutes = require("./events_routes");
 const authRoutes = require("./auth_routes");
 const usersRoutes = require("./users_routes");
+const reviewsRoutes = require("./reviews_routes");
+
 const pagesController = require("./../controllers/pages_controller");
 
 // Root / Homepage
@@ -25,5 +27,8 @@ router.use("/auth", authRoutes);
 
 // Users routes
 router.use("/users", usersRoutes);
+
+// Reviews routes
+router.use("/reviews", reviewsRoutes);
 
 module.exports = router;
