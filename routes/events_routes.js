@@ -28,6 +28,10 @@ router.get("/:id", eventsController.show);
 // Form to leave a review on a given event
 router.get("/:id/new_review", reviewsController.newReview);
 
+// GET to "/events/:id/reviews"
+// Show all reviews for a given event
+router.get("/:id/reviews", reviewsController.eventReviews);
+
 // DELETE to "/events/:id"
 // Remove event from the DB
 router.delete("/:id", eventsController.destroy);

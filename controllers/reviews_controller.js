@@ -94,10 +94,13 @@ async function create(req, res) {
 
 // GET to "events/:id/reviews"
 // Display all reviews for a specific event.
-function eventReviews(req, res) {}
+function eventReviews(req, res) {
+    res.send("eventReviews")
+}
 
 module.exports = {
     newReview,
     create,
-    index
+    index,
+    eventReviews
 }
