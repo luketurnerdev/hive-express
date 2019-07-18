@@ -94,7 +94,18 @@ async function create(req, res) {
 
 // GET to "events/:id/reviews"
 // Display all reviews for a specific event.
-function eventReviews(req, res) {
+async function eventReviews(req, res) {
+    // Get event with id from url
+    let event = await Event
+        .findById(req.params.id)
+        .catch(err => console.log(err));
+
+    // Get reviews associated with that event
+    let reviews = await Review
+        .find({ event: req.params.id })
+        .catch(err => console.log(err));
+
+    console.log(reviews);
     res.render("reviews/event_reviews");
 }
 
