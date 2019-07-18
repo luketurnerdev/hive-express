@@ -2,9 +2,10 @@
 <p>Date: {{event.local_date}}, {{event.local_time}}</p>
 
 <form action="/reviews" method="post">
-	<input type="hidden" name="id" value="{{event.id}}">
+	<input type="hidden" name="event_id" value="{{event.id}}">
+	<input type="hidden" name="user" value="{{user}}">
 	<p>
-		What did you think of the event?
+		What did you think of the event? event id: {{event._id}}, user: {{user}}
 	</p>
 	 <p>
 		<textarea required name="message"></textarea>
