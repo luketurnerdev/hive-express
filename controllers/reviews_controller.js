@@ -20,26 +20,25 @@ async function index(req, res) {
     let accessToken = req.cookies.tokens.access_token;
     let user = await User
         .find({ access_token: accessToken })
-        .catch(err => res.status(404).send(err));
+        .catch(err => console.log(err));
     
     let reviews;
     // if user is not an admin
-    if (!user.admin) {
+    if (user.admin === false) {
         // get all of the user's reviews
         reviews = await Review
             .find({ "user": user._id })
-            .catch(err => res.status(404).send(err));
+            .catch(err => console.log(err));
     } else {
         // otherwise get all reviews
         reviews = await Review
             .find()
             .sort({ created_at: "desc" })
-            .catch(err => res.status(404).send(err));
+            .catch(err => console.log(err));
     }
     
     // send reviews to view
-    console.log(reviews)
-    return res.send(reviews[0])
+    return res.send(reviews)
 }
 
 // GET to "/events/:id/reviews"
