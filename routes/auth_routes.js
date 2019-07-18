@@ -25,9 +25,4 @@ router.get('/callback', authController.meetupAuth);
 //If the user already exists in the db,
 // run the below code to update their tokens
 
-//PUT / PATCH METHODS 
-
-// router.put("/register", userController.update);
-// router.patch("/register", userController.update);
-
 module.exports = router;

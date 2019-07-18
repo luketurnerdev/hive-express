@@ -5,7 +5,7 @@ const User = require("./../database/models/user_model");
 //Event model
 const Event = require("./../database/models/event_model");
 //Review Model
-const Review = require("./../database/models/review_model")
+const Review = require("./../database/models/review_model");
 
 // GET to "/reviews"
 // Show all reviews to admin
@@ -58,7 +58,6 @@ async function newReview(req, res) {
     console.log(user_id);
 
     res.render("reviews/new_review", {event, user_id} )
-    
 }
 
 // POST to "/reviews"
