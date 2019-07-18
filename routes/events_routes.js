@@ -23,6 +23,10 @@ router.get("/suggestions", eventsController.suggestions);
 // Show One Event
 router.get("/:id", eventsController.show);
 
+// GET to "/events/:id/new_review"
+// Form to leave a review on a given event
+router.get("/:id/new_review", eventsController.show);
+
 // DELETE to "/events/:id"
 // Remove event from the DB
 router.delete("/:id", eventsController.destroy);
