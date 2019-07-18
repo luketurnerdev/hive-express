@@ -92,6 +92,10 @@ async function create(req, res) {
     res.redirect("/events");
 }
 
+// GET to "events/:id/reviews"
+// Display all reviews for a specific event.
+function eventReviews(req, res) {}
+
 module.exports = {
     newReview,
     create,
