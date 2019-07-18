@@ -1,14 +1,14 @@
 //This controller handles the methods for creating, reading, updating and destroying user reviews on events
 
-//Import the user model
+//User model
 const User = require("./../database/models/user_model");
-
 //Event model
 const Event = require("./../database/models/event_model");
-
 //Review Model
 const Review = require("./../database/models/review_model")
 
+// GET to "/reviews"
+// Show all reviews to admin
 async function index(req, res) {
     // if "tokens" cookie isn't found
     if (!req.cookies.tokens) {
@@ -42,6 +42,8 @@ async function index(req, res) {
     return res.send(reviews)
 }
 
+// GET to "/events/:id/reviews"
+// Display form for the user to leave a review for an event.
 async function newReview(req, res) {
     let event =  await Event.findById(req.params.id)
     let accessToken = req.cookies.tokens.access_token;
@@ -60,9 +62,9 @@ async function newReview(req, res) {
     
 }
 
+// POST to "/reviews"
+// Create a review in the database when the user submits form.
 async function create(req, res) {
-    console.log(req.body);
-
     // destructure values from req.body
     let {
         user_id: user,   // rename user_id to user
@@ -85,12 +87,8 @@ async function create(req, res) {
         comment,
         rating
     })
-    .then(response => {
-        console.log(response);
-    })
-    .catch(err =>{
-        console.log(err);
-    })
+    .then(response => console.log("Review Created: ", response))
+    .catch(err => console.log(err));
 
     res.redirect("/events");
 }
