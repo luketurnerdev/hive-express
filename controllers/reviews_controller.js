@@ -95,7 +95,7 @@ async function create(req, res) {
 // GET to "events/:id/reviews"
 // Display all reviews for a specific event.
 function eventReviews(req, res) {
-    res.send("eventReviews")
+    res.render("reviews/event_reviews");
 }
 
 module.exports = {
