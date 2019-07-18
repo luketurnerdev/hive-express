@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const reviewSchema = require("./../schemas/rating_schema");
+const reviewSchema = require("./../schemas/review_schema");
 
-const reviewModel = mongoose.model("rating", reviewSchema);
+const reviewModel = mongoose.model("review", reviewSchema);
 
 module.exports = reviewModel;
