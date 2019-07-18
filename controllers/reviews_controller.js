@@ -45,25 +45,52 @@ async function index(req, res) {
 async function newReview(req, res) {
     let event =  await Event.findById(req.params.id)
     let accessToken = req.cookies.tokens.access_token;
-    let user = await User.find({
-        access_token: accessToken
-    })
-    .catch(err => {
-        res.status(404).send(err)
-    });
 
+    let user = await User
+    .findOne({access_token: accessToken})
+    .catch(err => console.error(
+      `COULD NOT FIND USER WITH access_token: ${accessToken}\n`,
+      err.message
+    ));
 
-    res.render("reviews/new_review", {event, user} )
+    let user_id = user._id;
+    console.log(user_id);
+
+    res.render("reviews/new_review", {event, user_id} )
     
 }
 
 async function create(req, res) {
+    console.log(req.body);
+    // let user = req.body.user_id;
     let user = req.body.user;
-    console.log(user.id);
-    res.send('ok');
-    // res.redirect("/events");
 
-    //Create db entry
+    let event = req.body.event_id;
+    let comment = req.body.message;
+    let ratings = {
+        food: 5,
+        drinks: 3,
+        talks: 1,
+        vibe: 4
+    }
+
+
+    // //Create db entry
+    let review = await Review.create({
+        user,
+        event,
+        comment,
+        ratings
+    })
+    .then(response => {
+        console.log(response);
+    })
+    .catch(err =>{
+        console.log(err);
+    })
+
+    res.redirect("/events");
+
 }
 
 module.exports = {
