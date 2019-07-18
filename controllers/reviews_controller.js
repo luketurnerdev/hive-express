@@ -3,18 +3,47 @@
 //Import the user model
 const User = require("./../database/models/user_model");
 
-//Events model
-const Events = require("./../database/models/event_model");
+//Event model
+const Event = require("./../database/models/event_model");
 
-const Review = require("./../database/models/reviews_model")
+//Review Model
+const Review = require("./../database/models/review_model")
 
 async function index(req, res) {
-    console.log('index');
-    res.send("all reviews go here");
+    // if "tokens" cookie isn't found
+    if (!req.cookies.tokens) {
+        // redirect to homepage
+        return res.redirect("/")
+    }
+
+    // find user with accessToken
+    let accessToken = req.cookies.tokens.access_token;
+    let user = await User
+        .find({ access_token: accessToken })
+        .catch(err => res.status(404).send(err));
+    
+    let reviews;
+    // if user is not an admin
+    if (!user.admin) {
+        // get all of the user's reviews
+        reviews = await Review
+            .find({ "user": user.id })
+            .catch(err => res.status(404).send(err));
+    } else {
+        // otherwise get all reviews
+        reviews = await Review
+            .find()
+            .sort({ created_at: "desc" })
+            .catch(err => res.status(404).send(err));
+    }
+    
+    // send reviews to view
+    console.log(reviews)
+    return res.send(reviews)
 }
 
 async function newReview(req, res) {
-    let event =  await Events.findById(req.params.id)
+    let event =  await Event.findById(req.params.id)
     let accessToken = req.cookies.tokens.access_token;
 
     let user = await User
