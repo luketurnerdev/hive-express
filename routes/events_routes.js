@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const eventsController = require("./../controllers/events_controller");
+const reviewsController = require("./../controllers/reviews_controller");
 
 // GET to "/events"
 // Show All Events
@@ -25,7 +26,7 @@ router.get("/:id", eventsController.show);
 
 // GET to "/events/:id/new_review"
 // Form to leave a review on a given event
-router.get("/:id/new_review", eventsController.show);
+router.get("/:id/new_review", reviewsController.newReview);
 
 // DELETE to "/events/:id"
 // Remove event from the DB

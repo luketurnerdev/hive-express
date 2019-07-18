@@ -9,7 +9,7 @@ const pagesController = require("./../controllers/pages_controller");
 router.get("/", pagesController.homepage);
 
 // Pending accounts page
-router.get("/accountrequests", pagesController.accountRequests);
+router.get("/account_requests", pagesController.accountRequests);
 
 // [DEBUG] Toggle user's 'confirmed' status on and off
 router.get("/toggleconfirmed", pagesController.toggleConfirmed);
