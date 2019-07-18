@@ -22,23 +22,31 @@ async function index(req, res) {
         .find({ access_token: accessToken })
         .catch(err => console.log(err));
     
-    let reviews;
+    // issue:
+    // user isn't defined in time for the code below...
+    // so user.admin is undefined when it checks
+
     // if user is not an admin
-    if (user.admin === false) {
+    if (!user.admin) {
         // get all of the user's reviews
-        reviews = await Review
-            .find({ "user": user._id })
+        console.log(user.admin)
+        console.log("User is NOT an admin")
+        let reviews = await Review
+            .find({ "user": user.id })
             .catch(err => console.log(err));
+
+        return res.send(`<pre>${reviews}</pre>`)
     } else {
         // otherwise get all reviews
-        reviews = await Review
+        console.log(user.admin)
+        console.log("User IS an admin")
+        let reviews = await Review
             .find()
             .sort({ created_at: "desc" })
             .catch(err => console.log(err));
+
+        return res.send(`<pre>${reviews}</pre>`)
     }
-    
-    // send reviews to view
-    return res.send(reviews)
 }
 
 // GET to "/events/:id/reviews"
