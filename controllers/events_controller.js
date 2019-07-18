@@ -8,7 +8,7 @@ async function index(req, res) {
   // Find all events and sort by their creation date
   let events = await Event.find().sort({ created_at: "desc" });
   // pass list of events to the view
-  res.render("events/index", { events });
+  res.json(events);
 }
 
 // POST to "/events/create"
