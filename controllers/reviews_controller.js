@@ -105,8 +105,16 @@ async function eventReviews(req, res) {
         .find({ event: req.params.id })
         .catch(err => console.log(err));
 
-    console.log(reviews);
-    res.render("reviews/event_reviews");
+    // replace user values (ids) in reviews with full user objects
+    // reviews.map(async (review) => {        
+    //     let user = await User.findById(review.user);
+    //     review.user = user;
+    //     console.log(review.user);
+    // });
+
+    // console.log(reviews)
+
+    res.render("reviews/event_reviews", { event, reviews });
 }
 
 module.exports = {

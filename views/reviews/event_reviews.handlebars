@@ -1,2 +1,16 @@
-<h1>Reviews for {event.name}</h1>
+<h1>Reviews left for "{{event.name}}"</h1>
 
+{{#each reviews}}
+
+<h3>User: {{user}}</h3>
+<p>
+  &OpenCurlyDoubleQuote; 
+  <em>{{comment}}</em> 
+  &CloseCurlyDoubleQuote;
+</p>
+
+{{else}}
+
+<p>There are no reviews to show for this event.</p>
+
+{{/each}}
