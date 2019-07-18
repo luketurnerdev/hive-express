@@ -103,23 +103,41 @@ async function create(req, res) {
 // Display all reviews for a specific event.
 async function eventReviews(req, res) {
     // Get event with id from url
-    let event = await Event
+    let event = Event
         .findById(req.params.id)
         .catch(err => console.log(err));
 
     // Get reviews associated with that event
-    let reviews = await Review
+    let reviews = Review
         .find({ event: req.params.id })
         .catch(err => console.log(err));
 
-    // replace user values (ids) in reviews with full user objects
-    // reviews.map(async (review) => {        
+    // await both event and reviews
+    await Promise.all([event, reviews])
+        .then(resp => {
+            return resp[1].map(async review => {
+                return review.user = await User.findById(review.user)
+            });
+        });
+
+    console.log(reviews)
+    // for (let review of data[1]) {
+    //     let user = await User.findById(review.user)
+    //     .then(resp => {
+    //         console.log(resp);
+    //         review.user = resp;
+    //         console.log(review);
+    //         });
+    //         console.log(user);
+    //     }
+        //replace user values (ids) in reviews with full user objects
+        // data[1].map(async (review) => {        
     //     let user = await User.findById(review.user);
     //     review.user = user;
     //     console.log(review.user);
     // });
 
-    // console.log(reviews)
+    //console.log(reviews)
 
     res.render("reviews/event_reviews", { event, reviews });
 }
