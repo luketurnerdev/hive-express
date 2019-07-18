@@ -27,7 +27,7 @@ async function index(req, res) {
     if (!user.admin) {
         // get all of the user's reviews
         reviews = await Review
-            .find({ "user": user.id })
+            .find({ "user": user._id })
             .catch(err => res.status(404).send(err));
     } else {
         // otherwise get all reviews
@@ -39,7 +39,7 @@ async function index(req, res) {
     
     // send reviews to view
     console.log(reviews)
-    return res.send(reviews)
+    return res.send(reviews[0])
 }
 
 // GET to "/events/:id/reviews"
