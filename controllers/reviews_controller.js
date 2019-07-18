@@ -59,7 +59,6 @@ async function newReview(req, res) {
     console.log(user_id);
 
     res.render("reviews/new_review", {event, user_id} )
-    
 }
 
 // POST to "/reviews"
