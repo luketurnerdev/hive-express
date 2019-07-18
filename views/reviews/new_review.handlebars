@@ -4,45 +4,11 @@
 <form action="/reviews" method="post" id="ratings-form">
 	<input type="hidden" name="event_id" value="{{event.id}}">
 	<input type="hidden" name="user_id" value="{{user_id}}">
-	{{!-- <div id='ratings'>
+	<div id='ratings'>
 		<h2> Ratings</h2>
 		<p>Food</p>
-		<select id = "food" form="ratings-form">
-               <option value = "1">1</option>
-               <option value = "2">2</option>
-               <option value = "3">3</option>
-               <option value = "4">4</option>
-			   <option value = "5">5</option>
-		</select>
-		<p>Drinks</p>
 
-		<select id = "drinks">
-               <option value = "1">1</option>
-               <option value = "2">2</option>
-               <option value = "3">3</option>
-               <option value = "4">4</option>
-			   <option value = "5">5</option>
-		</select>
-		<p>Talks</p>
-
-		<select id = "talks">
-               <option value = "1">1</option>
-               <option value = "2">2</option>
-               <option value = "3">3</option>
-               <option value = "4">4</option>
-			   <option value = "5">5</option>
-		</select>
-		<p>Vibe</p>
-
-		<select id = "vibe">
-               <option value = "1">1</option>
-               <option value = "2">2</option>
-               <option value = "3">3</option>
-               <option value = "4">4</option>
-			   <option value = "5">5</option>
-		</select>
-
-	</div> --}}
+	</div>
 	<p>
 		Additional comments: {{user_id}}
 	</p>
