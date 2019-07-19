@@ -8,7 +8,7 @@ async function index(req, res) {
   // Find all events and sort by their creation date
   let events = await Event.find().sort({ created_at: "desc" });
   // pass list of events to the view
-  res.render("events/index", { events });
+  return res.json(events);
 }
 
 // POST to "/events/create"
@@ -16,26 +16,26 @@ async function index(req, res) {
 async function create(req, res) {
   // destructure from values
   let { id, groupUrlname, message } = req.body;
-  
-  // ** TODO ** 
+
+  // ** TODO **
   // Restrict this page to admin users only.
 
-  // ** TODO ** 
-  // validate for empty message.  
+  // ** TODO **
+  // validate for empty message.
   // (it's required in the schema)
-  
-  // ** TODO ** 
+
+  // ** TODO **
   // Handle events with no venue...
   // Maybe just don't recommend those in dashboard
 
   // get user with access_token
   let accessToken = req.cookies.tokens.access_token;
-  let user = await User
-    .findOne({access_token: accessToken})
-    .catch(err => console.error(
+  let user = await User.findOne({ access_token: accessToken }).catch(err =>
+    console.error(
       `COULD NOT FIND USER WITH access_token: ${accessToken}\n`,
       err.message
-    ));
+    )
+  );
 
   // get event with req.body.id
   let meetup = await axios
@@ -56,44 +56,37 @@ async function create(req, res) {
     status,
     local_date,
     local_time,
-    venue: {
-      name: venue_name,
-      address_1: venue_address,
-      city: venue_city
-    },
-    group: {
-      name: group
-    },
+    venue: { name: venue_name, address_1: venue_address, city: venue_city },
+    group: { name: group },
     description,
     how_to_find_us
   } = meetup;
 
   // create a new event document in the DB
-  let event = await Event
-    .create({
-      meetup_id,
-      link,
-      name,
-      group,
-      local_date,
-      local_time,
-      status,
-      "location": {
-        "name": venue_name,
-        "address": venue_address,
-        "city": venue_city,
-        "how_to_find_us": how_to_find_us
-      },
-      rsvp_limit,
-      description,
-      "attendees": [],
-      "hive_attendees": [],
-      "suggested": {
-        "is_suggested": true,
-        "suggested_by": user.id,
-        "message": message
-      }
-    });
+  let event = await Event.create({
+    meetup_id,
+    link,
+    name,
+    group,
+    local_date,
+    local_time,
+    status,
+    location: {
+      name: venue_name,
+      address: venue_address,
+      city: venue_city,
+      how_to_find_us: how_to_find_us
+    },
+    rsvp_limit,
+    description,
+    attendees: [],
+    hive_attendees: [],
+    suggested: {
+      is_suggested: true,
+      suggested_by: user.id,
+      message: message
+    }
+  });
 
   // Redirect to events index.
   res.redirect("/events");
@@ -150,12 +143,10 @@ async function showMeetup(req, res) {
 // Display events which are suggested and not recommended
 async function suggestions(req, res) {
   // Find suggested events
-  let events = await Event
-    .find({
-      ca_recommended: false,
-      "suggested.is_suggested": true
-    })
-    .sort({ created_at: "desc" });
+  let events = await Event.find({
+    ca_recommended: false,
+    "suggested.is_suggested": true
+  }).sort({ created_at: "desc" });
 
   // Pass the suggested events to the view
   res.json(events);
