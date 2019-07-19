@@ -1,6 +1,6 @@
 //Import the user model
 const User = require("./../database/models/user_model");
-const meetupService = require("./../services/meetupService");
+const meetupService = require("./../services/MeetupService");
 const axios = require("axios");
 
 function index(req, res) {

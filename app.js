@@ -57,7 +57,7 @@ const queryString = require('query-string');
 //Meetup authentication
 const meetupAuth = require('./controllers/auth_controller').meetupAuth;
 // const tester = require('./controllers/auth_controller').tester;
-const meetupService = require("./services/meetupService");
+const meetupService = require("./services/MeetupService");
 
 
 

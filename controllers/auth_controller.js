@@ -10,7 +10,7 @@ const usersController = require("./users_controller");
 //Packages / Imports
 const axios = require('axios');
 const queryString = require('query-string');
-const meetupService = require('../services/meetupService');
+const meetupService = require('../services/MeetupService');
 
 /*
     Authenticate the user on Meetup.com and return an access token and refresh token.
