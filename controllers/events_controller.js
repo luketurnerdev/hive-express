@@ -158,7 +158,7 @@ async function suggestions(req, res) {
     .sort({ created_at: "desc" });
 
   // Pass the suggested events to the view
-  res.render("events/suggestions", { events });
+  res.json(events);
 }
 
 // PUT to "/events/recommend/:id"
