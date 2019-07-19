@@ -1,48 +1,52 @@
 const { Schema } = require("mongoose");
 
-const reviewSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    required: true
-  },
-  event: {
-    type: Schema.Types.ObjectId,
-    required: true
-  },
-  rating: {
-    food: {
-      type: Number,
-      required: true,
-      min: 1,
-      max: 5
+const reviewSchema = new Schema(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true
     },
-    drinks: {
-      type: Number,
-      required: true,
-      min: 1,
-      max: 5
+    event: {
+      type: Schema.Types.ObjectId,
+      ref: "event",
+      required: true
     },
-    talks: {
-      type: Number,
-      required: true,
-      min: 1,
-      max: 5
+    rating: {
+      food: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      },
+      drinks: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      },
+      talks: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      },
+      vibe: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      }
     },
-    vibe: {
-      type: Number,
+    comment: {
+      type: String,
       required: true,
-      min: 1,
-      max: 5
+      trim: true
     }
   },
-  comment: {
-    type: String,
-    required: true,
-    trim: true
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
   }
-},
-{
-  timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
-});
+);
 
 module.exports = reviewSchema;
