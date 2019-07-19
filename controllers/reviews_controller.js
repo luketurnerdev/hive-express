@@ -25,19 +25,15 @@ async function index(req, res) {
   // if user is an admin
   if (user.admin === true) {
     // find all reviews
-    console.log("User is an admin");
     let reviews = await Review.find()
       .sort({ created_at: "desc" })
       .catch(err => console.log(err));
-
     return res.json(reviews);
   } else {
     // find all of the user's reviews
-    console.log("User IS NOT an admin");
     let reviews = await Review.find({ user: user.id }).catch(err =>
       console.log(err)
     );
-
     return res.json(reviews);
   }
 }
