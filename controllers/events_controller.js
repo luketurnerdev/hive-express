@@ -6,9 +6,9 @@ const axios = require("axios");
 // Show all events in DB
 async function index(req, res) {
   // Find all events and sort by their creation date
-  let events = await Event.find().sort({ created_at: "desc" });
-  // pass list of events to the view
-  return res.json(events);
+  let events = await Event.find().sort({ created_at: "desc" })
+    .then(resp => res.json(resp))
+    .catch(err => res.status(404).send(err));
 }
 
 // POST to "/events/create"
