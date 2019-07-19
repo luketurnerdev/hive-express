@@ -10,164 +10,144 @@ const Review = require("./../database/models/review_model");
 // GET to "/reviews"
 // Show all reviews to admin
 async function index(req, res) {
-    // if "tokens" cookie isn't found
-    if (!req.cookies.tokens) {
-        // redirect to homepage
-        return res.redirect("/")
-    }
+  // if "tokens" cookie isn't found
+  if (!req.cookies.tokens) {
+    // redirect to homepage
+    return res.redirect("/");
+  }
 
-    // find user with accessToken
-    let accessToken = req.cookies.tokens.access_token;
-    let user = await User
-        .find({ access_token: accessToken })
-        .catch(err => console.log(err));
-    
-    // issue:
-    // user isn't defined in time for the code below...
-    // so user.admin is undefined when it checks
+  // find user with accessToken
+  let accessToken = req.cookies.tokens.access_token;
+  let user = await User.find({ access_token: accessToken }).catch(err =>
+    console.log(err)
+  );
 
-    // if user is not an admin
-    if (user.admin === false) {
-        // get all of the user's reviews
-        console.log(user.admin)
-        console.log("User is NOT an admin")
-        let reviews = await Review
-            .find({ "user": user.id })
-            .catch(err => console.log(err));
+  // issue:
+  // user isn't defined in time for the code below...
+  // so user.admin is undefined when it checks
 
-        return res.send(`<pre>${reviews}</pre>`)
-    } else {
-        // otherwise get all reviews
-        console.log(user.admin)
-        console.log("User IS an admin")
-        let reviews = await Review
-            .find()
-            .sort({ created_at: "desc" })
-            .catch(err => console.log(err));
+  // if user is not an admin
+  if (user.admin === false) {
+    // get all of the user's reviews
+    console.log(user.admin);
+    console.log("User is NOT an admin");
+    let reviews = await Review.find({ user: user.id }).catch(err =>
+      console.log(err)
+    );
 
-        return res.send(`<pre>${reviews}</pre>`)
-    }
+    return res.send(`<pre>${reviews}</pre>`);
+  } else {
+    // otherwise get all reviews
+    console.log(user.admin);
+    console.log("User IS an admin");
+    let reviews = await Review.find()
+      .sort({ created_at: "desc" })
+      .catch(err => console.log(err));
+
+    return res.send(`<pre>${reviews}</pre>`);
+  }
 }
 
 // GET to "/events/:id/reviews"
 // Display form for the user to leave a review for an event.
 async function newReview(req, res) {
-    let event =  await Event.findById(req.params.id)
-    let accessToken = req.cookies.tokens.access_token;
+  let event = await Event.findById(req.params.id);
+  let accessToken = req.cookies.tokens.access_token;
 
-    let user = await User
-    .findOne({access_token: accessToken})
-    .catch(err => console.error(
+  let user = await User.findOne({ access_token: accessToken }).catch(err =>
+    console.error(
       `COULD NOT FIND USER WITH access_token: ${accessToken}\n`,
       err.message
-    ));
+    )
+  );
 
-    let user_id = user._id;
-    console.log(user_id);
+  let user_id = user._id;
+  console.log(user_id);
 
-    res.render("reviews/new_review", {event, user_id} )
+  res.render("reviews/new_review", { event, user_id });
 }
 
 // POST to "/reviews"
 // Create a review in the database when the user submits form.
 async function create(req, res) {
-    // destructure values from req.body
-    let {
-        user_id: user,   // rename user_id to user
-        event_id: event, // rename event_id to event
-        message: comment // rename message to comment
-    } = req.body;
+  // destructure values from req.body
+  let {
+    user_id: user, // rename user_id to user
+    event_id: event, // rename event_id to event
+    message: comment // rename message to comment
+  } = req.body;
 
-    // dummy data for rating
-    let rating = {
-        food: 5,
-        drinks: 3,
-        talks: 1,
-        vibe: 4
-    }
+  // dummy data for rating
+  let rating = {
+    food: 5,
+    drinks: 3,
+    talks: 1,
+    vibe: 4
+  };
 
-    //Create db entry
-    let review = await Review.create({
-        user,
-        event,
-        comment,
-        rating
-    })
+  //Create db entry
+  let review = await Review.create({
+    user,
+    event,
+    comment,
+    rating
+  })
     .then(response => console.log("Review Created: ", response))
     .catch(err => console.log(err));
 
-    res.redirect("/events");
+  res.redirect("/events");
 }
 
 // GET to "events/:id/reviews"
 // Display all reviews for a specific event.
 async function eventReviews(req, res) {
-    // Get event with id from url
-    let event = Event
-        .findById(req.params.id)
-        .catch(err => console.log(err));
+  // Get event with id from url
+  let event = Event.findById(req.params.id).catch(err => console.log(err));
 
-    // Get reviews associated with that event
-    let reviews = Review
-        .find({ event: req.params.id })
-        .catch(err => console.log(err));
+  // Get reviews associated with that event
+  let reviews = Review.find({ event: req.params.id }).catch(err =>
+    console.log(err)
+  );
 
-    // await both event and reviews
-    await Promise.all([event, reviews])
-        .then(resp => {
-            return resp[1].map(async review => {
-                return review.user = await User.findById(review.user)
-            });
-        });
-
-    console.log(reviews)
-    // for (let review of data[1]) {
-    //     let user = await User.findById(review.user)
-    //     .then(resp => {
-    //         console.log(resp);
-    //         review.user = resp;
-    //         console.log(review);
-    //         });
-    //         console.log(user);
-    //     }
-        //replace user values (ids) in reviews with full user objects
-        // data[1].map(async (review) => {        
-    //     let user = await User.findById(review.user);
-    //     review.user = user;
-    //     console.log(review.user);
-    // });
-
-    //console.log(reviews)
-
-    res.render("reviews/event_reviews", { event, reviews });
+  // await both event and reviews
+  await Promise.all([event, reviews])
+    .then(resp => {
+      let reviewsPlusUserData = resp[1].map(async review => {
+        let user = await User.findById(review.user);
+        return [review, user];
+      });
+      resp[1] = reviewsPlusUserData;
+      return resp;
+    })
+    .then(resp => res.json(resp));
 }
 
 //Edit a review with the new values
 //Rating should be passed in as an object of the 4 categories
 async function update(req, res) {
-    console.log(req.body);
-    let {id, rating, comment} = req.body;
-    await Review.update(
-      { _id:id },
-      {
-        $set: {
-          rating: rating,
-          comment: comment
-        }
+  console.log(req.body);
+  let { id, rating, comment } = req.body;
+  await Review.update(
+    { _id: id },
+    {
+      $set: {
+        rating: rating,
+        comment: comment
       }
-    )
-      .then(item => {
-        console.log(`Successfully updated review.`);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    }
+  )
+    .then(item => {
+      console.log(`Successfully updated review.`);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 module.exports = {
-    newReview,
-    create,
-    index,
-    eventReviews,
-    update
-}
+  newReview,
+  create,
+  index,
+  eventReviews,
+  update
+};
