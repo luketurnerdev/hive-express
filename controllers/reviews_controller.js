@@ -18,33 +18,27 @@ async function index(req, res) {
 
   // find user with accessToken
   let accessToken = req.cookies.tokens.access_token;
-  let user = await User.find({ access_token: accessToken }).catch(err =>
+  let user = await User.findOne({ access_token: accessToken }).catch(err =>
     console.log(err)
   );
 
-  // issue:
-  // user isn't defined in time for the code below...
-  // so user.admin is undefined when it checks
-
-  // if user is not an admin
-  if (user.admin === false) {
-    // get all of the user's reviews
-    console.log(user.admin);
-    console.log("User is NOT an admin");
-    let reviews = await Review.find({ user: user.id }).catch(err =>
-      console.log(err)
-    );
-
-    return res.send(`<pre>${reviews}</pre>`);
-  } else {
-    // otherwise get all reviews
-    console.log(user.admin);
-    console.log("User IS an admin");
+  // if user is an admin
+  if (user.admin === true) {
+    // find all reviews
+    console.log("User is an admin");
     let reviews = await Review.find()
       .sort({ created_at: "desc" })
       .catch(err => console.log(err));
 
-    return res.send(`<pre>${reviews}</pre>`);
+    return res.json(reviews);
+  } else {
+    // find all of the user's reviews
+    console.log("User IS NOT an admin");
+    let reviews = await Review.find({ user: user.id }).catch(err =>
+      console.log(err)
+    );
+
+    return res.json(reviews);
   }
 }
 
