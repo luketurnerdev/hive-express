@@ -10,7 +10,6 @@ function index(req, res) {
 //Import access and refresh tokens from authorization
 //Do get request here for user info, store it in a variable and then write it to the DB
 
-
 async function create(req, res) {
   let {
     meetup_uid,
@@ -38,14 +37,16 @@ async function create(req, res) {
     refresh_token,
     created_at,
     updated_at
-  }).then(response => {
-    console.log("Successfully created new user!")
-  }).catch(err => res.status(500).send(err));
+  })
+    .then(response => {
+      console.log("Successfully created new user!");
+    })
+    .catch(err => res.status(500).send(err));
 
   res.send(req.body);
 }
 
-async function update(id, newValues) {
+async function updateTokens(id, newValues) {
   await User.update(
     { meetup_uid: id },
     {
@@ -63,12 +64,60 @@ async function update(id, newValues) {
     });
 }
 
+async function confirmUser(req, res) {
+
+    let id = req.params.id || null;
+    await User.update(
+    { _id: id },
+    {
+      $set: {
+          confirmed:true
+      }
+    }
+  )
+    .then(item => {
+      console.log(`Successfully confirmed user with id: ${id}`);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    res.redirect("/account_requests")
+  
+}
+
 //'delete' is a reserved word, using deleteUser instead
-async function deleteUser(id) {
-  user = User.findById(id);
-  User.deleteOne({id: id});
+async function deleteUser(req, res) {
+
+  let id = req.params.id;
+  console.log(id);
+  await User.findByIdAndRemove(id);
+
+
+  console.log("Deleted user.");
+  res.redirect("/account_requests");
+}
+
+// GET to "/users/request"
+// Display form for user to send a message to admin
+async function newAccountRequest(req, res) {
+  // if "tokens" cookie isn't found
+  if (!req.cookies.tokens) {
+    // redirect to homepage
+    console.log("***TOKENS WERE NOT FOUND***");
+    return res.redirect("/");
   }
 
+  // Find current user
+  let accessToken = req.cookies.tokens.access_token;
+  let user = await User.findOne({ access_token: accessToken });
+
+  res.render("users/request", { user });
+}
+
+// PUT to "/users/request"
+function createAccountRequest(req, res) {
+  res.send(req.body);
+}
 
 async function show(req, res) {
   let user = await User.findById(req.params.id).catch(err => {
@@ -77,11 +126,13 @@ async function show(req, res) {
   res.render("users/show", { user });
 }
 
-
 module.exports = {
   index,
   create,
-  update,
+  updateTokens,
+  confirmUser,
   show,
-  deleteUser
+  deleteUser,
+  newAccountRequest,
+  createAccountRequest
 };

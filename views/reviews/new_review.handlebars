@@ -1,0 +1,22 @@
+<h1> Leave a review on {{event.name}}</h1>
+<p>Date: {{event.local_date}}, {{event.local_time}}</p>
+
+<form action="/reviews" method="post" id="ratings-form">
+	<input type="hidden" name="event_id" value="{{event.id}}">
+	<input type="hidden" name="user_id" value="{{user_id}}">
+	<div id='ratings'>
+		<h2> Ratings</h2>
+		<p>Food</p>
+
+	</div>
+	<p>
+		Additional comments: {{user_id}}
+	</p>
+	 <p>
+		<textarea required name="message"></textarea>
+	</p>
+	<p>
+		<input type="submit" value="Submit">
+	</p> 
+</form>
+

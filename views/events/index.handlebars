@@ -7,7 +7,12 @@
   Link: {{link}}
   <br>
   ID: {{_id}}
+  <br>
+  Suggested: {{suggested.is_suggested}}
+  <a href="/events/{{id}}/new_review">
+    <button>Leave a review</button>
+  </a>
 </p>
 {{else}}
-<p>There are no events to display.</p>
+  <p>There are no events to display.</p>
 {{/each}}

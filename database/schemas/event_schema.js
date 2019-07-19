@@ -1,13 +1,17 @@
 const { Schema } = require("mongoose");
 
 const eventSchema = new Schema({
+  meetup_id: {
+    type: String,
+    required: true
+  },
   link: {
     type: String,
     required: true
   },
   photo_link: {
-    type: String,
-    required: true
+    type: String
+    //required: true
   },
   name: {
     type: String,
@@ -18,29 +22,47 @@ const eventSchema = new Schema({
     required: true
   },
   local_date: {
-    type: Date,
+    type: String,
     required: true
   },
   local_time: {
-    type: Date,
+    type: String,
     required: true
   },
-  how_to_find_us: {
-    type: String,
-    required: true,
-    trim: true
+  status: {
+    type: String
+    //required: true
+  },
+  location: {
+    name: {
+      type: String,
+      required: true
+    },
+    address: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    how_to_find_us: {
+      type: String,
+      //required: true,
+      trim: true
+    }
   },
   attendance_count: {
-    type: Number,
-    required: true
+    type: Number
+    //required: true
   },
   guest_limit: {
-    type: Number,
-    required: true
+    type: Number
+    //required: true
   },
   rsvp_limit: {
-    type: Number,
-    required: true
+    type: Number
+    //required: true
   },
   description: {
     type: String,
@@ -53,19 +75,19 @@ const eventSchema = new Schema({
     required: true,
     default: false
   },
-  student_suggested: {
-    type: Boolean,
-    required: true,
-    default: false
-  },
-  created_at: {
-    type: Date,
-    default: Date.now
-  },
-  updated_at: {
-    type: Date,
-    default: Date.now
+  suggested: {
+    is_suggested: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    suggested_by: Schema.Types.ObjectId,
+    message: String,
   }
-});
+},
+{
+  timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
+}
+);
 
 module.exports = eventSchema;
