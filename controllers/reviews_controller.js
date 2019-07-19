@@ -91,8 +91,31 @@ async function create(req, res) {
     res.redirect("/events");
 }
 
+//Edit a review with the new values
+//Rating should be passed in as an object of the 4 categories
+async function update(req, res) {
+    console.log(req.body);
+    let {id, rating, comment} = req.body;
+    await Review.update(
+      { _id:id },
+      {
+        $set: {
+          rating: rating,
+          comment: comment
+        }
+      }
+    )
+      .then(item => {
+        console.log(`Successfully updated review.`);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
 module.exports = {
     newReview,
     create,
-    index
+    index,
+    update
 }
