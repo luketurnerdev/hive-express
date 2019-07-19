@@ -40,6 +40,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routes from /routes
 app.use(require("./routes"));
 
+// Error Handler Middleware
+app.use(require("./middleware/error_handler_middleware"));
+
 //Route specific middleware
 // app.use("/", (req, res, next) => {
 //   console.log("This is middleware for a specific route.");

@@ -4,39 +4,38 @@ const axios = require("axios");
 
 // GET to "/events"
 // Show all events in DB
-async function index(req, res) {
+async function index(req, res, next) {
   // Find all events and sort by their creation date
   let events = await Event.find().sort({ created_at: "desc" })
+    // return the response as json
     .then(resp => res.json(resp))
-    .catch(err => res.status(404).send(err));
+    .catch(err => next(new HTTPError(404, err)));
 }
 
 // POST to "/events/create"
 // Create an event and add to DB
 async function create(req, res) {
-  // destructure from values
-  let { id, groupUrlname, message } = req.body;
-
   // ** TODO **
   // Restrict this page to admin users only.
 
   // ** TODO **
   // validate for empty message.
   // (it's required in the schema)
-
+  
   // ** TODO **
   // Handle events with no venue...
   // Maybe just don't recommend those in dashboard
 
+  // destructure from values
+  let { id, groupUrlname, message } = req.body;
+
   // get user with access_token
   let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({ access_token: accessToken }).catch(err =>
-    console.error(
-      `COULD NOT FIND USER WITH access_token: ${accessToken}\n`,
-      err.message
-    )
-  );
-
+  let user = await User
+    .findOne({ access_token: accessToken })
+    .then(resp => console.log(resp))
+    .catch(err => res.next(new HTTPError(404, err)));
+  
   // get event with req.body.id
   let meetup = await axios
     .get(`https://api.meetup.com/${groupUrlname}/events/${id}`, {
