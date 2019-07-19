@@ -9,3 +9,16 @@
         //the hive is the source of truth for attendance etc
         //Maybe have colour coding for descrepencies between meetup and the hive
         //login and signup are the same button - just different comparisons
+
+        Auth strategies...
+
+        Make a local strategy for pure admin accounts, 
+        have an array of accepted admin emails
+
+        if you login with one of these ,mark them as admin:true in the database
+        stretch: have an admin user that can add to this list .. have an admins schema that holds the email addresses
+
+        TODO: make diagram of access token user verification
+
+        
+

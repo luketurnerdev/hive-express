@@ -13,7 +13,7 @@ router.get("/register", pagesController.register);
 router.post("/register", usersController.create);
 
 //Update a user's tokens
-router.put("/register", usersController.update);
+router.put("/register", usersController.updateTokens);
 
 //Direct the user to authenticate on Meetup.com
 //This takes them to a callback route below
@@ -24,10 +24,5 @@ router.get('/callback', authController.meetupAuth);
 
 //If the user already exists in the db,
 // run the below code to update their tokens
-
-//PUT / PATCH METHODS 
-
-// router.put("/register", userController.update);
-// router.patch("/register", userController.update);
 
 module.exports = router;

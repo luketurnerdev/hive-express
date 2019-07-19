@@ -1,17 +1,28 @@
-<h1>Dashboard</h1>
+<h1>{{user.name}}'s Dashboard</h1>
+{{!-- <h2><a href=`/users/${{{user.id}}}`>Click here to access your profile</a></h2> --}}
+<p>
+  <a href="/users/{{user.id}}">Click here to go to your profile page.</a>
+</p>
+<p>
+  <img 
+    src="https://secure.meetupstatic.com/photos/member/4/d/e/3/member_280939939.jpeg" 
+    alt="profile picture for {{user.name}}"
+  >
+</p>
 
 <hr>
 
 {{#each upcomingMeetups}}
+<p>{{name}}</p>
 <p> 
-  {{#group}}
-    Hosted By: {{name}}
-  {{/group}}
+  Group: {{group.name}}
 </p>
 <p>
-  <a href="/events/{{#group}}{{urlname}}{{/group}}/{{id}}">View</a>
-  <button type="button">Attend</button>
-  <button type="button">Suggest</button>
+  <a href="/events/{{group.urlname}}/{{id}}">View</a>
+  &nbsp;|&nbsp;
+  <a href="/events/suggest/{{id}}?group={{group.urlname}}">Suggest this event to Coder Academy</a>
+  &nbsp;|&nbsp;
+  <a href="#">Attend</a>
 </p>
 <hr>
 {{else}}
