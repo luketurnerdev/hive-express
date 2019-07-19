@@ -6,8 +6,12 @@ const reviewsController = require("./../controllers/reviews_controller");
 
 //View all reviews
 router.get("/", reviewsController.index);
+
 //Post a new review
 router.post("/", reviewsController.create);
+
+//Edit an existing review
+router.put("/", reviewsController.update);
 
 module.exports = router;
 
