@@ -42,7 +42,28 @@ async function accountRequests(req, res) {
     // return res.redirect("/dashboard")
   }
 
-  res.render("pages/account_requests", {user, unconfirmedAccounts})
+
+
+  //Check if user is admin
+  //If yes, render json {unconfirmedAccounts}
+  //Otherwise redirect to dashboard or request_access page
+
+  if (user.admin){
+    res.json(unconfirmedAccounts);
+  } else {
+    user.confirmed ? res.redirect("/dashboard") : res.redirect("/");
+  }
+
+
+
+  //If no, check if their account is confirmed. 
+
+  //If confirmed, redirect to dashboard
+
+  //If not, redirect to request access page
+
+
+  // res.render("pages/account_requests", {user, unconfirmedAccounts})
 }
 
 // Show dashboard with user's events and list upcoming meetups
@@ -123,10 +144,6 @@ async function toggleConfirmed(req, res) {
    let accessToken = req.cookies.tokens.access_token;
    let user = await User.findOne({access_token: accessToken});
   
-  
-  
-  
-  
   if (user.confirmed === false){
     console.log('user is unconfirmed');
     await User.findByIdAndUpdate(user._id, {
@@ -144,11 +161,32 @@ async function toggleConfirmed(req, res) {
   res.redirect("/");
 }
 
+async function toggleAdmin(req, res) {
+
+  // Find current user
+  let accessToken = req.cookies.tokens.access_token;
+  let user = await User.findOne({access_token: accessToken});
+ 
+ if (user.admin === false){
+   await User.findByIdAndUpdate(user._id, {
+      admin: true
+   });
+ } else {
+await User.findByIdAndUpdate(user._id, {
+     admin: false
+   });
+ }
+ 
+
+ res.redirect("/");
+}
+
 
 module.exports = {
    homepage,
    register,
    dashboard,
    accountRequests,
-   toggleConfirmed
+   toggleConfirmed,
+   toggleAdmin
 };

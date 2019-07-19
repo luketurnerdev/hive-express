@@ -16,6 +16,9 @@ router.get("/account_requests", pagesController.accountRequests);
 // [DEBUG] Toggle user's 'confirmed' status on and off
 router.get("/toggleconfirmed", pagesController.toggleConfirmed);
 
+// [DEBUG] Toggle user's 'admin' status on and off
+router.get("/toggleadmin", pagesController.toggleAdmin);
+
 // Dashboard
 router.get("/dashboard", pagesController.dashboard);
 
