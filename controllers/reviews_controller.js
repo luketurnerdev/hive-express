@@ -22,23 +22,31 @@ async function index(req, res) {
         .find({ access_token: accessToken })
         .catch(err => console.log(err));
     
-    let reviews;
+    // issue:
+    // user isn't defined in time for the code below...
+    // so user.admin is undefined when it checks
+
     // if user is not an admin
     if (user.admin === false) {
         // get all of the user's reviews
-        reviews = await Review
-            .find({ "user": user._id })
+        console.log(user.admin)
+        console.log("User is NOT an admin")
+        let reviews = await Review
+            .find({ "user": user.id })
             .catch(err => console.log(err));
+
+        return res.send(`<pre>${reviews}</pre>`)
     } else {
         // otherwise get all reviews
-        reviews = await Review
+        console.log(user.admin)
+        console.log("User IS an admin")
+        let reviews = await Review
             .find()
             .sort({ created_at: "desc" })
             .catch(err => console.log(err));
+
+        return res.send(`<pre>${reviews}</pre>`)
     }
-    
-    // send reviews to view
-    return res.send(reviews)
 }
 
 // GET to "/events/:id/reviews"
@@ -91,6 +99,49 @@ async function create(req, res) {
     res.redirect("/events");
 }
 
+// GET to "events/:id/reviews"
+// Display all reviews for a specific event.
+async function eventReviews(req, res) {
+    // Get event with id from url
+    let event = Event
+        .findById(req.params.id)
+        .catch(err => console.log(err));
+
+    // Get reviews associated with that event
+    let reviews = Review
+        .find({ event: req.params.id })
+        .catch(err => console.log(err));
+
+    // await both event and reviews
+    await Promise.all([event, reviews])
+        .then(resp => {
+            return resp[1].map(async review => {
+                return review.user = await User.findById(review.user)
+            });
+        });
+
+    console.log(reviews)
+    // for (let review of data[1]) {
+    //     let user = await User.findById(review.user)
+    //     .then(resp => {
+    //         console.log(resp);
+    //         review.user = resp;
+    //         console.log(review);
+    //         });
+    //         console.log(user);
+    //     }
+        //replace user values (ids) in reviews with full user objects
+        // data[1].map(async (review) => {        
+    //     let user = await User.findById(review.user);
+    //     review.user = user;
+    //     console.log(review.user);
+    // });
+
+    //console.log(reviews)
+
+    res.render("reviews/event_reviews", { event, reviews });
+}
+
 //Edit a review with the new values
 //Rating should be passed in as an object of the 4 categories
 async function update(req, res) {
@@ -111,11 +162,12 @@ async function update(req, res) {
       .catch(err => {
         console.log(err);
       });
-  }
+}
 
 module.exports = {
     newReview,
     create,
     index,
+    eventReviews,
     update
 }
