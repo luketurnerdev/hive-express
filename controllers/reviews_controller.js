@@ -13,31 +13,26 @@ const Review = require("./../database/models/review_model");
 
 // GET to "/reviews"
 // Show all reviews to admin
-async function index(req, res) {
-  // if "tokens" cookie isn't found
-  if (!req.cookies.tokens) {
-    // redirect to homepage
-    return res.redirect("/");
-  }
-
-  // find user with accessToken
-  let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({ access_token: accessToken }).catch(err =>
-    console.log(err)
-  );
+async function index(req, res, next) {
+  // find current user with access token
+  let user = await findUser(req, next);
 
   // if user is an admin
   if (user.admin === true) {
     // find all reviews
-    let reviews = await Review.find()
+    let reviews = await Review
+      .find()
       .sort({ created_at: "desc" })
-      .catch(err => console.log(err));
+      .catch(err => next(new HTTPError(404, "Failed to find reviews.")));
+
     return res.json(reviews);
-  } else {
+  }
+  else {
     // find all of the user's reviews
-    let reviews = await Review.find({ user: user.id }).catch(err =>
-      console.log(err)
-    );
+    let reviews = await Review
+      .find({ usrer: user.id })
+      .catch(err => next(new HTTPError(404, "Failed to find user's reviews.")));
+
     return res.json(reviews);
   }
 }
@@ -128,6 +123,31 @@ async function update(req, res) {
     .catch(err => {
       console.log(err);
     });
+}
+
+/*  
+ *  Find a user in the database using the access_token stored in cookies.
+ *  If unsuccessful, call error handler middleware.
+ */
+async function findUser(req, next){
+  try {
+    // get access token from cookies
+    let accessToken = req.cookies.tokens.access_token;
+    // check the token
+    if (!accessToken) throw new HTTPError(404, "Missing user's access_token.");
+
+    // find user with access token
+    return await User
+      .findOne({ access_token: accessToken })
+      .then(resp => {
+        // check the response
+        if (!resp) throw new HTTPError(404, "User not found.");
+        else return resp;
+      })
+    } catch(err) {
+    // If errors, return with error middleware
+    return next(err);
+  };
 }
 
 module.exports = {
