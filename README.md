@@ -104,7 +104,27 @@ As the staff:
 6. Object Relational Mapping (ORM)
 *ORM accurately reflects an efficient and practical database design for project, using correct ORM symbology*
 
-![ORM](docs/orm.jpg)
+We changed the ORM according to what we realized the project needed while we were building both apps (React and Express).
+
+This was the first version:
+![Initial ORM](docs/orm.jpg)
+
+And this is the last, definite, version:
+![Last ORM](docs/new_orm.jpg)
+
+Several things have changed:
+1. In the events schema:
+* From student_suggested to suggested: firstly, we chose a boolean to know if a single event had been suggested (by a hiver) or not. However, we realized we were missing a message the hiver could write to explain why they were suggesting that specific event. Therefore, we turned the property into an object called suggested, containing a boolean again (is_suggested), the message, and another one named suggested_by, being the latter the id of the user (thus, a number) who suggested it.
+* Different content of location: in order to display the address where the meetup is happening, the address itself (how_to_find_us, as called in MeetUp API) and latitude and longitude (lat and lon, respectively), seemed a good option, in case we decided using the Google Maps API to render a map. Nevertheless, and although we kept the how_to_find_us property, we got rid of the coordinates and added name, address and city. WHAT ARE THEY FOR?
+* A picture as part of the event information: in the final version of the ORM, there is a photo_link property which refers to the url that leads to the event main image.
+
+2. In the reviews:
+* A matter of names: in the first version, we named this schema "ratings", inside of which there was a property called "score". Now, we substituded both titles by "reviews" and "rating", respectively, as we thought it made more sense. Rating stands for a "mark", a numeric or quantitative information to value something, whereas review has a more qualitative meaning (it includes the comment the user posts, linked to the event).
+
+3. In the users:
+* More explicit: instead of "avatar", we ended up using the property "photo".
+* Just what we needed: as we decided users could only sign in/up with their MeetUp account, no password was needed. Moreover, we realized there was no point of keeping the date and moment of creation or update of the user's Hiver account. In addition, we limited the name data to a unique value called "name", instead of splitting it into first and last names.
+
 
 7. Project plan and effort estimation
 
