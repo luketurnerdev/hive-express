@@ -71,7 +71,9 @@ async function create(req, res, next) {
   let review = await Review
     .create({ user, event, comment, rating })
     .then(resp => res.json(resp))
-    .catch(err => next(new HTTPError(400, "Failed to create review.")));
+    .catch(err => next(new HTTPError(400, "Failed to add review to database.")));
+
+  return review;
 }
 
 // GET to "events/:id/reviews"
