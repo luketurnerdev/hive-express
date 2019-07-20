@@ -78,18 +78,27 @@ async function create(req, res, next) {
 
 // GET to "events/:id/reviews"
 // Display all reviews for a specific event.
-async function eventReviews(req, res) {
+async function eventReviews(req, res, next) {
+  // destructure id from req.params
+  let { id } = req.params;
+
   // Get event with id from url
-  let event = await Event.findById(req.params.id).catch(err =>
-    console.log(err)
-  );
+  let event = await Event
+    .findById(id)
+    .then(resp => {
+      // if null response, return an error
+      if (!resp) next(new HTTPError(404, `Could not find event with id: ${id}`));
+      else return resp;
+    })
+    .catch(err => next(new HTTPError(404, err)));
 
   // Get reviews associated with that event
-  let reviews = await Review.find({ event: req.params.id })
+  let reviews = await Review
+    .find({ event: req.params.id })
     .populate("user")
-    .catch(err => console.log(err));
+    .catch(err => next(new HTTPError(404, err)));
 
-  res.json([event, reviews]);
+  return res.json([event, reviews]);
 }
 
 //Edit a review with the new values
