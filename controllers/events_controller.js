@@ -164,10 +164,14 @@ async function suggestions(req, res, next) {
 // PUT to "/events/recommend/:id"
 // Update this event so that ca_recommended = true.
 async function recommend(req, res) {
-  await Event.findByIdAndUpdate(req.params.id, {
-    ca_recommended: true
-  });
-  res.redirect("/events/suggestions");
+  await Event
+    .findByIdAndUpdate(req.params.id, {
+      ca_recommended: true
+    })
+    .then(resp => res.json(resp))
+    .catch(err => next(new HTTPError(500, "Failed to update the event.")));
+  //res.redirect("/events/suggestions");
+  //should we redirect here or on the front-end?
 }
 
 // DELETE to "/events/:id"
