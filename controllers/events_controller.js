@@ -184,6 +184,7 @@ async function destroy(req, res) {
 
 /*  
  *  Find a user in the database using the access_token stored in cookies.
+ *  If unsuccessful, call error handler middleware.
  */
 async function findUser(req, next){
   try {
@@ -203,6 +204,32 @@ async function findUser(req, next){
     } catch(err) {
     // If errors, return with error middleware
     return next(err);
+  };
+}
+
+/* 
+ * Use axios to query Meetup API with a 
+ *  GET request to https://api.meetup.com/:group/events/:id
+ */
+async function findMeetupEvent(next, group, id, accessToken) {
+  try {
+    await axios
+      .get(`https://api.meetup.com/${group}/events/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+      .then(resp => {
+        if (!resp.data) {
+          throw new HTTPError(resp.response.status, resp.response.data);
+        }
+        else {
+          console.log(resp.data);
+          return resp.data;
+        }
+      })
+  } catch(err) {
+    return next(err) 
   };
 }
 
