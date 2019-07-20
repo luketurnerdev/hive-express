@@ -6,6 +6,9 @@ const axios = require("axios");
 function homepage(req, res) {
   console.log("COOKIES:", req.cookies);
   
+  //TODO: We might need to instead pass some information to React 
+  // here instead of rendering handlebars?
+  
   res.render("pages/homepage");
 }
 
