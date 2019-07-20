@@ -55,33 +55,27 @@ async function newReview(req, res, next) {
 
 // POST to "/reviews"
 // Create a review in the database when the user submits form.
-async function create(req, res) {
+async function create(req, res, next) {
   // destructure values from req.body
   let {
-    user_id: user, // rename user_id to user
+    user_id: user,   // rename user_id to user
     event_id: event, // rename event_id to event
     message: comment // rename message to comment
   } = req.body;
 
-  // dummy data for rating
-  let rating = {
-    food: 5,
-    drinks: 3,
-    talks: 1,
-    vibe: 4
+  // if comment is blank, return an error
+  if (!comment.trim()) {
+    return next(new HTTPError(400, "Comment is required and must not be blank."));
   };
+  
+  // dummy data for rating
+  let rating = { food: 5, drinks: 3, talks: 1, vibe: 4 };
 
   //Create db entry
-  let review = await Review.create({
-    user,
-    event,
-    comment,
-    rating
-  })
-    .then(response => console.log("Review Created: ", response))
-    .catch(err => console.log(err));
-
-  res.redirect("/events");
+  let review = await Review
+    .create({ user, event, comment, rating })
+    .then(resp => res.json(resp))
+    .catch(err => next(new HTTPError(400, "Failed to create review.")));
 }
 
 // GET to "events/:id/reviews"
