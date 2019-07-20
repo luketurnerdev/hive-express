@@ -7,10 +7,6 @@ const Event = require("./../database/models/event_model");
 //Review Model
 const Review = require("./../database/models/review_model");
 
-// ** TODO **
-  // validate for empty message.
-  // (it's required in the schema)
-
 // GET to "/reviews"
 // Show all reviews to admin
 // or Show current user's reviews to non-admin
@@ -67,7 +63,7 @@ async function create(req, res, next) {
   if (!comment.trim()) {
     return next(new HTTPError(400, "Comment is required and must not be blank."));
   };
-  
+
   // dummy data for rating
   let rating = { food: 5, drinks: 3, talks: 1, vibe: 4 };
 
