@@ -94,9 +94,9 @@ async function create(req, res, next) {
 
 }
 
-// GET to "/events/:id/suggest"
+// GET to "/events/suggest/:id"
 // Display a form for the user to write a message for suggesting/creating an event.
-async function newSuggestion(req, res) {
+async function newSuggestion(req, res, next) {
   let accessToken = req.cookies.tokens.access_token;
   let group = req.query.group;
   let id = req.params.id;
@@ -108,18 +108,19 @@ async function newSuggestion(req, res) {
       }
     })
     .then(resp => resp.data)
-    .catch(err => next(new HTTPError(500, "Failed to retrieve data from Meetup API.")));
+    .catch(err => next(new HTTPError(500, "Request failed to retrieve data from Meetup API.")));
 
-  return res.json(meetup);
+  res.render("events/suggest", { meetup });
+  // res.json(meetup)
 }
 
 // GET to "/events/:id"
 // Find (in DB) and show one event's details
-async function show(req, res) {
-  let meetup = await Event.findById(req.params.id).catch(err =>
-    res.status(404).send(err)
-  );
-  res.render("events/show", { meetup });
+async function show(req, res, next) {
+  let meetup = await Event
+    .findById(req.params.id)
+    .catch(err => next(new HTTPError(404, `Could not find event with ID: ${req.params.id}`)));
+  res.json(meetup);
 }
 
 // GET to "/events/:group/:id"
