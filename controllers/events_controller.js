@@ -124,11 +124,10 @@ async function show(req, res, next) {
 }
 
 // GET to "/events/:group/:id"
-// Request and display event data from meetup API
+// Find event data from meetup API
 async function showMeetup(req, res) {
   let { group, id } = req.params;
   let accessToken = req.cookies.tokens.access_token;
-
   let meetup = await axios
     .get(`https://api.meetup.com/${group}/events/${id}`, {
       headers: {
@@ -136,9 +135,10 @@ async function showMeetup(req, res) {
       }
     })
     .then(resp => resp.data)
-    .catch(err => console.error(err));
+    .catch(err => res.status(404).json(err));
+    //.catch(err => next(new HTTPError(404, err))); // <-- Err: Cannot set headers after they're sent to client
 
-  res.render("events/show", { meetup });
+  res.json(meetup);
 }
 
 // GET to "/events/suggestions"
