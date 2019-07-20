@@ -86,7 +86,6 @@ async function create(req, res, next) {
       // respond with 201 and the event object that was created
       return res.status(201).json(event);
     });
-
 }
 
 // GET to "/events/suggest/:id"
@@ -138,14 +137,15 @@ async function showMeetup(req, res) {
 
 // GET to "/events/suggestions"
 // Display events which are suggested and not recommended
-async function suggestions(req, res) {
-  //Restrict this page to admins only
-  let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({ access_token: accessToken });
-
-  if (!user.admin) {
-    res.redirect("/dashboard");
-  }
+async function suggestions(req, res, next) {
+  // Find the current user
+  let user = await findUser(req, next);
+  // If current user is not an admin, return an error
+  if (!user.admin) return next(
+      new HTTPError(401, "You must be an admin to view this page.")
+    );
+  //res.redirect("/dashboard")
+  //should we redirect here or on the front-end?
 
   // Find suggested events
   let events = await Event.find({
