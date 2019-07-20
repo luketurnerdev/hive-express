@@ -25,15 +25,13 @@ async function create(req, res, next) {
   }
 
   // find user with access_token
-  let accessToken = req.cookies.tokens.access_token;
-  let user = User.findOne({ access_token: accessToken })
-    .catch(err => next(new HTTPError(401, "Couldn't find user with the supplied access token.")));
+  let user = await findUser(req, next);
 
   // get event with req.body.id
   let meetup = axios
     .get(`https://api.meetup.com/${groupUrlname}/events/${id}`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`
+        Authorization: `Bearer ${user.access_token}`
       }
     })
     .then(resp => resp.data)
@@ -144,7 +142,6 @@ async function showMeetup(req, res) {
 // GET to "/events/suggestions"
 // Display events which are suggested and not recommended
 async function suggestions(req, res) {
-
   //Restrict this page to admins only
   let accessToken = req.cookies.tokens.access_token;
   let user = await User.findOne({ access_token: accessToken });
@@ -179,23 +176,29 @@ async function destroy(req, res) {
   res.redirect("/events");
 }
 
-async function findUser(req, res){
-  let accessToken = req.cookies.tokens.access_token;
-  if (accessToken) {
-    let user = await User.findOne({ access_token: accessToken })
-    .then(user => {
-      return user;
-    })
-    .catch(err =>
-    console.error(
-      `COULD NOT FIND USER WITH access_token: ${accessToken}\n`,
-      err.message
-  )
-);
-  } else {
-    res.redirect("/");
-  }
-  
+
+/*  
+ *  Find a user in the database using the access_token stored in cookies.
+ */
+async function findUser(req, next){
+  try {
+    // get access token from cookies
+    let accessToken = req.cookies.tokens.access_token;
+    // check the token
+    if (!accessToken) throw new HTTPError(404, "Missing user's access_token.");
+
+    // find user with access token
+    return await User
+      .findOne({ access_token: accessToken })
+      .then(resp => {
+        // check the response
+        if (!resp) throw new HTTPError(404, "User not found.");
+        else return resp;
+      })
+    } catch(err) {
+    // If errors, return with error middleware
+    return next(err);
+  };
 }
 
 module.exports = {
