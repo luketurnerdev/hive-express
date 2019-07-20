@@ -147,13 +147,17 @@ async function suggestions(req, res, next) {
   //res.redirect("/dashboard")
   //should we redirect here or on the front-end?
 
-  // Find suggested events
-  let events = await Event.find({
-    ca_recommended: false,
-    "suggested.is_suggested": true
-  }).sort({ created_at: "desc" });
+  // Find events suggested by users
+  let events = await Event
+    .find({
+      ca_recommended: false,
+      "suggested.is_suggested": true
+    })
+    .sort({ 
+      created_at: "desc" 
+    })
+    .catch(err => next(new HTTPError(404, "Failed to find suggested events.")));
 
-  // Pass the suggested events to the view
   res.json(events);
 }
 
