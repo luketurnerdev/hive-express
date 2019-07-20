@@ -27,7 +27,7 @@ async function index(req, res, next) {
   else {
     // find all of the user's reviews
     let reviews = await Review
-      .find({ usrer: user.id })
+      .find({ user: user.id })
       .catch(err => next(new HTTPError(404, "Failed to find user's reviews.")));
 
     return res.json(reviews);
@@ -101,26 +101,22 @@ async function eventReviews(req, res, next) {
   return res.json([event, reviews]);
 }
 
-//Edit a review with the new values
-//Rating should be passed in as an object of the 4 categories
-async function update(req, res) {
-  console.log(req.body);
+// PUT to "/reviews"
+// Update a review in the database
+async function update(req, res, next) {
   let { id, rating, comment } = req.body;
-  await Review.update(
-    { _id: id },
-    {
-      $set: {
-        rating: rating,
-        comment: comment
-      }
-    }
-  )
-    .then(item => {
-      console.log(`Successfully updated review.`);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+
+  // check presence of values in request body
+  if (!id) next(new HTTPError(400, "No valid review 'id' value in request body."));
+  if (!rating) next(new HTTPError(400, "No valid 'rating' value in request body."));
+  if (!comment.trim()) next(new HTTPError(400, "No valid 'comment' value in request body."));
+  
+  // update the review and return the updated document
+  let review = await Review
+    .findByIdAndUpdate(id, { rating, comment }, { new: true })
+    .catch(err => next(new HTTPError(500, err)));
+  
+  return res.json(review);
 }
 
 /*  
