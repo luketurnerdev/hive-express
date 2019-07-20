@@ -98,7 +98,7 @@ As the staff:
 *User-interface is highly intuitive, with no impediments to user flow*
 
 ### Design patterns
-
+![Design](docs/moodboard.jpg)
 
 
 6. Object Relational Mapping (ORM)
