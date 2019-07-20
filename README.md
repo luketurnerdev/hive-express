@@ -1,6 +1,6 @@
-#Readme - The Hive#
+# Readme - The Hive
 
-##The Code##
+## The Code
 *Separate your program into modules that each deal with one particular focus, or concern.-Excellent and complete separation of concerns demonstrating a strong understanding of software design*
 
 *Demonstrate DRY (Don’t Repeat Yourself) principles in all code.-Excellent use of DRY principles, every piece of knowledge has a single, unambiguous, authoritative representation*
@@ -26,7 +26,7 @@
 *Objects--Understands, utilises and manipulates Objects using a range of methods to benefit the solution.*
 
 
-##Project Management##
+## Project Management
 
 1. Record interactions with your client in a diary format
 2. Plan information gathering activities to determine project requirements, constraints and risks
@@ -44,7 +44,7 @@
 10. As a team, conduct post project review
 11. Create a questionnaire for the client to ascertain the satisfaction with your products and services
 
-##Application Design##
+## Application Design 
 
 1. Compose a summary of your application including problem definition and solution
 2. Review the conceptual design with the client and edit based on their feedback
@@ -73,7 +73,7 @@
 *Provides Object Oriented design diagrams(UML or alternative) that clearly identify OO class attributes, methods, relationships.*
 *Apply Object oriented principles/patterns--Superior use of object oriented principles/patterns; use of OO principles/patterns throughout application with positive impact on code maintainability and serviceability*
 
-##Tools & Methodologies##
+## Tools & Methodologies 
 
 1. Trello or similar project management tool to be used for Kanban process to track progress of build
 *Select and follow a commonly used planning methodology, such as Kanban, Trello, Jira, or Asana.-Simple and clear standards for planning methodology chosen and adhered to*
@@ -86,7 +86,7 @@
 4. Code review - Demonstrate that you have had your code reviewed by other students and that you have provided a code review for others
 5. Show evidence of client communication, e.g. meeting minutes, emails, or other communication tools
 
-##Short Answer Questions##
+## Short Answer Questions 
 
 1. What are the most important aspects of quality software?
 *List discuss and demonstrate 6 software quality characteristics.*
@@ -166,7 +166,7 @@ Bibliography:
 
 In this project several libraries have been integrated.
 
-####[React](https://github.com/facebook/react)####
+#### [React](https://github.com/facebook/react) 
 
 **React** is a "declarative, efficient, and flexible JavaScript library for building user interfaces" ([react, Facebook, GitHub](https://github.com/facebook/react)) reated by Facebook.
 
@@ -189,7 +189,7 @@ Bibliography:
 2. [react. Facebook. GitHub](https://github.com/facebook/react).
 3. [What Is ReactJS and Why Should We Use It? Nitin Pandit. C# Corner](https://www.c-sharpcorner.com/article/what-and-why-reactjs/).
 
-####[react-scripts](https://www.npmjs.com/package/react-scripts)####
+#### [react-scripts](https://www.npmjs.com/package/react-scripts) 
 
 One of the three dependencies generated in package.json when running create-react-app command. 
 
@@ -199,7 +199,7 @@ Bibliography:
 1. [Create React App: A quick setup guide. Esteban Herrera. LogRocket](https://blog.logrocket.com/create-react-app-a-quick-setup-guide-b812f0aad03c/).
 2. [react-scripts](https://www.npmjs.com/package/react-scripts).
 
-####[ReactDom](https://es.reactjs.org/docs/react-dom.html)####
+#### [ReactDom](https://es.reactjs.org/docs/react-dom.html) 
 
 According to npm react-dom documentation, "[t]his package serves as the *entry point to the DOM and server renderers for React*. It is intended to be paired with the generic React package, which is shipped as react to npm"([react-dom npm](https://www.npmjs.com/package/react-dom)).
 
@@ -212,7 +212,7 @@ Bibliography:
 2. [react-dom npm](https://www.npmjs.com/package/react-dom).
 
 
-####[Jest](https://jestjs.io/) - Delightful JavaScript Testing####
+#### [Jest](https://jestjs.io/) - Delightful JavaScript Testing 
 
 **Jest** is an open-source project maintained by Facebook and used for testing Javascript code. It is remarkably suitable with React code testing, not surprisingly because React also comes from Facebook.
 
@@ -229,7 +229,7 @@ Bibliography:
 2. [jest. Facebook](https://github.com/facebook/jest).
 2. [Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object).
 
-####[react-big-calendar](https://www.npmjs.com/package/react-big-calendar)####
+#### [react-big-calendar](https://www.npmjs.com/package/react-big-calendar) 
 
 A "[f]ull-featured calendar to visualize [and] add events" ([React.Rocks](https://react.rocks/example/react-big-calendar)), built for *React* and made for modern browsers. It is also characterisez by using *flexbox*.
 
@@ -239,7 +239,7 @@ Bibliography:
 1. [React.Rocks](https://react.rocks/example/react-big-calendar).
 2. [React Big Calendar Docs](https://intljusticemission.github.io/react-big-calendar/examples/index.html).
 
-####[react-modal](https://www.npmjs.com/package/react-modal)####
+#### [react-modal](https://www.npmjs.com/package/react-modal) 
 
 **React-modal** is an "[a]ccessible modal dialog component for React.JS" ([react-modal npm](https://www.npmjs.com/package/react-modal)). Thus, its creators are very concerned about *accessibility* in web sites, "using the WAI-ARIA guidelines to support users of assistive technologies"([reactcommunity](https://reactcommunity.org/react-modal/accessibility/)).
 
@@ -258,7 +258,7 @@ Bibliography:
 2. [reactcommunity](https://reactcommunity.org/react-modal/accessibility/).
 3. [react-bootstrap](https://react-bootstrap.github.io/components/modal/).
 
-####[Bootstrap](https://getbootstrap.com/) and [React Bootstrap](https://react-bootstrap.github.io/)####
+#### [Bootstrap](https://getbootstrap.com/) and [React Bootstrap](https://react-bootstrap.github.io/) 
 
 **Bootstrap** is a *framework* for building *responsive, mobile-first sites*, which was originally built by some Twitter employees. It handles HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, ..., and gives you support for JavaScript plugins.
 
@@ -281,7 +281,7 @@ Bibliography:
 4. [Why I Love Bootstrap, and Why You Should Too. Syed Fazle. Sitepoint](https://www.sitepoint.com/why-i-love-bootstrap-you-should/).
 5. [React Bootstrap](https://react-bootstrap.github.io/).
 
-####[styled compoments](https://www.styled-components.com/)####
+#### [styled compoments](https://www.styled-components.com/) 
 
 This library allows you to write actual CSS code to give design to components by using *tagged template literals* (recently added to JavaScript) and CSS. Moreover, it removes the mapping between components and styles, which makes it *easy to utilize components as a low-levek styling construct*. It can be referred as a *CSS-in-JS styling framework*.
 
@@ -292,7 +292,7 @@ Bibliography:
 2. [Styled Components: To Use or Not to Use? Talia Marcasa. Building CrowdRiff. Medium](https://medium.com/building-crowdriff/styled-components-to-use-or-not-to-use-a6bb4a7ffc21).
 3. [8 reasons to use styled-components. Nwose Lotanna. LogRocket](https://blog.logrocket.com/8-reasons-to-use-styled-components-cf3788f0bb4d/).
 
-####[Moment.js](https://momentjs.com/)####
+#### [Moment.js](https://momentjs.com/) 
 
 Basically, we can define **Moment.js** as a *date library*, as it parses, validates, manipulates, and displays dates and times. Currently it supports the following browsers: Chrome on Windows XP, IE 8, 9, and 10 on Windows 7, IE 11 on Windows 10, latest Firefox on Linux, and latest Safari on OSX 10.8 and 10.11.
 
@@ -302,7 +302,7 @@ Bibliography:
 1. [Moment.js](https://momentjs.com/).
 2. [react-big-calendar](https://www.npmjs.com/package/react-big-calendar).
 
-####[OAuth2-Meetup](http://www.passportjs.org/packages/passport-oauth2-meetup/)####
+#### [OAuth2-Meetup](http://www.passportjs.org/packages/passport-oauth2-meetup/) 
 
 As all the information of each event within our Hive will be grabbed from [Meetup.com](https://www.meetup.com), we decided to request for the Meetup account to sign in our Hive. According to this line of thinking, we chose the meetup promise for Passport. 
 
@@ -310,7 +310,7 @@ OAuth2-Meetup would allow us to automatically get the username, identified as **
 
 Happily, we made it work, actually without even using that as a promise, but accessing the data through an axios request.
 
-####[axios](https://github.com/axios/axios)####
+#### [axios](https://github.com/axios/axios) 
 
 **Axios** js is a JavaScript library built with the aim of *managing asynchronous programming with promises*. It makes *HTTP requests from node.js* or *XMLHttpRequests from the browser* and it supports the Promise API that is *native to JS ES6*. 
 
@@ -325,7 +325,7 @@ Bibliography:
 4. [Cecilio Alvarez. arquitectura java. Axios js una librería de promesas](https://www.arquitecturajava.com/axios-js-una-libreria-de-promesas/).
 5. [Janelle Wong. Medium. Why Use Axios in Your Next App](https://medium.com/@janelle.wg/why-use-axios-in-your-next-app-c44ad3508e93).
 
-####[react-router-dom](https://www.npmjs.com/package/react-router-dom) and [React Router](https://github.com/ReactTraining/react-router)####
+#### [react-router-dom](https://www.npmjs.com/package/react-router-dom) and [React Router](https://github.com/ReactTraining/react-router) 
 
 **react-router** is developed and maintained by [React Training](https://reacttraining.com/). It is a library used for DOM bindings for React Router (the routing components for websites).
 
