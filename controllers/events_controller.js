@@ -17,16 +17,13 @@ async function index(req, res, next) {
 async function create(req, res, next) {
   // destructure from values
   let { id, groupUrlname, message } = req.body;
-
-  // if messsage is blank
+  // if messsage is blank, return an error
   if (!message.trim()) {
-    // return an error
-    return next(new HTTPError(400, "Message is required and must not be blank."))
-  }
-
+    return next(new HTTPError(400, "Message is required and must not be blank."));
+  };
   // find user with access_token
   let user = await findUser(req, next);
-
+  
   // get event with req.body.id
   let meetup = axios
     .get(`https://api.meetup.com/${groupUrlname}/events/${id}`, {
@@ -86,7 +83,7 @@ async function create(req, res, next) {
         })
         .catch(err => next(new HTTPError(400, "Failed to add the event to the database.")));
 
-      // response with 201 and the event object that was created
+      // respond with 201 and the event object that was created
       return res.status(201).json(event);
     });
 
