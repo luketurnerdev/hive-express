@@ -13,6 +13,7 @@ const Review = require("./../database/models/review_model");
 
 // GET to "/reviews"
 // Show all reviews to admin
+// or Show current user's reviews to non-admin
 async function index(req, res, next) {
   // find current user with access token
   let user = await findUser(req, next);
@@ -37,23 +38,19 @@ async function index(req, res, next) {
   }
 }
 
-// GET to "/events/:id/reviews"
+// GET to "/events/:id/new_review"
 // Display form for the user to leave a review for an event.
-async function newReview(req, res) {
-  let event = await Event.findById(req.params.id);
-  let accessToken = req.cookies.tokens.access_token;
+async function newReview(req, res, next) {
+  // find event with :id from params
+  let event = await Event
+    .findById(req.params.id)
+    .catch(err => next(new HTTPError(404, "Failed to find event.")));
 
-  let user = await User.findOne({ access_token: accessToken }).catch(err =>
-    console.error(
-      `COULD NOT FIND USER WITH access_token: ${accessToken}\n`,
-      err.message
-    )
-  );
+  // find current user with access token in cookies
+  let user = await findUser(req, next);
 
-  let user_id = user._id;
-  console.log(user_id);
-
-  res.render("reviews/new_review", { event, user_id });
+  res.json([event, user.id]);
+  //res.render("reviews/new_review", { event, user_id });
 }
 
 // POST to "/reviews"
