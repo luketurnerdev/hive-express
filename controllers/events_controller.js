@@ -17,13 +17,8 @@ async function create(req, res) {
   // destructure from values
   let { id, groupUrlname, message } = req.body;
 
-  // ** TODO **
-  // validate for empty message.
-  // (it's required in the schema)
+  
 
-  // ** TODO **
-  // Handle events with no venue...
-  // Maybe just don't recommend those in dashboard
 
   // get user with access_token
   let accessToken = req.cookies.tokens.access_token;
