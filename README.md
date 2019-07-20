@@ -166,6 +166,8 @@ Bibliography:
 
 In this project several libraries have been integrated.
 
+### Libraries used for the Front-End part of the project
+
 #### [React](https://github.com/facebook/react) 
 
 **React** is a "declarative, efficient, and flexible JavaScript library for building user interfaces" ([react, Facebook, GitHub](https://github.com/facebook/react)) reated by Facebook.
@@ -210,24 +212,6 @@ ReactDOM *supports popular browsers*, even IE 9. Nevertheless, some polyfills ar
 Bibliography:
 1. [ReactDom](https://es.reactjs.org/docs/react-dom.html).
 2. [react-dom npm](https://www.npmjs.com/package/react-dom).
-
-
-#### [Jest](https://jestjs.io/) - Delightful JavaScript Testing 
-
-**Jest** is an open-source project maintained by Facebook and used for testing Javascript code. It is remarkably suitable with React code testing, not surprisingly because React also comes from Facebook.
-
-Jest is very easy to install, using either *npm or yarn package managers*, and easy to use. It is also fast, which increases the efficiency (read previous question) of the app, and thus, the quality of our software.
-
-One thing to note is *coverage*. You set it up just by adding the flag **--coverage**, and you are able to collect code coverage information from entire projects, including untested files. However, the tests are as good as the coverage. Eg: if you just test 50% of the system's code, then the remaining half can contain bugs.
-
-To finish with, Jest has simple *mock functions*, because "uses a custom resolver for imports in your tests" ([Jest Doc](https://jestjs.io/)). A mock object is "a simulated object that mimics the behavior of the smallest testable parts of an application in controlled ways[,]"makes use of the same interface as the element of code it is intended to imitate and is often used in unit testing to scrutinize the performance of an actual object. 
-
-Therefore, it helps "isolate the component being tested from the components it depends on and applying mock objects effectively is an important part of test-driven development (TDD)" ([Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object)).
-
-Bibliography:
-1. [Jest Doc](https://jestjs.io/).
-2. [jest. Facebook](https://github.com/facebook/jest).
-2. [Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object).
 
 #### [react-big-calendar](https://www.npmjs.com/package/react-big-calendar) 
 
@@ -346,6 +330,154 @@ This is a React component for *icon based ratings*. This React component is inte
 Bibliography:
 1. [react-star-rating-component npm](https://www.npmjs.com/package/react-star-rating-component).
 2. [react-star-rating-component. voronianski. GitHub](https://github.com/voronianski/react-star-rating-component).
+
+### Libraries used for the Back-End part of the project
+
+#### [Express](https://github.com/expressjs/express)
+
+**Express**, which is written in JavaScript, is a "[f]ast, unopinionated, minimalist web framework for node"([express, expressjs, GitHub](https://github.com/expressjs/express)). In fact, it is the *most popular Node web framework*.
+
+According to [MDN](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction), Express "provides mechanisms to:
+
+* Write handlers for requests with different HTTP verbs at different URL paths (routes)": This allowed us to set up a totally *CRUD* application.
+* "Integrate with "view" rendering engines in order to generate responses by inserting data into templates.
+* Set common web application settings like the port to use for connecting, and the location of templates that are used for rendering the response.
+* Add additional request processing "middleware" at any point within the request handling pipeline".
+
+Probably, this last bullet point is the key of choosing Express for out back-end: the availability of *middleware packages* which overcome almost any web development issue.
+
+Bibliography:
+1. [Express](https://github.com/expressjs/express).
+2. [Express/Node introduction. MDN](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction).
+
+#### [Express Handlebars](https://www.npmjs.com/package/express-handlebars)
+
+**Express Handlebars** is a lightweight templating system for Node.
+
+Handlebars allows us to *avoid repetitive code* by compiling the final DOM structure of our site via logic, typically compiled by task runners such as Grunt or Gulp.
+
+One difference in comparison with other packages is an ability to use **Hooks**. In this way you can override some functionality of ExpressHandlebars instances.
+
+Bibliography:
+1. [express-handlebars npm](https://www.npmjs.com/package/express-handlebars).
+2. [Building Page Templates in ExpressJS With Handlebars. Todd Birchard. Hackers and Slackers](https://hackersandslackers.com/handlebars-templating-in-expressjs/).
+3. [What are the differences between the express-handlebars, express-hbs and hbs modules. stackoverflow](https://stackoverflow.com/questions/26832076/what-are-the-differences-between-the-express-handlebars-express-hbs-and-hbs-mod).
+
+#### [body-parser](https://www.npmjs.com/package/body-parser)
+
+**body-parser** is a Node.js body parsing middleware. It is needed to handle *HTTP post requests in Express version 4 and above*. It extracts the entire body portion of an incoming request stream and exposes it on req.body.
+
+The middleware was originally a part of Express.js but now it must be installed separately.
+
+This body-parser module parses the JSON, buffer, string and URL encoded data submitted using HTTP post request.
+
+In English, it is necessary to convert data to other formats. For instance, JSON.
+
+Bibliography:
+1. [body-parser npm](https://www.npmjs.com/package/body-parser).
+2. [What does body-parser do with express? stackoverflow](https://stackoverflow.com/questions/38306569/what-does-body-parser-do-with-express).
+
+#### [cookie-parser](https://www.npmjs.com/package/cookie-parser)
+
+Usual choice for parsing cookies in Express. It works as follows: it parses "Cookie header and populate req.cookies with an object keyed by the cookie names. Optionally you may enable signed cookie support by passing a secret string, which assigns req.secret so it may be used by other middleware" ([cookie-parser, Express, GitHub](https://github.com/expressjs/cookie-parser)).
+
+We use cookies in their most basic form for the Hive, just making the cookie and retrieving it later. As there is no possibility of using cookies and other browser functions from express without middleware it was necessary to get a package like that.
+
+Currently, we are using the cookies to store the user’s access and refresh tokens.
+
+#### [Cross-Origin Resource Sharing (CORS)](https://www.npmjs.com/package/cors)
+
+"**Cross-Origin Resource Sharing** (CORS) is a W3C spec that allows cross-domain communication from the browser. By building on top of the XMLHttpRequest object, CORS allows developers to work with the same idioms as same-domain requests" ([Hossain, html5rocks](https://www.html5rocks.com/en/tutorials/cors/)).
+
+The CORS standard allows servers to specify not just *who can access its assets*, but also *how the assets can be accessed*. It uses HTTP request methods. For example, most servers will allow GET requests, meaning they will allow resources from external origins (eg, a web page) to read their assets. Other HTTP methods like PATCH, PUT, or DELETE, however, may be denied to prevent malicious behavior.
+
+Therefore, with CORS, a server can specify who can access its assets and which HTTP request methods are allowed from external resources. It is a *security layer*, wjch determines which apps can access ours, eg the React app built for the front-end.
+
+Bibliography:
+1. [Hossain, html5rocks](https://www.html5rocks.com/en/tutorials/cors/).
+2. [cors npm](https://www.npmjs.com/package/cors).
+3. [What is CORS? codeacademy](https://www.codecademy.com/articles/what-is-cors).
+
+#### [Dotenv](https://www.npmjs.com/package/dotenv)
+
+"**Dotenv** is a zero-dependency module that loads environment variables from a .env file into process.env" ([dotenv](https://www.npmjs.com/package/dotenv)). It follows [THe Twelve-Factor App methodology](https://12factor.net/config), which third Factor states "*Store config in the environment*".
+
+Dotenv can be also defined as a tool to make *local variables be available to an application* (that is what *environment variables* are).
+
+The reason why we wanted to set this environment variables was avoiding certain tokens or credentials to be push to GitHub.
+
+Bibliography:
+1. [dotenv npm](https://www.npmjs.com/package/dotenv).
+2. [THe Twelve-Factor App methodology](https://12factor.net/config).
+3. [Using dotenv package to create environment variables. Jason Arnold. Medium](https://medium.com/@thejasonfile/using-dotenv-package-to-create-environment-variables-33da4ac4ea8f).
+
+#### [method-override](https://github.com/expressjs/method-override)
+
+The **methodOverride()** middleware is *for requests from clients that only natively support simple verbs* like GET and POST. In other words, it allows you to use HTTP verbs like PUT or DELETE where the client does not support it. 
+
+Therefore, it enables you to specify a special query field (or a hidden form field for example) that indicates the real verb to use instead of what was originally sent. That way your backend .put()/.delete()/.patch()/etc. routes don't have to change and will still work and you can accept requests from all kinds of clients.
+
+Thanks to this package, we could do all HTTP requests (GET, PUT, POST, DELETE) within our application, thus following the *CRUD standard*.
+
+Bibliography:
+1. [method-override](https://github.com/expressjs/method-override).
+2. [What's the role of the method-override middleware in Express 4? stackoverflow](https://stackoverflow.com/questions/23643694/whats-the-role-of-the-method-override-middleware-in-express-4).
+
+#### [query-string](https://www.npmjs.com/package/query-string)
+
+This module parses and stringifies URL query strings. It allows us to make data into url-encoded format, to be used with meetup's API request format.
+
+Bibliography:
+1. [Node.js v12.6.0 Documentation](https://nodejs.org/api/querystring.html).
+2. [query-string](https://www.npmjs.com/package/query-string).
+
+#### [Heroku Command Line Interface (CLI)](https://devcenter.heroku.com/articles/heroku-cli)
+
+We used the *Heroku CLI* to *manage our Hive Express app directly from the terminal*, once it had been deployed to [Heroku](https://www.heroku.com/).
+
+Bibliography:
+1. [Heroku Command Line Interface (CLI)](https://devcenter.heroku.com/articles/heroku-cli).
+2. [Heroku](https://www.heroku.com/).
+
+#### [Morgan](https://www.npmjs.com/package/morgan)
+
+*Morgan* is a HTTP request logger middleware for node.js, used for logging request details.
+
+Bibliograhy:
+1. [Morgan](https://www.npmjs.com/package/morgan).
+2. [What does morgan module have to do with express apps? stackoverflow](https://stackoverflow.com/questions/25468786/what-does-morgan-module-have-to-do-with-express-apps).
+
+#### [Mongoose](https://www.npmjs.com/package/mongoose)
+
+"**Mongoose** is a **MongoDB object modeling tool** designed to work in an *asynchronous environment*"([mongoose npm](https://www.npmjs.com/package/mongoose)). It "acts as an intermediate between mongodb and server side language (like NodeJs)" ([Kohli, Quora](https://www.quora.com/What-is-Mongoose)).
+
+"It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB"([Karnik, Developer News, freeCodeCamp](https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/)).
+
+Taking all that into account, we chose Mongoose to connect our mongodb database with our NodeJs programme. 
+
+Bibliography:
+1. [mongoose npm](https://www.npmjs.com/package/mongoose).
+2. [What is Mongoose? Vikas Kohli. Quora](https://www.quora.com/What-is-Mongoose)
+3. [Introduction to Mongoose for MongoDB. Nick Karnik. Developer News. freeCodeCamp](https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/).
+
+### Libraries used for testing
+
+#### [Jest](https://jestjs.io/) - Delightful JavaScript Testing 
+
+**Jest** is an open-source project maintained by Facebook and used for testing Javascript code. It is remarkably suitable with React code testing, not surprisingly because React also comes from Facebook.
+
+Jest is very easy to install, using either *npm or yarn package managers*, and easy to use. It is also fast, which increases the efficiency (read previous question) of the app, and thus, the quality of our software.
+
+One thing to note is *coverage*. You set it up just by adding the flag **--coverage**, and you are able to collect code coverage information from entire projects, including untested files. However, the tests are as good as the coverage. Eg: if you just test 50% of the system's code, then the remaining half can contain bugs.
+
+To finish with, Jest has simple *mock functions*, because "uses a custom resolver for imports in your tests" ([Jest Doc](https://jestjs.io/)). A mock object is "a simulated object that mimics the behavior of the smallest testable parts of an application in controlled ways[,]"makes use of the same interface as the element of code it is intended to imitate and is often used in unit testing to scrutinize the performance of an actual object. 
+
+Therefore, it helps "isolate the component being tested from the components it depends on and applying mock objects effectively is an important part of test-driven development (TDD)" ([Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object)).
+
+Bibliography:
+1. [Jest Doc](https://jestjs.io/).
+2. [jest. Facebook](https://github.com/facebook/jest).
+2. [Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object).
 
 
 3. A team is about to engage in a project, developing a website for a small business. What knowledge and skills would they need in order to develop the project?
