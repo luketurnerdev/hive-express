@@ -47,6 +47,9 @@
 ## Application Design 
 
 1. Compose a summary of your application including problem definition and solution
+
+
+
 2. Review the conceptual design with the client and edit based on their feedback
 3. User stories for the whole application
 *Provide UX/UI design documentation(user stories) that adequately show Agile methodology implementation.-Provides multiple user stories that use ‘persona, what and why’ that outline meaningful features of project. Shows evidence of user story revision and refinement.*
@@ -59,6 +62,10 @@
 *Provide UX/UI design documentation(wireframes) that adequately show Agile methodology implementation.--Provides wireframes that show exceptional planning of project flow and structure including but not limited to space distrobution, content prioritisation, intended actions, functions, relationships between screens.*
 
 *User-interface is highly intuitive, with no impediments to user flow*
+
+### Design patterns
+
+
 
 6. Object Relational Mapping (ORM)
 *ORM accurately reflects an efficient and practical database design for project, using correct ORM symbology*
