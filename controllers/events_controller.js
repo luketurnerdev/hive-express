@@ -9,7 +9,7 @@ async function index(req, res, next) {
   let events = await Event.find().sort({ created_at: "desc" })
     // return the response as json
     .then(resp => res.json(resp))
-    .catch(err => next(new HTTPError(404, err)));
+    .catch(err => next(new HTTPError(500, "Failed to find events.")));
 }
 
 // POST to "/events"
