@@ -12,7 +12,7 @@ async function index(req, res, next) {
     .catch(err => next(new HTTPError(404, err)));
 }
 
-// POST to "/events/create"
+// POST to "/events"
 // Create an event and add to DB
 async function create(req, res, next) {
   // destructure from values
@@ -94,10 +94,9 @@ async function create(req, res, next) {
 
 }
 
-// GET to "/events/suggest/:id"
+// GET to "/events/:id/suggest"
 // Display a form for the user to write a message for suggesting/creating an event.
 async function newSuggestion(req, res) {
-  //Render the suggestion form with the event info from request params
   let accessToken = req.cookies.tokens.access_token;
   let group = req.query.group;
   let id = req.params.id;
@@ -109,9 +108,9 @@ async function newSuggestion(req, res) {
       }
     })
     .then(resp => resp.data)
-    .catch(err => console.error(err));
+    .catch(err => next(new HTTPError(500, "Failed to retrieve data from Meetup API.")));
 
-  res.render("events/suggest", { meetup });
+  return res.json(meetup);
 }
 
 // GET to "/events/:id"
