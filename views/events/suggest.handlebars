@@ -1,0 +1,25 @@
+<h1>Suggest Event</h1>
+
+<h3>{{meetup.name}}</h3>
+
+<ul>
+	<li>Time / Date: {{meetup.local_date}}, at {{meetup.local_time}}</li>
+	{{! ** TODO ** DISPLAY PRICE IF THE meetup.fee.amount ISN'T NOTHING }}
+	{{! ** TODO ** Use the markup in meetup.description instead of displaying it (ask G-man?)}}
+	<li>Event link: <a href={{meetup.link}}></a></li>
+	<li>Location: {{meetup.venue.name}}, at {{meetup.venue.address_1}}</li>
+</ul>
+
+<form action="/events" method="post">
+	<input type="hidden" name="id" value="{{meetup.id}}">
+	<input type="hidden" name="groupUrlname" value="{{meetup.group.urlname}}">
+	<p>
+		Please leave a message:
+	</p>
+	<p>
+		<textarea required name="message"></textarea>
+	</p>
+	<p>
+		<input type="submit" value="Submit">
+	</p>
+</form>

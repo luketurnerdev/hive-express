@@ -44,6 +44,7 @@
 10. As a team, conduct post project review
 11. Create a questionnaire for the client to ascertain the satisfaction with your products and services
 
+
 ## Application Design 
 
 1. Compose a summary of your application including problem definition and solution
@@ -51,8 +52,41 @@
 
 
 2. Review the conceptual design with the client and edit based on their feedback
+
+
 3. User stories for the whole application
+
 *Provide UX/UI design documentation(user stories) that adequately show Agile methodology implementation.-Provides multiple user stories that use ‘persona, what and why’ that outline meaningful features of project. Shows evidence of user story revision and refinement.*
+
+### **Minimum Viable Product (MVP)**
+
+#### User stories from MVP
+
+As a student:
+
+- I should be able to use a calendar so that I track meetups I am attending.
+- I should be able to see specific event information so that I can know more about that event.
+- I should be able to recommend new meetups to the Hive’s staff so that they can approve them.
+- I should be able to send a sign up request so that the staff can approve my participation in the Hive.
+- I should be able to see which other students are attending an event so that I know who I will be meeting there.
+- I should be able to leave reviews (ratings + comments) on passed events I attended, so that I can help other students decide whether they go or not to similar events.
+- I should be able to display my own reviews so that I can prove I am interested in my professional development to potential employers.
+- I should be able to read other students’ reviews in order to decide whether or not to attend an event similar  to the one they reviewed.
+
+As the staff:
+
+- I should be able to use a calendar so that I track meetup hivers are attending.
+- I should be able to approve or reject students’ suggestions regarding new meetups, so that I can keep the Hive full of interesting and enriching events.
+- I should be able to approve or reject potential hiver’s sign up requests, so that I can make sure Hiver’s users are either Coder Academy’s staff or students/alumni.
+- I should be able to delete students’ comments in order to keep the Hive free of harassment and other undesired behaviours.
+
+### First versions of User Stories (evidence of user story revision and refinement)
+
+![Students' first version](docs/students_first_version.png)
+
+![Staff's first version - a](docs/staff_first_version1.png)
+
+![Staff's first version - b](docs/staff_first_version2.png)
 
 4. A workflow diagram of the user journey/s
 
@@ -70,6 +104,8 @@
 6. Object Relational Mapping (ORM)
 *ORM accurately reflects an efficient and practical database design for project, using correct ORM symbology*
 
+![ORM](docs/orm.jpg)
+
 7. Project plan and effort estimation
 
 8. Data Flow Diagram
@@ -82,6 +118,7 @@
 
 ## Tools & Methodologies 
 
+
 1. Trello or similar project management tool to be used for Kanban process to track progress of build
 *Select and follow a commonly used planning methodology, such as Kanban, Trello, Jira, or Asana.-Simple and clear standards for planning methodology chosen and adhered to*
 2. GitHub - Demonstrate use of frequent commits, feature branches (based on user stories), pull requests and merges
@@ -93,7 +130,9 @@
 4. Code review - Demonstrate that you have had your code reviewed by other students and that you have provided a code review for others
 5. Show evidence of client communication, e.g. meeting minutes, emails, or other communication tools
 
+
 ## Short Answer Questions 
+
 
 1. What are the most important aspects of quality software?
 *List discuss and demonstrate 6 software quality characteristics.*
@@ -172,6 +211,7 @@ Bibliography:
 *Appropriate use and description of libraries used in the app-Excellent use of libraries and a complete and detailed description of libraries used in the app*
 
 In this project several libraries have been integrated.
+
 
 ### Libraries used for the Front-End part of the project
 
@@ -471,6 +511,7 @@ Bibliography:
 
 #### [Jest](https://jestjs.io/) - Delightful JavaScript Testing 
 
+
 **Jest** is an open-source project maintained by Facebook and used for testing Javascript code. It is remarkably suitable with React code testing, not surprisingly because React also comes from Facebook.
 
 Jest is very easy to install, using either *npm or yarn package managers*, and easy to use. It is also fast, which increases the efficiency (read previous question) of the app, and thus, the quality of our software.
@@ -485,6 +526,18 @@ Bibliography:
 1. [Jest Doc](https://jestjs.io/).
 2. [jest. Facebook](https://github.com/facebook/jest).
 2. [Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object).
+
+#### [react-big-calendar](https://www.npmjs.com/package/react-big-calendar)
+
+A "[f]ull-featured calendar to visualize [and] add events" ([React.Rocks](https://react.rocks/example/react-big-calendar)), built for *React* and made for modern browsers. It is also characterisez by using *flexbox*.
+
+A key point regarding react-big-calendar is that it treats event start/end dates as an exclusive range. Therefore, the event doesn not include the end date. If we display events on whole days, end dates are rounded up to the next day. "So an event ending on Apr 8th 12:00:00 am will not appear on the 8th, whereas one ending on Apr 8th 12:01:00 am will. If you want inclusive ranges consider providing a function endAccessor that returns the end date + 1 day for those events that end at midnight" ([React Big Calendar Docs](https://intljusticemission.github.io/react-big-calendar/examples/index.html)).
+
+#### [OAuth2-Meetup](http://www.passportjs.org/packages/passport-oauth2-meetup/)
+
+As all the information of each event within our Hive will be grabbed from [Meetup.com](https://www.meetup.com), we decided to request for the Meetup account to sign in our Hive. According to this line of thinking, we chose the meetup promise for Passport. 
+OAuth2-Meetup would allow us to automatically get the username, identified as **meetup_<**meetupID**>**. Nevertheless, this promise has not been updated for 4 years, which made us wonder if it was our best option.
+Happily, we made it work, actually without even using that as a promise, but accessing the data through an axios request.
 
 
 3. A team is about to engage in a project, developing a website for a small business. What knowledge and skills would they need in order to develop the project?

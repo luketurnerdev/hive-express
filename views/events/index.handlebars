@@ -1,0 +1,18 @@
+<h1>Events Index</h1>
+
+{{#each events}}
+<p>
+  Event Name: {{name}}
+  <br>
+  Link: {{link}}
+  <br>
+  ID: {{_id}}
+  <br>
+  Suggested: {{suggested.is_suggested}}
+  <a href="/events/{{id}}/new_review">
+    <button>Leave a review</button>
+  </a>
+</p>
+{{else}}
+  <p>There are no events to display.</p>
+{{/each}}
