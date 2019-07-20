@@ -144,6 +144,15 @@ async function showMeetup(req, res) {
 // GET to "/events/suggestions"
 // Display events which are suggested and not recommended
 async function suggestions(req, res) {
+
+  //Restrict this page to admins only
+  let accessToken = req.cookies.tokens.access_token;
+  let user = await User.findOne({ access_token: accessToken });
+
+  if (!user.admin) {
+    res.redirect("/dashboard");
+  }
+
   // Find suggested events
   let events = await Event.find({
     ca_recommended: false,
@@ -168,6 +177,25 @@ async function recommend(req, res) {
 async function destroy(req, res) {
   await Event.findByIdAndRemove(req.params.id);
   res.redirect("/events");
+}
+
+async function findUser(req, res){
+  let accessToken = req.cookies.tokens.access_token;
+  if (accessToken) {
+    let user = await User.findOne({ access_token: accessToken })
+    .then(user => {
+      return user;
+    })
+    .catch(err =>
+    console.error(
+      `COULD NOT FIND USER WITH access_token: ${accessToken}\n`,
+      err.message
+  )
+);
+  } else {
+    res.redirect("/");
+  }
+  
 }
 
 module.exports = {

@@ -7,6 +7,10 @@ const Event = require("./../database/models/event_model");
 //Review Model
 const Review = require("./../database/models/review_model");
 
+// ** TODO **
+  // validate for empty message.
+  // (it's required in the schema)
+
 // GET to "/reviews"
 // Show all reviews to admin
 async function index(req, res) {

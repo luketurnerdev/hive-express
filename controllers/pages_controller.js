@@ -80,13 +80,6 @@ async function dashboard(req, res) {
   let user = await User.findOne({ access_token: accessToken });
 
 
-  //Debug for lukes account
-  //TODO: Delete this after we have implemented account approval functionality for Mel
-  // await User.findByIdAndUpdate(user._id, {
-  //   confirmed: false
-  // });
-
-
   //Redirect user if their account is unconfirmed
   if (!user.confirmed) {
     return res.redirect("/account_requests")
@@ -104,6 +97,14 @@ async function dashboard(req, res) {
     )
     .then(resp => resp.data.events)
     .catch(err => console.error(err));
+    
+
+  //Remove events without a venue
+  for (let i=0; i < upcomingMeetups.length; i++){ 
+    if ( !upcomingMeetups[i].venue) {
+      upcomingMeetups.splice(i, 1); 
+    }
+ }
 
   // Render the dashboard view and pass objects with data to display.
   res.render("pages/dashboard", { upcomingMeetups, user });
