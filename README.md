@@ -166,6 +166,52 @@ Bibliography:
 
 In this project several libraries have been integrated.
 
+####[React](https://github.com/facebook/react)####
+
+**React** is a "declarative, efficient, and flexible JavaScript library for building user interfaces" ([react, Facebook, GitHub](https://github.com/facebook/react)) reated by Facebook.
+
+It is *declarative* because it uses declarative views as they make code more predictable, and simpler to understand and to debug. React updates and renders the proper components when data changes.
+
+It is *component-based* as each component has its own state and thanks to the fact that the logic of each component is written in JavaScript, we could pass rich data through our code, keeping state out of the DOM.
+
+We used this library because it is *open-source* and has some features that are really convenient for us.
+
+First of all, it uses *JSX*, simple JavaScript that allows HTML quoting and gives us the chance to use HTML tag syntax to render subcomponents.
+
+Secondly, it uses a *single-way data flow* approach, which means that components cannot directly modify any property but allows as to do modifications with help of a callback function.
+
+To finish with, it deals with a *virtual document object model*, so it generates an in-memory data structure cache that computes the changes made before updating the browser. This enables us to write code as if the whole page was rendered, whereas only the changed components are rendered.
+
+All of this lends to React's *simplicigty*, *ease to study*, *good performance* and *testability* (React views can be treated as functions of the state, so we can manipulate the React view and check the output easily).
+
+Bibliography:
+1. [React](https://github.com/facebook/react).
+2. [react. Facebook. GitHub](https://github.com/facebook/react).
+3. [What Is ReactJS and Why Should We Use It? Nitin Pandit. C# Corner](https://www.c-sharpcorner.com/article/what-and-why-reactjs/).
+
+####[react-scripts](https://www.npmjs.com/package/react-scripts)####
+
+One of the three dependencies generated in package.json when running create-react-app command. 
+
+**react-scripts** is the library that handles the configuration and gives most of the dependencies of the project (babel, webpack, ...).
+
+Bibliography:
+1. [Create React App: A quick setup guide. Esteban Herrera. LogRocket](https://blog.logrocket.com/create-react-app-a-quick-setup-guide-b812f0aad03c/).
+2. [react-scripts](https://www.npmjs.com/package/react-scripts).
+
+####[ReactDom](https://es.reactjs.org/docs/react-dom.html)####
+
+According to npm react-dom documentation, "[t]his package serves as the *entry point to the DOM and server renderers for React*. It is intended to be paired with the generic React package, which is shipped as react to npm"([react-dom npm](https://www.npmjs.com/package/react-dom)).
+
+It "provides *DOM-specific methods* that can be used at the top level of your app and as an escape hatch to get outside of the React model if you need to. Most of your components should not need to use this module" ([Overview, ReactDOM, React](https://reactjs.org/docs/react-dom.html#overview)).
+
+ReactDOM *supports popular browsers*, even IE 9. Nevertheless, some polyfills are required for IE9 and IE10.
+
+Bibliography:
+1. [ReactDom](https://es.reactjs.org/docs/react-dom.html).
+2. [react-dom npm](https://www.npmjs.com/package/react-dom).
+
+
 ####[Jest](https://jestjs.io/) - Delightful JavaScript Testing####
 
 **Jest** is an open-source project maintained by Facebook and used for testing Javascript code. It is remarkably suitable with React code testing, not surprisingly because React also comes from Facebook.
@@ -192,6 +238,69 @@ A key point regarding react-big-calendar is that it treats event start/end dates
 Bibliography:
 1. [React.Rocks](https://react.rocks/example/react-big-calendar).
 2. [React Big Calendar Docs](https://intljusticemission.github.io/react-big-calendar/examples/index.html).
+
+####[react-modal](https://www.npmjs.com/package/react-modal)####
+
+**React-modal** is an "[a]ccessible modal dialog component for React.JS" ([react-modal npm](https://www.npmjs.com/package/react-modal)). Thus, its creators are very concerned about *accessibility* in web sites, "using the WAI-ARIA guidelines to support users of assistive technologies"([reactcommunity](https://reactcommunity.org/react-modal/accessibility/)).
+
+We have integrated react-modal in order to display a *pop-up* window for certain pages like Attendees (who of all hivers are attending each event), the information of each single event listed in the Calendar. 
+
+To understand better what a modal is, we just have to look at React Bootstrap documentation:
+
+1. Modals are positioned over everything else in the document and remove scroll from the <body> so that modal content scrolls instead.
+2. Modals are unmounted when closed.
+3. Bootstrap only supports one modal window at a time. Nested modals aren’t supported, but if you really need them the underlying react-overlays can support them if you're willing.
+4. Modal's "trap" focus in them, ensuring the keyboard navigation cycles through the modal, and not the rest of the page.
+5. Unlike vanilla Bootstrap, autoFocus works in Modals because React handles the implementation.
+
+Bibliography:
+1. [react-modal npm](https://www.npmjs.com/package/react-modal).
+2. [reactcommunity](https://reactcommunity.org/react-modal/accessibility/).
+3. [react-bootstrap](https://react-bootstrap.github.io/components/modal/).
+
+####[Bootstrap](https://getbootstrap.com/) and [React Bootstrap](https://react-bootstrap.github.io/)####
+
+**Bootstrap** is a *framework* for building *responsive, mobile-first sites*, which was originally built by some Twitter employees. It handles HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, ..., and gives you support for JavaScript plugins.
+
+We decided to integrate this framework within our project for several reasons. Among other: 
+
+1. Its CSS is *responsive* and adjusts to a wide variety of screen sizes.
+2. It is a good option for *mobile-first*.
+3. It is compatible with all modern browsers (Chrome, Firefox, IE, Safari and Opera) and its results are uniform for all of them.
+4. It has a big community, which ensures a lot of information on the web. Also, its documentation is big and clear, with a lot of demos and examples.
+5. The ease of setting it up.
+6. The customizability that it offers: you can approach a single styling in very different ways, which provides front-end devs with important freedom.
+7. It is open source, so no purchasing nor licencing issues are dealt with.
+
+Along with Bootstrap, we used this front-end framework's *version built from scratch for React* (**React Bootstrap**). Therefore, no JQuery dependencies were needed. Furthermore, is components are *accessible by default components*, over what is possible from plain Bootstrap.
+
+Bibliography:
+1. [Bootstrap](https://getbootstrap.com/).
+2. [10 Common Uses of Bootstrap. HTML Goodies](https://www.htmlgoodies.com/html5/markup/10-common-uses-of-bootstrap.html).
+3. [To use or not to use Bootstrap Framework. Diana Calliman. Creative Tim's Blog](https://blog.creative-tim.com/web-design/use-not-use-bootstrap-framework/).
+4. [Why I Love Bootstrap, and Why You Should Too. Syed Fazle. Sitepoint](https://www.sitepoint.com/why-i-love-bootstrap-you-should/).
+5. [React Bootstrap](https://react-bootstrap.github.io/).
+
+####[styled compoments](https://www.styled-components.com/)####
+
+This library allows you to write actual CSS code to give design to components by using *tagged template literals* (recently added to JavaScript) and CSS. Moreover, it removes the mapping between components and styles, which makes it *easy to utilize components as a low-levek styling construct*. It can be referred as a *CSS-in-JS styling framework*.
+
+We chose styled components because it keeps "the concerns of styling and element architecture separated and make components more readable". In addition, if "you have components that rely on JavaScript for their style, Styled Components gives control of those states back to CSS instead of using a multitude of conditional class names" ([Marcasa, Building CrowdRiff, Medium](https://medium.com/building-crowdriff/styled-components-to-use-or-not-to-use-a6bb4a7ffc21)).
+
+Bibliography:
+1. [styled compoments](https://www.styled-components.com/).
+2. [Styled Components: To Use or Not to Use? Talia Marcasa. Building CrowdRiff. Medium](https://medium.com/building-crowdriff/styled-components-to-use-or-not-to-use-a6bb4a7ffc21).
+3. [8 reasons to use styled-components. Nwose Lotanna. LogRocket](https://blog.logrocket.com/8-reasons-to-use-styled-components-cf3788f0bb4d/).
+
+####[Moment.js](https://momentjs.com/)####
+
+Basically, we can define **Moment.js** as a *date library*, as it parses, validates, manipulates, and displays dates and times. Currently it supports the following browsers: Chrome on Windows XP, IE 8, 9, and 10 on Windows 7, IE 11 on Windows 10, latest Firefox on Linux, and latest Safari on OSX 10.8 and 10.11.
+
+We integrated moment to work along with react-big-calendar, which we spoke about before in this README file. That is because react-big-calendar includes two options for handling the *date formatting and culture localization*, depending on each one's preference of *DateTime libraries*: Moment.js or Globalize.js localizers. One of those localizers must be chosen.
+
+Bibliography:
+1. [Moment.js](https://momentjs.com/).
+2. [react-big-calendar](https://www.npmjs.com/package/react-big-calendar).
 
 ####[OAuth2-Meetup](http://www.passportjs.org/packages/passport-oauth2-meetup/)####
 
@@ -229,6 +338,15 @@ Bibliography:
 2. [react-router. ReactTraining. GitHub](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom).
 3. [React Training](https://reacttraining.com/react-router/).
 3. [Esteban Herrera. LogRocket](https://blog.logrocket.com/react-router-dom-set-up-essential-components-parameterized-routes-505dc93642f1/).
+
+####[react-star-rating-component](https://www.npmjs.com/package/react-star-rating-component)####
+
+This is a React component for *icon based ratings*. This React component is integrated in both the review's scores that each user gives to one event according to certain criteria (food, drinks, talk, vibe), and the Average Rates resulting from all the single reviews.
+
+Bibliography:
+1. [react-star-rating-component npm](https://www.npmjs.com/package/react-star-rating-component).
+2. [react-star-rating-component. voronianski. GitHub](https://github.com/voronianski/react-star-rating-component).
+
 
 3. A team is about to engage in a project, developing a website for a small business. What knowledge and skills would they need in order to develop the project?
 
