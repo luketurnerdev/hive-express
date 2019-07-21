@@ -1,10 +1,10 @@
-const User = require("./../database/models/user_model");
+const User = require("../database/models/user_model");
 
 /*  
  *  Find a user in the database using the access_token stored in cookies.
  *  If unsuccessful, call error handler middleware.
  */
-async function findUser(req, next){
+async function findUserByToken(req, next){
   try {
     // check tokens cookie
     if (!req.cookies.tokens) throw new HTTPError(404, "Missing 'tokens' cookie.");
@@ -27,4 +27,4 @@ async function findUser(req, next){
   };
 }
 
-module.exports = findUser;
+module.exports = findUserByToken;
