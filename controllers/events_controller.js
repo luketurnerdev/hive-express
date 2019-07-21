@@ -164,15 +164,24 @@ async function suggestions(req, res, next) {
 
 // PUT to "/events/recommend/:id"
 // Update this event so that ca_recommended = true.
-async function recommend(req, res) {
-  await Event
-    .findByIdAndUpdate(req.params.id, {
-      ca_recommended: true
+async function recommend(req, res, next) {
+  // Find the current user
+  // If current user is not an admin, return an error
+  let user = await findUser(req, next)
+    .then(resp => {
+      if (!resp.admin) throw "You must be an admin to view this page."
+      else return resp;
     })
+    .catch(err => next(new HTTPError(401, err)));
+    
+  await Event
+    .findByIdAndUpdate(
+      req.params.id, 
+      { ca_recommended: true }, 
+      { new: true }
+    )
     .then(resp => res.json(resp))
     .catch(err => next(new HTTPError(500, "Failed to update the event.")));
-  //res.redirect("/events/suggestions");
-  //should we redirect here or on the front-end?
 }
 
 // DELETE to "/events/:id"
