@@ -186,6 +186,7 @@ async function destroy(req, res) {
 /* 
  * Use axios to query Meetup API with a 
  *  GET request to https://api.meetup.com/:group/events/:id
+ * Note (Jim): This function has NOT been successfully implemented yet.
  */
 async function findMeetupEvent(next, group, id, accessToken) {
   try {

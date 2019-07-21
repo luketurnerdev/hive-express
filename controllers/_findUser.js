@@ -22,8 +22,8 @@ async function findUser(req, next){
         else return resp;
       })
     } catch(err) {
-    // If errors, return with error middleware
-    return next(err);
+      // If errors, return with error middleware
+      return next(err);
   };
 }
 
