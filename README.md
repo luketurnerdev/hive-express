@@ -494,8 +494,6 @@ Bibliography:
 
 #### [Morgan](https://www.npmjs.com/package/morgan)
 
-TODO: Not sure if we used this at all. We might be able to implement it somewhere
-
 *Morgan* is a HTTP request logger middleware for node.js, used for logging request details.
 
 Bibliograhy:
@@ -603,8 +601,8 @@ These include:
     * Appropriate error handling methods, to ensure that both developers and end-users can understand why a program crashed or behaved unexpectedly.
     * Authorisation, to ensure that certain users can or cannot access certain pages or perform certain functions (for example, only admins can view student account requests). This is supplemented by effective redirections to other pages if a user tries to break these boundaries.
     * The use of asynchronous functions, in order to manipulate Javascript's callstack to ensure data is retrieved when it needs to be, and the program can continue to compile the rest of it's code while the function serves its purpose. This usually returns a promise, which can be handled appropriately depending if it succeeds or not.
-     TODO: frontend fill in 
-    * Frontend technologies, such as 
+     TODO: frontend fill in below
+    * Frontend technologies, such as React..
 * Testing (including End-to-End and integration testing), to ensure that the code is working as intended as features are added, removed, modified and prepared for final deployment. Automated testing can be used to repeat the same series of tests with given expected results, under varying circumstances (such as code refactoring).
 
 
