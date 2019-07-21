@@ -6,9 +6,6 @@ const axios = require("axios");
 // import findUser function
 const findUser = require("./_findUser");
 
-//Import access and refresh tokens from authorization
-//Do get request here for user info, store it in a variable and then write it to the DB
-
 // POST to "/auth/register"
 // Create/register a new user or update their tokens if they're already registered.
 async function create(req, res, next) {
@@ -40,20 +37,23 @@ async function create(req, res, next) {
       created_at,
       updated_at
     })
-    .then(resp => res.json(resp))
+    .then(resp => res.status(201).json(resp))
     .catch(err => next(new HTTPError(500, err)));
 }
 
 async function updateTokens(id, newValues) {
-  await User.update(
-    { meetup_uid: id },
-    {
-      $set: {
+  await User
+    .findOneAndUpdate(
+      { meetup_uid: id },
+      {
         access_token: newValues.access_token,
         refresh_token: newValues.refresh_token
+      },
+      { 
+        new: true,
+        useFindAndModify: false
       }
-    }
-  )
+    )
     .then(item => {
       console.log(`Successfully updated access tokens for user with id: ${id}`);
     })
