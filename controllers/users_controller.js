@@ -115,11 +115,17 @@ async function createAccountRequest(req, res, next) {
     .catch(err => next(new HTTPError(400, err)));
 }
 
-async function show(req, res) {
-  let user = await User.findById(req.params.id).catch(err => {
-    res.status(404).send(err);
-  });
-  res.render("users/show", { user });
+// GET to "/users/:id"
+// Show a user's profile
+async function show(req, res, next) {
+  let id = req.params.id;
+  await User
+    .findById(id)
+    .then(resp => {
+      if (!resp) return next(new HTTPError(404, `Can't find user with id: ${id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(400, err)));
 }
 
 module.exports = {
