@@ -3,7 +3,6 @@ require("./database/connect");
 const app = require("./app");
 const port = process.env.PORT;
 
-
 // Custom HTTP errors
 global.HTTPError = class HTTPError extends Error {
   constructor(statusCode, message) {
