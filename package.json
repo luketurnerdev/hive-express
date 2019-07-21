@@ -24,7 +24,8 @@
     "webpack-cli": "^3.3.5"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
