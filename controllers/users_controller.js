@@ -1,6 +1,6 @@
 //Import the user model
 const User = require("./../database/models/user_model");
-const findUser = require("./_findUser");
+const findUserByToken = require("./_findUserByToken");
 
 // POST to "/auth/register"
 // Create/register a new user or update their tokens if they're already registered.
@@ -87,7 +87,7 @@ async function deleteUser(req, res, next) {
 // Display form for user to send a message to admin
 async function newAccountRequest(req, res, next) {
   // Find and return the current user's document
-  await findUser(req, next)
+  await findUserByToken(req, next)
     .then(resp => res.json(resp))
     .catch(err => console.log(err));
 }

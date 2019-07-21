@@ -1,7 +1,7 @@
 const Event = require("./../database/models/event_model");
 const axios = require("axios");
-// import findUser() function
-const findUser = require("./_findUser");
+// import findUserByToken() function
+const findUserByToken = require("./_findUserByToken");
 
 // GET to "/events"
 // Show all events in DB
@@ -23,7 +23,7 @@ async function create(req, res, next) {
     return next(new HTTPError(400, "Message is required and must not be blank."));
   };
   // find user with access_token
-  let user = await findUser(req, next);
+  let user = await findUserByToken(req, next);
   
   // get event with req.body.id
   let meetup = axios
@@ -140,7 +140,7 @@ async function showMeetup(req, res) {
 // Display events which are suggested and not recommended
 async function suggestions(req, res, next) {
   // Find the current user
-  let user = await findUser(req, next);
+  let user = await findUserByToken(req, next);
   // If current user is not an admin, return an error
   if (!user.admin) return next(
       new HTTPError(401, "You must be an admin to view this page.")
@@ -167,7 +167,7 @@ async function suggestions(req, res, next) {
 async function recommend(req, res, next) {
   // Find the current user
   // If current user is not an admin, return an error
-  let user = await findUser(req, next)
+  let user = await findUserByToken(req, next)
     .then(resp => {
       if (!resp.admin) throw "You must be an admin to view this page."
       else return resp;
