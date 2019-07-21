@@ -1,6 +1,8 @@
 const Event = require("./../database/models/event_model");
 const User = require("./../database/models/user_model");
 const axios = require("axios");
+// import findUser() function
+const findUser = require("./_findUser");
 
 // GET to "/events"
 // Show all events in DB
@@ -181,28 +183,30 @@ async function destroy(req, res) {
   res.redirect("/events");
 }
 
-
-/*  
- *  Find a user in the database using the access_token stored in cookies.
+/* 
+ * Use axios to query Meetup API with a 
+ *  GET request to https://api.meetup.com/:group/events/:id
+ * Note (Jim): This function has NOT been successfully implemented yet.
  */
-async function findUser(req, next){
+async function findMeetupEvent(next, group, id, accessToken) {
   try {
-    // get access token from cookies
-    let accessToken = req.cookies.tokens.access_token;
-    // check the token
-    if (!accessToken) throw new HTTPError(404, "Missing user's access_token.");
-
-    // find user with access token
-    return await User
-      .findOne({ access_token: accessToken })
-      .then(resp => {
-        // check the response
-        if (!resp) throw new HTTPError(404, "User not found.");
-        else return resp;
+    await axios
+      .get(`https://api.meetup.com/${group}/events/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
       })
-    } catch(err) {
-    // If errors, return with error middleware
-    return next(err);
+      .then(resp => {
+        if (!resp.data) {
+          throw new HTTPError(resp.response.status, resp.response.data);
+        }
+        else {
+          console.log(resp.data);
+          return resp.data;
+        }
+      })
+  } catch(err) {
+    return next(err) 
   };
 }
 
