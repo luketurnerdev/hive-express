@@ -41,7 +41,7 @@ async function create(req, res, next) {
     .catch(err => next(new HTTPError(500, err)));
 }
 
-async function updateTokens(id, newValues) {
+async function updateTokens(id, newValues, next) {
   await User
     .findOneAndUpdate(
       { meetup_uid: id },
@@ -54,12 +54,8 @@ async function updateTokens(id, newValues) {
         useFindAndModify: false
       }
     )
-    .then(item => {
-      console.log(`Successfully updated access tokens for user with id: ${id}`);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    .then(resp => res.json(resp))
+    .catch(err => new HTTPError(500, err));
 }
 
 async function confirmUser(req, res) {
