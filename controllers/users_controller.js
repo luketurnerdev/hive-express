@@ -1,9 +1,5 @@
 //Import the user model
 const User = require("./../database/models/user_model");
-const meetupService = require("./../services/meetupService");
-const axios = require("axios");
-
-// import findUser function
 const findUser = require("./_findUser");
 
 // POST to "/auth/register"
@@ -100,12 +96,10 @@ async function newAccountRequest(req, res, next) {
 // Update a user's document with an account request message
 async function createAccountRequest(req, res, next) {
   let { id, request_message } = req.body;
-
   // if message is empty, return an error
   if (!request_message.trim()) {
     return next(new HTTPError(400, "Message is required and must not be blank."))
   }
-
   await User
     .findByIdAndUpdate(id, { request_message }, { new: true })
     .then(resp => {
