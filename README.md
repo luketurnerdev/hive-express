@@ -587,7 +587,8 @@ These include:
     * The development of user flow diagrams to conceptualize how users are going to be traversing through the site, and the paths they will take to use the site for its intended purposes.
     * The creation of Object-relational-mapping (ORM) diagrams to determine how the database will be structured.
     * Data flow diagrams to plan a high-level view of where certain code functions will need to be placed throughout the application, before the actual code is written.
-* Teamwork skills, such as the dividing up of tasks in a way that is fair, and draws appropriately on various team member's skills and preferences
+* Teamwork skills, such as the division of tasks in a way that is fair, and draws appropriately on various team member's skills and preferences
+* Client relationship development skills, which are utilized through finding a client to make the project for, establishing their needs and wants, and comparing these to our own capabilities within the timeframe. This includes ongoing meetings and digital communications with the client to keep them updated on our progress.
 * Back-end development concepts, such as:
     * The use of the ExpressJS web server in conjunction with nodeJS to create a backend application that can be run on the web.
     * The use of middleware to provide extra functionality to ExpressJS, including functions that are generally only available in the browser, such as session storage
@@ -600,7 +601,8 @@ These include:
     * Appropriate error handling methods, to ensure that both developers and end-users can understand why a program crashed or behaved unexpectedly.
     * Authorisation, to ensure that certain users can or cannot access certain pages or perform certain functions (for example, only admins can view student account requests). This is supplemented by effective redirections to other pages if a user tries to break these boundaries.
     * Asynchronous 
-* Frontend 
+     TODO: frontend fill in 
+    * Frontend technologies, such as 
 * Testing
 * 
 
