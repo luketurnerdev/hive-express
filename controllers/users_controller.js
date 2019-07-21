@@ -64,27 +64,27 @@ async function updateTokens(id, newValues) {
 // Set a user's confirmed value to true in the database.
 async function confirmUser(req, res, next) {
   let id = req.params.id;
-
   await User
     .findByIdAndUpdate(id, { confirmed: true }, { new: true })
     .then(resp => {
-      if (!resp) return next(new HTTPError(404, `Can't find user with id ${id}`))
+      if (!resp) return next(new HTTPError(404, `Can't find user with id: ${id}`))
       else return res.json(resp);
     })
     .catch(err => next(new HTTPError(400, err)));
     //res.redirect("/account_requests")
 }
 
-//'delete' is a reserved word, using deleteUser instead
-async function deleteUser(req, res) {
-
+// DELETE to "/users/:id"
+// Remove a user from the database
+async function deleteUser(req, res, next) {
   let id = req.params.id;
-  console.log(id);
-  await User.findByIdAndRemove(id);
-
-
-  console.log("Deleted user.");
-  res.redirect("/account_requests");
+  await User
+    .findByIdAndRemove(id, { useFindAndModify: false })
+    .then(resp => {
+      if (!resp) return next(new HTTPError(404, `Can't find user with id: ${id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(400, err)));
 }
 
 // GET to "/users/request"
