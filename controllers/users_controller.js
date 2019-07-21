@@ -97,8 +97,22 @@ async function newAccountRequest(req, res, next) {
 }
 
 // PUT to "/users/request"
-function createAccountRequest(req, res) {
-  res.send(req.body);
+// Update a user's document with an account request message
+async function createAccountRequest(req, res, next) {
+  let { id, request_message } = req.body;
+
+  // if message is empty, return an error
+  if (!request_message.trim()) {
+    return next(new HTTPError(400, "Message is required and must not be blank."))
+  }
+
+  await User
+    .findByIdAndUpdate(id, { request_message }, { new: true })
+    .then(resp => {
+      if (!resp) return next(new HTTPError(404, `Can't find user with id: ${id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(400, err)));
 }
 
 async function show(req, res) {
