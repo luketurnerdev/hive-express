@@ -1,5 +1,4 @@
 const Event = require("./../database/models/event_model");
-const User = require("./../database/models/user_model");
 const axios = require("axios");
 // import findUser() function
 const findUser = require("./_findUser");
@@ -97,17 +96,17 @@ async function newSuggestion(req, res, next) {
   let group = req.query.group;
   let id = req.params.id;
 
+  if (!accessToken) return next(new HTTPError(400, "Could not find access token."));
+  if (!group) return next(new HTTPError(400, "Could not find group."));
+
   let meetup = await axios
     .get(`https://api.meetup.com/${group}/events/${id}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
     })
-    .then(resp => resp.data)
-    .catch(err => next(new HTTPError(500, "Request failed to retrieve data from Meetup API.")));
-
-  res.render("events/suggest", { meetup });
-  // res.json(meetup)
+    .then(resp => res.json(resp.data))
+    .catch(err => next(new HTTPError(500, "Failed to retrieve event data from Meetup API.")));
 }
 
 // GET to "/events/:id"
