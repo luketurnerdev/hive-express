@@ -9,7 +9,9 @@ const findUser = require("./_findUser");
 //Import access and refresh tokens from authorization
 //Do get request here for user info, store it in a variable and then write it to the DB
 
-async function create(req, res) {
+// POST to "/auth/register"
+// Create/register a new user or update their tokens if they're already registered.
+async function create(req, res, next) {
   let {
     meetup_uid,
     email,
@@ -24,25 +26,22 @@ async function create(req, res) {
     updated_at
   } = req.body;
 
-  let user = await User.create({
-    meetup_uid,
-    email,
-    name,
-    city,
-    photo,
-    admin,
-    confirmed,
-    access_token,
-    refresh_token,
-    created_at,
-    updated_at
-  })
-    .then(response => {
-      console.log("Successfully created new user!");
+  await User
+    .create({
+      meetup_uid,
+      email,
+      name,
+      city,
+      photo,
+      admin,
+      confirmed,
+      access_token,
+      refresh_token,
+      created_at,
+      updated_at
     })
-    .catch(err => res.status(500).send(err));
-
-  res.send(req.body);
+    .then(resp => res.json(resp))
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 async function updateTokens(id, newValues) {
