@@ -6,6 +6,8 @@ const User = require("./../database/models/user_model");
 const Event = require("./../database/models/event_model");
 //Review Model
 const Review = require("./../database/models/review_model");
+// import findUser() function
+const findUser = require("./_findUser");
 
 // GET to "/reviews"
 // Show all reviews to admin
@@ -117,31 +119,6 @@ async function update(req, res, next) {
     .catch(err => next(new HTTPError(500, err)));
   
   return res.json(review);
-}
-
-/*  
- *  Find a user in the database using the access_token stored in cookies.
- *  If unsuccessful, call error handler middleware.
- */
-async function findUser(req, next){
-  try {
-    // get access token from cookies
-    let accessToken = req.cookies.tokens.access_token;
-    // check the token
-    if (!accessToken) throw new HTTPError(404, "Missing user's access_token.");
-
-    // find user with access token
-    return await User
-      .findOne({ access_token: accessToken })
-      .then(resp => {
-        // check the response
-        if (!resp) throw new HTTPError(404, "User not found.");
-        else return resp;
-      })
-    } catch(err) {
-    // If errors, return with error middleware
-    return next(err);
-  };
 }
 
 module.exports = {
