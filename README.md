@@ -64,18 +64,18 @@
 
 As a student:
 
-- I should be able to use a calendar so that I track meetups I am attending.
+- I should be able to use a calendar so that I can track meetups I am attending.
 - I should be able to see specific event information so that I can know more about that event.
-- I should be able to recommend new meetups to the Hive’s staff so that they can approve them.
+- I should be able to recommend new meetups to the Hive’s staff so that they can reccomend them.
 - I should be able to send a sign up request so that the staff can approve my participation in the Hive.
 - I should be able to see which other students are attending an event so that I know who I will be meeting there.
-- I should be able to leave reviews (ratings + comments) on passed events I attended, so that I can help other students decide whether they go or not to similar events.
-- I should be able to display my own reviews so that I can prove I am interested in my professional development to potential employers.
-- I should be able to read other students’ reviews in order to decide whether or not to attend an event similar  to the one they reviewed.
+- I should be able to leave reviews (ratings + comments) on past events I attended, so that I can help other students decide whether to go to similar events.
+- I should be able to create my own reviews so that I can prove I am interested in my professional development to potential employers.
+- I should be able to read other students’ reviews in order to decide whether or not to attend an event similar to the one they reviewed.
 
 As the staff:
 
-- I should be able to use a calendar so that I track meetup hivers are attending.
+- I should be able to use a calendar so that I can track meetups that hivers are attending.
 - I should be able to approve or reject students’ suggestions regarding new meetups, so that I can keep the Hive full of interesting and enriching events.
 - I should be able to approve or reject potential hiver’s sign up requests, so that I can make sure Hiver’s users are either Coder Academy’s staff or students/alumni.
 - I should be able to delete students’ comments in order to keep the Hive free of harassment and other undesired behaviours.
@@ -139,9 +139,9 @@ As the staff:
 
 First of all, we can define quality software (from now on, QS) as “reasonably bug or defect free, delivered on time and within budget, meets requirements and/or expectations, and is maintainable”, according to [Try QA](http://tryqa.com/).
 
-We can break definition of QS depending on which one of the three involved stakeholders we take into account: development team, sponsors or end users. Therefore, we can identify three aspects of QS, which will be explained in the following paragraphs.
+We can break down the definition of QS depending on which one of the three involved stakeholders we take into account: development team, sponsors or end-users. Therefore, we can identify three aspects of QS, which will be explained in the following paragraphs.
 
-On one hand, we get the **functional quality**. As [David Chappell](http://www.davidchappell.com/writing/white_papers/The_Three_Aspects_of_Software_Quality_v1.0-Chappell.pdf) says, it can relate to:
+On one hand, we get the **functional quality**. As [David Chappell](http://www.davidchappell.com/writing/white_papers/The_Three_Aspects_of_Software_Quality_v1.0-Chappell.pdf) says, this can relate to:
 
 * Meeting the specified requirements.
 * Creating software that has few defects.
@@ -192,7 +192,7 @@ The next feature to be discussed is **usability**, which refers to the ease of u
 
 **Efficiency** depends on the resources used/consumed by the system while providing the required functionality. "[D]isk space, memory, network etc. provides a good indication of this characteristic" (Buenaflor). Big part of usability hinges on this feature, as we can see in the following example:
 
-Imagine the Hiver takes long time to register the attendance of one user, the system won't be easy to use anymore.
+Imagine the Hive takes a long time to register the attendance of one user. This would hinder the ease-of-use of the system, as users would become stuck and not know what to do.
 
 Furthermore, the capacity to isolate and fix a bug is called **maintainability** (or supportability). Writing a readable code and keeping it simple helps making our system maintainable (and thus, testable). 
 
@@ -231,7 +231,7 @@ Secondly, it uses a *single-way data flow* approach, which means that components
 
 To finish with, it deals with a *virtual document object model*, so it generates an in-memory data structure cache that computes the changes made before updating the browser. This enables us to write code as if the whole page was rendered, whereas only the changed components are rendered.
 
-All of this lends to React's *simplicigty*, *ease to study*, *good performance* and *testability* (React views can be treated as functions of the state, so we can manipulate the React view and check the output easily).
+All of this lends to React's *simplicity*, *ease to study*, *good performance* and *testability* (React views can be treated as functions of the state, so we can manipulate the React view and check the output easily).
 
 Bibliography:
 1. [React](https://github.com/facebook/react).
@@ -264,7 +264,7 @@ Bibliography:
 
 A "[f]ull-featured calendar to visualize [and] add events" ([React.Rocks](https://react.rocks/example/react-big-calendar)), built for *React* and made for modern browsers. It is also characterisez by using *flexbox*.
 
-A key point regarding react-big-calendar is that it treats event start/end dates as an exclusive range. Therefore, the event doesn not include the end date. If we display events on whole days, end dates are rounded up to the next day. "So an event ending on Apr 8th 12:00:00 am will not appear on the 8th, whereas one ending on Apr 8th 12:01:00 am will. If you want inclusive ranges consider providing a function endAccessor that returns the end date + 1 day for those events that end at midnight" ([React Big Calendar Docs](https://intljusticemission.github.io/react-big-calendar/examples/index.html)).
+A key point regarding react-big-calendar is that it treats event start/end dates as an exclusive range. Therefore, the event does not include the end date. If we display events on whole days, end dates are rounded up to the next day. "So an event ending on Apr 8th 12:00:00 am will not appear on the 8th, whereas one ending on Apr 8th 12:01:00 am will. If you want inclusive ranges consider providing a function endAccessor that returns the end date + 1 day for those events that end at midnight" ([React Big Calendar Docs](https://intljusticemission.github.io/react-big-calendar/examples/index.html)).
 
 Bibliography:
 1. [React.Rocks](https://react.rocks/example/react-big-calendar).
@@ -314,7 +314,7 @@ Bibliography:
 
 #### [styled compoments](https://www.styled-components.com/) 
 
-This library allows you to write actual CSS code to give design to components by using *tagged template literals* (recently added to JavaScript) and CSS. Moreover, it removes the mapping between components and styles, which makes it *easy to utilize components as a low-levek styling construct*. It can be referred as a *CSS-in-JS styling framework*.
+This library allows you to write actual CSS code to give design to components by using *tagged template literals* (recently added to JavaScript) and CSS. Moreover, it removes the mapping between components and styles, which makes it *easy to utilize components as a low-level styling construct*. It can be referred as a *CSS-in-JS styling framework*.
 
 We chose styled components because it keeps "the concerns of styling and element architecture separated and make components more readable". In addition, if "you have components that rely on JavaScript for their style, Styled Components gives control of those states back to CSS instead of using a multitude of conditional class names" ([Marcasa, Building CrowdRiff, Medium](https://medium.com/building-crowdriff/styled-components-to-use-or-not-to-use-a6bb4a7ffc21)).
 
@@ -335,11 +335,15 @@ Bibliography:
 
 #### [OAuth2-Meetup](http://www.passportjs.org/packages/passport-oauth2-meetup/) 
 
+TODO: Check this? Delete it?
+
 As all the information of each event within our Hive will be grabbed from [Meetup.com](https://www.meetup.com), we decided to request for the Meetup account to sign in our Hive. According to this line of thinking, we chose the meetup promise for Passport. 
 
 OAuth2-Meetup would allow us to automatically get the username, identified as **meetup_<**meetupID**>**. Nevertheless, this promise has not been updated for 4 years, which made us wonder if it was our best option.
 
 Happily, we made it work, actually without even using that as a promise, but accessing the data through an axios request.
+
+
 
 #### [axios](https://github.com/axios/axios) 
 
@@ -347,7 +351,7 @@ Happily, we made it work, actually without even using that as a promise, but acc
 
 It is also a secure option as it contains built in Cross Site Forgery (XSRF) protection. Moreover, it supports Google Chrome, Safari, Opera, Edge, and Internet Explorer verison 8 and newer, so it's *browser compatibility* is wider.
 
-We used axios all along the development process and the production of the front-end of the Hive, as a means of calling our fake json database, or our mongodb one, respectively. Therefore, we were able to perform CRUD operations in a very straightforward manner. 
+We used axios all along the development process and the production of the front-end of the Hive, as a means of calling our fake json database, or our mongodb one, respectively. Axios was also used in the back-end to make calls to various routes within our express application, as well as making calls to Meetup.com. Therefore, we were able to perform CRUD operations in a very straightforward manner. 
 
 Bibliography:
 1. [axios. axios](https://github.com/axios/axios).
@@ -405,6 +409,8 @@ Handlebars allows us to *avoid repetitive code* by compiling the final DOM struc
 
 One difference in comparison with other packages is an ability to use **Hooks**. In this way you can override some functionality of ExpressHandlebars instances.
 
+Handlebars was used in our express app in order to test functionality by passing data into views in the backend - it was eventually replaced by React.
+
 Bibliography:
 1. [express-handlebars npm](https://www.npmjs.com/package/express-handlebars).
 2. [Building Page Templates in ExpressJS With Handlebars. Todd Birchard. Hackers and Slackers](https://hackersandslackers.com/handlebars-templating-in-expressjs/).
@@ -428,9 +434,9 @@ Bibliography:
 
 Usual choice for parsing cookies in Express. It works as follows: it parses "Cookie header and populate req.cookies with an object keyed by the cookie names. Optionally you may enable signed cookie support by passing a secret string, which assigns req.secret so it may be used by other middleware" ([cookie-parser, Express, GitHub](https://github.com/expressjs/cookie-parser)).
 
-We use cookies in their most basic form for the Hive, just making the cookie and retrieving it later. As there is no possibility of using cookies and other browser functions from express without middleware it was necessary to get a package like that.
+We use cookies in their most basic form for the Hive, just making the cookie and retrieving it later. As there is no possibility of using cookies and other browser functions from express without middleware it was necessary to get a package like this.
 
-Currently, we are using the cookies to store the user’s access and refresh tokens.
+Currently, we are using the cookies to retrieve a user's access and refresh tokens from the database, and store them locally so that the user can be identified.
 
 #### [Cross-Origin Resource Sharing (CORS)](https://www.npmjs.com/package/cors)
 
@@ -451,7 +457,7 @@ Bibliography:
 
 Dotenv can be also defined as a tool to make *local variables be available to an application* (that is what *environment variables* are).
 
-The reason why we wanted to set this environment variables was avoiding certain tokens or credentials to be push to GitHub.
+The reason why we wanted to set this environment variables was avoiding certain tokens or credentials to be pushed to GitHub, and also to DRY up code instead of having to type long strings over and over.
 
 Bibliography:
 1. [dotenv npm](https://www.npmjs.com/package/dotenv).
@@ -488,6 +494,8 @@ Bibliography:
 
 #### [Morgan](https://www.npmjs.com/package/morgan)
 
+TODO: Not sure if we used this at all. We might be able to implement it somewhere
+
 *Morgan* is a HTTP request logger middleware for node.js, used for logging request details.
 
 Bibliograhy:
@@ -500,7 +508,7 @@ Bibliograhy:
 
 "It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB"([Karnik, Developer News, freeCodeCamp](https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/)).
 
-Taking all that into account, we chose Mongoose to connect our mongodb database with our NodeJs programme. 
+Taking all that into account, we chose Mongoose to connect our mongodb database with our NodeJs program. 
 
 Bibliography:
 1. [mongoose npm](https://www.npmjs.com/package/mongoose).
@@ -518,7 +526,7 @@ Jest is very easy to install, using either *npm or yarn package managers*, and e
 
 One thing to note is *coverage*. You set it up just by adding the flag **--coverage**, and you are able to collect code coverage information from entire projects, including untested files. However, the tests are as good as the coverage. Eg: if you just test 50% of the system's code, then the remaining half can contain bugs.
 
-To finish with, Jest has simple *mock functions*, because "uses a custom resolver for imports in your tests" ([Jest Doc](https://jestjs.io/)). A mock object is "a simulated object that mimics the behavior of the smallest testable parts of an application in controlled ways[,]"makes use of the same interface as the element of code it is intended to imitate and is often used in unit testing to scrutinize the performance of an actual object. 
+To finish with, Jest has simple *mock functions*, because it "uses a custom resolver for imports in your tests" ([Jest Doc](https://jestjs.io/)). A mock object is "a simulated object that mimics the behavior of the smallest testable parts of an application in controlled ways[,]"makes use of the same interface as the element of code it is intended to imitate and is often used in unit testing to scrutinize the performance of an actual object. 
 
 Therefore, it helps "isolate the component being tested from the components it depends on and applying mock objects effectively is an important part of test-driven development (TDD)" ([Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object)).
 
@@ -527,28 +535,16 @@ Bibliography:
 2. [jest. Facebook](https://github.com/facebook/jest).
 2. [Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object).
 
-#### [react-big-calendar](https://www.npmjs.com/package/react-big-calendar)
-
-A "[f]ull-featured calendar to visualize [and] add events" ([React.Rocks](https://react.rocks/example/react-big-calendar)), built for *React* and made for modern browsers. It is also characterisez by using *flexbox*.
-
-A key point regarding react-big-calendar is that it treats event start/end dates as an exclusive range. Therefore, the event doesn not include the end date. If we display events on whole days, end dates are rounded up to the next day. "So an event ending on Apr 8th 12:00:00 am will not appear on the 8th, whereas one ending on Apr 8th 12:01:00 am will. If you want inclusive ranges consider providing a function endAccessor that returns the end date + 1 day for those events that end at midnight" ([React Big Calendar Docs](https://intljusticemission.github.io/react-big-calendar/examples/index.html)).
-
-#### [OAuth2-Meetup](http://www.passportjs.org/packages/passport-oauth2-meetup/)
-
-As all the information of each event within our Hive will be grabbed from [Meetup.com](https://www.meetup.com), we decided to request for the Meetup account to sign in our Hive. According to this line of thinking, we chose the meetup promise for Passport. 
-OAuth2-Meetup would allow us to automatically get the username, identified as **meetup_<**meetupID**>**. Nevertheless, this promise has not been updated for 4 years, which made us wonder if it was our best option.
-Happily, we made it work, actually without even using that as a promise, but accessing the data through an axios request.
-
 
 3. A team is about to engage in a project, developing a website for a small business. What knowledge and skills would they need in order to develop the project?
 
 *Effectively describes a range of skills and knowledge required by IT workers to complete a quality web development project*
 
-The knowledge and skills required for a project depend on the deliveries that must be made. In this case, we are questioned about a website. Therefore, the former will have to do with full stack web development.
+The knowledge and skills required for a project depend on the deliveries that must be made. In this case, we are given the task of developing a web application. Therefore, the former will have to do with full stack web development.
 
 This requires both back-end and front-end capabilities. The former refer to the “server-side” of web applications. The latter, to the client-side.
 
-The back-end developer create the logic to make the web app work properly. They focus on databases, scripting, and the architecture of websites, and their code helps to communicate the database information to the browser. They work, mainly, with:
+The back-end developers create the logic to make the web app work properly. They focus on databases, scripting, and the architecture of websites, and their code helps to communicate the database information to the browser. They work, mainly, with:
 
 * Server-side programming language/s (Python, Ruby,...).
 * Database Management System technology (MongoDB, MySQL, …).
@@ -557,14 +553,14 @@ The back-end developer create the logic to make the web app work properly. They 
 
 The front-end developer is in charge of the experience of the end user, which means they have to carry on the following tasks:
 
-* Apply the design to the web using web technologies like DOM, HTML, CSS and Js.
-* Change and maintain the web.
-* Adapt the design to various devices and browsers.
-* Improve the interaction between the user and the web.
-* Use APIs to connect the web with various services or systems.
+* Apply design elements to the website using technologies like HTML, CSS and JavaScript front-end libraries such as React.
+* Change and maintain the web view.
+* Adapt the design to various devices and browsers (responsivity).
+* Ensure the interaction between the user and the application is simple and satisfying.
+* Use APIs to connect the web with various services or systems, including those designed in the program's backend server.
 
 
-Both of them should feel comfortable with git and version control systems, problem solving, and testing. 
+Both teams should feel comfortable with git and version control systems, problem solving, and testing.
 
 The full-stack developer is the one with all the skills discussed in the previous paragraphs.
 
@@ -578,6 +574,35 @@ Bibliography:
 4. Within your own project what knowledge or skills were required to complete your project, and overcome challenges?
 
 *Effectively describes a range of skills and knowledge used to complete group project.*
+
+During the project, our team drew on all the skills we have learned throughout this course.
+
+These include:
+
+* Basic structural website concepts, such as HTML documents, and how these appear on a webpage (using the DOM).
+* Styling concepts, such as using CSS and various styling libraries to achieve an aesthetic result that is pleasing to for users to look at (e.g., appropriate colour schemes, size of icons) and easy to interact with (placement of calls to action, nav bars, text fields etc).
+* Project management skills, including the use of Trello and spreadsheets to manage tasks, estimation of task completion times, modification of task parameters during the project (agile approach), and prioritising certain features over others to achieve a minimum viable product (MVP).
+* Planning and design skills, such as:
+    * The development of wireframes at varying levels of fidelity and for various devices, in order to visually see the layout of the application 
+    * The development of user flow diagrams to conceptualize how users are going to be traversing through the site, and the paths they will take to use the site for its intended purposes.
+    * The creation of Object-relational-mapping (ORM) diagrams to determine how the database will be structured.
+    * Data flow diagrams to plan a high-level view of where certain code functions will need to be placed throughout the application, before the actual code is written.
+* Teamwork skills, such as the dividing up of tasks in a way that is fair, and draws appropriately on various team member's skills and preferences
+* Back-end development concepts, such as:
+    * The use of the ExpressJS web server in conjunction with nodeJS to create a backend application that can be run on the web.
+    * The use of middleware to provide extra functionality to ExpressJS, including functions that are generally only available in the browser, such as session storage
+    * Utilizing HTTP requests to create, read, update or delete content, which is either contained within local routes, or external APIs such as Meetup.com
+    * The use of the MongoDB Object-Relational-Mapping database along with Mongoose to store, retrieve and manipulate data in a way that persists over time.
+    * The effective separation of concerns within the application, including use of the Model-View-Controller (MVC) methodology, which ensures that each part of the code is serving a specific purpose (e.g., the logic of the views are limited, as most logic is performed in the controllers).
+    * Refactoring code to further separate concerns and save time by not having to repeat code that has already been written.
+    * Authentication methods (in our case, OAuth2) to allow a user to log in with Meetup.com and have this information persist and talk to their meetup account to retrieve user data. This also provides a layer of security, as all the authentication information is stored on Meetup's end, and so we do not have to hash and store password data.
+    * Data validation, to ensure that users are only able to enter the data that the system is expecting.
+    * Appropriate error handling methods, to ensure that both developers and end-users can understand why a program crashed or behaved unexpectedly.
+    * Authorisation, to ensure that certain users can or cannot access certain pages or perform certain functions (for example, only admins can view student account requests). This is supplemented by effective redirections to other pages if a user tries to break these boundaries.
+    * Asynchronous 
+* Frontend 
+* Testing
+* 
 
 5. Evaluate how effective your knowledge and skills were this project, using examples, and suggest changes or improvements for future projects of a similar nature?
 
