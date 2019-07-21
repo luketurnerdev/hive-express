@@ -3,9 +3,8 @@ const User = require("./../database/models/user_model");
 const meetupService = require("./../services/meetupService");
 const axios = require("axios");
 
-function index(req, res) {
-  res.send("Users index");
-}
+// import findUser function
+const findUser = require("./_findUser");
 
 //Import access and refresh tokens from authorization
 //Do get request here for user info, store it in a variable and then write it to the DB
@@ -127,7 +126,6 @@ async function show(req, res) {
 }
 
 module.exports = {
-  index,
   create,
   updateTokens,
   confirmUser,
