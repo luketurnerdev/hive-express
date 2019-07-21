@@ -41,7 +41,9 @@ async function create(req, res, next) {
     .catch(err => next(new HTTPError(500, err)));
 }
 
-async function updateTokens(id, newValues, next) {
+// PUT to "/auth/register"
+// Update the user's tokens in the database.
+async function updateTokens(id, newValues) {
   await User
     .findOneAndUpdate(
       { meetup_uid: id },
@@ -58,25 +60,19 @@ async function updateTokens(id, newValues, next) {
     .catch(err => new HTTPError(500, err));
 }
 
-async function confirmUser(req, res) {
+// PUT to "/users/confirm/:id"
+// Set a user's confirmed value to true in the database.
+async function confirmUser(req, res, next) {
+  let id = req.params.id;
 
-    let id = req.params.id || null;
-    await User.update(
-    { _id: id },
-    {
-      $set: {
-          confirmed:true
-      }
-    }
-  )
-    .then(item => {
-      console.log(`Successfully confirmed user with id: ${id}`);
+  await User
+    .findByIdAndUpdate(id, { confirmed: true }, { new: true })
+    .then(resp => {
+      if (!resp) return next(new HTTPError(404, `Can't find user with id ${id}`))
+      else return res.json(resp);
     })
-    .catch(err => {
-      console.log(err);
-    });
-    res.redirect("/account_requests")
-  
+    .catch(err => next(new HTTPError(400, err)));
+    //res.redirect("/account_requests")
 }
 
 //'delete' is a reserved word, using deleteUser instead
