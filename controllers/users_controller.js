@@ -98,19 +98,11 @@ async function deleteUser(req, res) {
 
 // GET to "/users/request"
 // Display form for user to send a message to admin
-async function newAccountRequest(req, res) {
-  // if "tokens" cookie isn't found
-  if (!req.cookies.tokens) {
-    // redirect to homepage
-    console.log("***TOKENS WERE NOT FOUND***");
-    return res.redirect("/");
-  }
-
-  // Find current user
-  let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({ access_token: accessToken });
-
-  res.render("users/request", { user });
+async function newAccountRequest(req, res, next) {
+  // Find and return the current user's document
+  await findUser(req, next)
+    .then(resp => res.json(resp))
+    .catch(err => console.log(err));
 }
 
 // PUT to "/users/request"
