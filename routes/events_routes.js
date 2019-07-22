@@ -40,11 +40,11 @@ router.delete("/:id", eventsController.destroy);
 // Update a suggested event to be recommended
 router.put("/recommend/:id", eventsController.recommend);
 
+//Update an event with the user's attendance
+router.put("/attend/:id", eventsController.toggleAttendance);
+
 // GET to "/events/:group/:id"
 // Show One Meetup (that isn't saved yet)
 router.get("/:group/:id", eventsController.showMeetup);
-
-//Update an event with the user's attendance
-router.put("/:id/attend", eventsController.toggleAttendance);
 
 module.exports = router;
