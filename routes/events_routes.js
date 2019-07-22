@@ -44,4 +44,7 @@ router.put("/recommend/:id", eventsController.recommend);
 // Show One Meetup (that isn't saved yet)
 router.get("/:group/:id", eventsController.showMeetup);
 
+//Update an event with the user's attendance
+router.put("/:id/attend", eventsController.toggleAttendance);
+
 module.exports = router;
