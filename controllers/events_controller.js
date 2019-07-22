@@ -142,8 +142,12 @@ async function newSuggestion(req, res, next) {
 async function show(req, res, next) {
   let meetup = await Event
     .findById(req.params.id)
-    .catch(err => next(new HTTPError(404, `Could not find event with ID: ${req.params.id}`)));
-  res.json(meetup);
+    .then(resp => {
+      if (resp === null) 
+        return next(new HTTPError(404, `Could not find event with ID: ${req.params.id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // GET to "/events/:group/:id"
