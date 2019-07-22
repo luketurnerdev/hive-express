@@ -60,7 +60,7 @@ async function create(req, res, next) {
         local_date,
         local_time,
         venue: { name: venue_name, address_1: venue_address, city: venue_city },
-        group: { name: group },
+        group: { name: group_name, urlname: group_urlname },
         description,
         how_to_find_us
       } = meetup;
@@ -71,7 +71,10 @@ async function create(req, res, next) {
           meetup_id,
           link,
           name,
-          group,
+          group: {
+            name: group_name,
+            urlname: group_urlname
+          },
           local_date,
           local_time,
           status,
@@ -101,24 +104,29 @@ async function create(req, res, next) {
     });
 }
 
-// GET to "/events/suggest/:id"
+// GET to "/events/suggest/:id?groupUrlName"
 // Display a form for the user to write a message for suggesting/creating an event.
+// Returns full event data object from meetup API.
 async function newSuggestion(req, res, next) {
   let accessToken = req.cookies.tokens.access_token;
   let group = req.query.group;
   let id = req.params.id;
-
+  // Check for required values
   if (!accessToken) return next(new HTTPError(400, "Could not find access token."));
   if (!group) return next(new HTTPError(400, "Could not find group."));
-
+  // GET request to meetup api
   let meetup = await axios
     .get(`https://api.meetup.com/${group}/events/${id}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
     })
-    .then(resp => res.json(resp.data))
-    .catch(err => next(new HTTPError(500, "Failed to retrieve event data from Meetup API.")));
+    .then(resp => {
+      if (!resp.data) 
+        return next(new HTTPError(404, "Failed to retrieve event data from Meetup API."))
+      else return res.json(resp.data);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // GET to "/events/:id"
