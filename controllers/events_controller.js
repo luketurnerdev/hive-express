@@ -7,10 +7,15 @@ const findUserByToken = require("./_findUserByToken");
 // Show all events in DB
 async function index(req, res, next) {
   // Find all events and sort by their creation date
-  let events = await Event.find().sort({ created_at: "desc" })
-    // return the response as json
-    .then(resp => res.json(resp))
-    .catch(err => next(new HTTPError(500, "Failed to find events.")));
+  let events = await Event
+    .find()
+    .sort({ created_at: "desc" })
+    .then(resp => {
+      if (resp === null)
+        return next(new HTTPError(500, `Failed to find events in database.`));
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(400, err)));
 }
 
 // POST to "/events"
