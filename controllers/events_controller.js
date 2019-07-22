@@ -109,7 +109,7 @@ async function create(req, res, next) {
 async function toggleAttendance(req, res, next) {
   let id = req.params.id;
   //Find the user
-  let user = await findUserByToken(req, next);
+  let user = await findUserByToken(req, next)
   //Find the event
   let event = await Event
     .findById(id)
@@ -123,23 +123,21 @@ async function toggleAttendance(req, res, next) {
   // Add user to attendees array if not attending,
   // or remove them if they are
   let newList = event.hive_attendees;
-  if (event.hive_attendees.includes(user.meetup_uid)) {
-    newList.splice(newList.indexOf(user.meetup_uid), 1);
-  } else {
-    newList.push(user.meetup_uid);
-  }
+  (event.hive_attendees.includes(user.id)) ? newList.splice(newList.indexOf(user.id), 1) : newList.push(user.id);
   
   //Update event in DB with list of hive_attendees
   await Event
-    .findByIdAndUpdate(id, { hive_attendees: newList }, { new: true })
+    .findByIdAndUpdate(
+      id,
+      { hive_attendees: newList },
+      { new: true, useFindAndModify: false }
+    )
     .then(resp => {
       if (!resp) return next(new HTTPError(404, `Failed to update event with id: ${id}`))
       else return res.json(resp);
     })
     .catch(err => next(new HTTPError(500, err)));
 }
-
-
 
 // GET to "/events/suggest/:id?groupUrlName"
 // Display a form for the user to write a message for suggesting/creating an event.
