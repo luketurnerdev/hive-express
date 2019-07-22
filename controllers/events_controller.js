@@ -104,11 +104,62 @@ async function create(req, res, next) {
     });
 }
 
-async function attend() {
+async function attend(req, res, next) {
   //User clicks attending in react. Sends through the user id and the event id
   // grab the specific event from the database by its id
   // Append the hive_attendees array with the user's ID
   // return the updated event object with the updated array of attendees
+  //  Or return the appropriate error
+  let {event_id} = req.body;
+
+  let user = await findUserByToken(req, next)
+  .then(resp => {
+    return resp;
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
+  let list = [];
+  let event = await Event
+    .findById(event_id)
+    .then(resp => {
+      //If no user found
+      if (!resp) {
+        return next(new HTTPError(500, "Couldn't find user with given ID."));
+      }
+      //If user is already in the array of attendees
+      if (resp.hive_attendees.includes(user.meetup_uid)) {
+        return next((new HTTPError(500, "User is already attending that event.")));
+      }
+      else {
+        console.log(resp);
+        list = event.hive_attendees.push(user.meetup_uid);
+        return resp;
+      }
+    })
+
+  
+  
+  // //Update event here//
+  let updatedEvent = await Event
+    .findByIdAndUpdate(
+      event_id,
+      {hive_attendees : list}
+    )
+    .then(resp => resp.data)
+    .catch(err => next(new HTTPError(500, "Failed to mark user as attending.")));
+
+    
+  
+
+  // res.json('ok');
+
+  res.json(updatedEvent);
+
+
+
+
 
 }
 
@@ -246,14 +297,12 @@ async function findMeetupEvent(next, group, id, accessToken) {
   };
 }
 
-//Attending an event
-//put request comes through to express. the db is updated. the response should be the updated event, with
-//the new attendee now in the array
 
 
 module.exports = {
   index,
   create,
+  attend,
   show,
   showMeetup,
   newSuggestion,
