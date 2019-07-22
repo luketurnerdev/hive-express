@@ -93,46 +93,31 @@ async function dashboard(req, res, next) {
 }
 
 async function toggleConfirmed(req, res) {
-
-   // Find current user
-   let accessToken = req.cookies.tokens.access_token;
-   let user = await User.findOne({access_token: accessToken});
+  // Find current user
+  let accessToken = req.cookies.tokens.access_token;
+  let user = await User.findOne({access_token: accessToken});
   
   if (user.confirmed === false){
     console.log('user is unconfirmed');
-    await User.findByIdAndUpdate(user._id, {
-       confirmed: true
-    });
+    await User.findByIdAndUpdate(user._id, { confirmed: true });
   } else {
     console.log('user is confirmed');
-
-    await User.findByIdAndUpdate(user._id, {
-      confirmed: false
-    });
+    await User.findByIdAndUpdate(user._id, { confirmed: false });
   }
-  
-
   res.redirect("/");
 }
 
 async function toggleAdmin(req, res) {
-
   // Find current user
   let accessToken = req.cookies.tokens.access_token;
   let user = await User.findOne({access_token: accessToken});
  
- if (user.admin === false){
-   await User.findByIdAndUpdate(user._id, {
-      admin: true
-   });
- } else {
-await User.findByIdAndUpdate(user._id, {
-     admin: false
-   });
- }
- 
-
- res.redirect("/");
+  if (user.admin === false) {
+    await User.findByIdAndUpdate(user._id, { admin: true });
+  } else {
+    await User.findByIdAndUpdate(user._id, { admin: false });
+  }
+  res.redirect("/");
 }
 
 
