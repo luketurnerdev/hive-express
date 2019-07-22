@@ -174,29 +174,29 @@ async function showMeetup(req, res) {
 }
 
 // GET to "/events/suggestions"
+// ACCESS: ADMIN ONLY
 // Display events which are suggested and not recommended
 async function suggestions(req, res, next) {
   // Find the current user
   let user = await findUserByToken(req, next);
   // If current user is not an admin, return an error
-  if (!user.admin) return next(
-      new HTTPError(401, "You must be an admin to view this page.")
-    );
-  //res.redirect("/dashboard")
-  //should we redirect here or on the front-end?
+  if (!user.admin) {
+    return next(new HTTPError(401, "You must be an admin to view this page."));
+  }
 
   // Find events suggested by users
-  let events = await Event
+  await Event
     .find({
       ca_recommended: false,
       "suggested.is_suggested": true
     })
-    .sort({ 
-      created_at: "desc" 
+    .sort({ created_at: "desc" })
+    .then(resp => {
+      if (resp === null)
+        return next(new HTTPError(404, "Failed to find suggested events."))
+      else return res.json(resp);
     })
-    .catch(err => next(new HTTPError(404, "Failed to find suggested events.")));
-
-  res.json(events);
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // PUT to "/events/recommend/:id"
