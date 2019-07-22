@@ -30,41 +30,20 @@ async function accountRequests(req, res, next) {
     .catch(err => next(new HTTPError(500, err)));
 
   // Find current user
-  let user = await findUserByToken(req, next);
-
-  //TODO: Delete this after we have implemented account approval functionality for Mel
-  await User.findByIdAndUpdate(user._id, {
-    admin: true
-  });
-
-  //Send the user to the dashboard if their account has already been approved
-
-  if (user.confirmed) {
-    // return res.redirect("/dashboard")
-  }
-
-
-
-  //Check if user is admin
-  //If yes, render json {unconfirmedAccounts}
-  //Otherwise redirect to dashboard or request_access page
-
-  if (user.admin){
-    res.json(unconfirmedAccounts);
-  } else {
-    user.confirmed ? res.redirect("/dashboard") : res.redirect("/");
-  }
-
-
-
-  //If no, check if their account is confirmed. 
-
-  //If confirmed, redirect to dashboard
-
-  //If not, redirect to request access page
-
-
-  // res.render("pages/account_requests", {user, unconfirmedAccounts})
+  await findUserByToken(req, next)
+    //Check if user is admin
+    .then(resp => {
+      // if not an admin
+      if (!resp.admin) {
+        // if not confirmed - redirect newAccountRequest page
+        if (!resp.confirmed) return res.redirect("/users/request")
+        // if confirmed - redirect to dashboard
+        else return res.redirect("/dashboard");
+      } 
+      // if admin - respond with unconfirmedAccounts
+      else return res.json(unconfirmedAccounts);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // Show dashboard with user's events and list upcoming meetups
