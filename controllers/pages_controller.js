@@ -1,11 +1,11 @@
 const User = require("./../database/models/user_model");
+const findUserByToken = require("./_findUserByToken");
 const axios = require("axios");
 
 // GET to "/"
 // Show homepage
 function homepage(req, res) {
   console.log("COOKIES:", req.cookies);
-  
   res.render("pages/homepage");
 }
 
@@ -18,18 +18,19 @@ function register(req, res) {
 // GET to "/account_requests"
 // Displays the users account approval status,
 // or a list of pending approvals for admins
-
-async function accountRequests(req, res) {
+async function accountRequests(req, res, next) {
   //Make a list of unconfirmed accounts
   let unconfirmedAccounts = await User
-    .find({
-      confirmed:false
+    .find({ confirmed: false })
+    .sort({ created_at: "desc" })
+    .then(resp => {
+      if (!resp) return next(new HTTPError(404, "Failed to find unconfirmed users in database."))
+      else return resp;
     })
-    .sort({ created_at: "desc" });
+    .catch(err => next(new HTTPError(500, err)));
 
   // Find current user
-  let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({ access_token: accessToken });
+  let user = await findUserByToken(req, next);
 
   //TODO: Delete this after we have implemented account approval functionality for Mel
   await User.findByIdAndUpdate(user._id, {
