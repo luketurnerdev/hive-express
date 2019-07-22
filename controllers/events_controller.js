@@ -104,50 +104,39 @@ async function create(req, res, next) {
     });
 }
 
-//PUT to /events/:id/attend
+//PUT to /events/attend/:id
 //Toggle user attendance
-
 async function toggleAttendance(req, res, next) {
-  let {event_id} = req.body;
+  let id = req.params.id;
   //Find the user
-  let user = await findUserByToken(req, next)
-  .then(resp => {
-    return resp;
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
+  let user = await findUserByToken(req, next);
   //Find the event
   let event = await Event
-  .findById(event_id)
+    .findById(id)
     .then(resp => {
-      return resp;
+      // check for null response
+      if (!resp) return next(new HTTPError(404, `Couldn't find event with id: ${id}`));
+      else return resp;
     })
-    .catch(err =>{
-      return err;
-    })
+    .catch(err => next(new HTTPError(500, err)));
 
-    //Add user to event if not attending,
-    //or remove them if they are
-    let newList = event.hive_attendees;
-    if (event.hive_attendees.includes(user.meetup_uid)) {
-      newList.splice (newList.indexOf(user.meetup_uid), 1);
-    } else {
-      newList.push(user.meetup_uid);
-    }
+  // Add user to attendees array if not attending,
+  // or remove them if they are
+  let newList = event.hive_attendees;
+  if (event.hive_attendees.includes(user.meetup_uid)) {
+    newList.splice(newList.indexOf(user.meetup_uid), 1);
+  } else {
+    newList.push(user.meetup_uid);
+  }
   
-  //Update event in DB here
-  let updatedEvent = await Event
-    .findByIdAndUpdate(
-      event_id,
-      {hive_attendees : newList}
-    )
-    .then(resp => resp.data)
-    .catch(err => next(new HTTPError(500, "Failed to mark user as attending.")));
-    console.log('list after:' + newList);
-
-    return res.json(updatedEvent);
+  //Update event in DB with list of hive_attendees
+  await Event
+    .findByIdAndUpdate(id, { hive_attendees: newList }, { new: true })
+    .then(resp => {
+      if (!resp) return next(new HTTPError(404, `Failed to update event with id: ${id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 
@@ -192,7 +181,7 @@ async function show(req, res, next) {
 
 // GET to "/events/:group/:id"
 // Find event data from meetup API
-async function showMeetup(req, res) {
+async function showMeetup(req, res, next) {
   let { group, id } = req.params;
   let accessToken = req.cookies.tokens.access_token;
   // if no access token, return an error
