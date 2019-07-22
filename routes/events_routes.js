@@ -45,6 +45,6 @@ router.put("/recommend/:id", eventsController.recommend);
 router.get("/:group/:id", eventsController.showMeetup);
 
 //Update an event with the user's attendance
-router.put("/:id/attend", eventsController.attend);
+router.put("/:id/attend", eventsController.toggleAttendance);
 
 module.exports = router;

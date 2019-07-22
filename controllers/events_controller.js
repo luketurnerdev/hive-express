@@ -104,14 +104,12 @@ async function create(req, res, next) {
     });
 }
 
-async function attend(req, res, next) {
-  //User clicks attending in react. Sends through the user id and the event id
-  // grab the specific event from the database by its id
-  // Append the hive_attendees array with the user's ID
-  // return the updated event object with the updated array of attendees
-  //  Or return the appropriate error
-  let {event_id} = req.body;
+//PUT to /events/:id/attend
+//Toggle user attendance
 
+async function toggleAttendance(req, res, next) {
+  let {event_id} = req.body;
+  //Find the user
   let user = await findUserByToken(req, next)
   .then(resp => {
     return resp;
@@ -120,48 +118,39 @@ async function attend(req, res, next) {
     console.log(err);
   });
 
-  let list = [];
+  //Find the event
   let event = await Event
-    .findById(event_id)
+  .findById(event_id)
     .then(resp => {
-      //If no user found
-      if (!resp) {
-        return next(new HTTPError(500, "Couldn't find user with given ID."));
-      }
-      //If user is already in the array of attendees
-      if (resp.hive_attendees.includes(user.meetup_uid)) {
-        return next((new HTTPError(500, "User is already attending that event.")));
-      }
-      else {
-        console.log(resp);
-        list = event.hive_attendees.push(user.meetup_uid);
-        return resp;
-      }
+      return resp;
+    })
+    .catch(err =>{
+      return err;
     })
 
+    //Add user to event if not attending,
+    //or remove them if they are
+    let newList = event.hive_attendees;
+    if (event.hive_attendees.includes(user.meetup_uid)) {
+      newList.splice (newList.indexOf(user.meetup_uid), 1);
+    } else {
+      newList.push(user.meetup_uid);
+    }
   
-  
-  // //Update event here//
+  //Update event in DB here
   let updatedEvent = await Event
     .findByIdAndUpdate(
       event_id,
-      {hive_attendees : list}
+      {hive_attendees : newList}
     )
     .then(resp => resp.data)
     .catch(err => next(new HTTPError(500, "Failed to mark user as attending.")));
+    console.log('list after:' + newList);
 
-    
-  
-
-  // res.json('ok');
-
-  res.json(updatedEvent);
-
-
-
-
-
+    return res.json(updatedEvent);
 }
+
+
 
 // GET to "/events/suggest/:id?groupUrlName"
 // Display a form for the user to write a message for suggesting/creating an event.
@@ -302,7 +291,7 @@ async function findMeetupEvent(next, group, id, accessToken) {
 module.exports = {
   index,
   create,
-  attend,
+  toggleAttendance,
   show,
   showMeetup,
   newSuggestion,
