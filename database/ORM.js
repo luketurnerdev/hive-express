@@ -19,7 +19,10 @@ events = [
     id:                ObjectId,
     link:              String,
     name:              String,
-    group:             String,
+    group: {
+      name:            String,
+      urlname:         String
+    },
     photo_link:        String,
     local_date:        Date,
     local_time:        Date,
