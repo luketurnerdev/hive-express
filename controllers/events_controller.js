@@ -37,8 +37,12 @@ async function create(req, res, next) {
         Authorization: `Bearer ${user.access_token}`
       }
     })
-    .then(resp => resp.data)
-    .catch(err => next(new HTTPError(500, "Failed to retrieve data from Meetup API.")));
+    .then(resp => {
+      if (!resp.data)
+        return next(new HTTPError(500, `Failed to retrieve event data from Meetup API.`));
+      else return resp.data;
+    })
+    .catch(err => next(new HTTPError(400, err)));
 
   // wait for user and meetup
   await Promise.all([user, meetup])
@@ -46,7 +50,7 @@ async function create(req, res, next) {
       // destructure user and meetup from response
       let [user, meetup] = resp;
 
-      // destructure values from meetup
+      // destructure values from meetup event object
       let {
         id: meetup_id, // rename id to meetup_uid
         name,
@@ -62,7 +66,7 @@ async function create(req, res, next) {
       } = meetup;
     
       // create a new event document in the DB
-      let event = await Event
+      await Event
         .create({
           meetup_id,
           link,
@@ -87,10 +91,13 @@ async function create(req, res, next) {
             message: message
           }
         })
-        .catch(err => next(new HTTPError(400, "Failed to add the event to the database.")));
-
-      // respond with 201 and the event object that was created
-      return res.status(201).json(event);
+        .then(resp => {
+          if (!resp) 
+            return next(new HTTPError(400, "Failed to add the event to the database."))
+          else 
+            return res.status(201).json(resp);
+        })
+        .catch(err => next(new HTTPError(500, err)));
     });
 }
 
