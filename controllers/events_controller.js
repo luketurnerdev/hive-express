@@ -104,6 +104,14 @@ async function create(req, res, next) {
     });
 }
 
+async function attend() {
+  //User clicks attending in react. Sends through the user id and the event id
+  // grab the specific event from the database by its id
+  // Append the hive_attendees array with the user's ID
+  // return the updated event object with the updated array of attendees
+
+}
+
 // GET to "/events/suggest/:id?groupUrlName"
 // Display a form for the user to write a message for suggesting/creating an event.
 // Returns full event data object from meetup API.
