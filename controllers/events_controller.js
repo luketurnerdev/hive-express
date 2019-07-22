@@ -1,16 +1,21 @@
 const Event = require("./../database/models/event_model");
 const axios = require("axios");
-// import findUser() function
-const findUser = require("./_findUser");
+// import findUserByToken() function
+const findUserByToken = require("./_findUserByToken");
 
 // GET to "/events"
 // Show all events in DB
 async function index(req, res, next) {
   // Find all events and sort by their creation date
-  let events = await Event.find().sort({ created_at: "desc" })
-    // return the response as json
-    .then(resp => res.json(resp))
-    .catch(err => next(new HTTPError(500, "Failed to find events.")));
+  let events = await Event
+    .find()
+    .sort({ created_at: "desc" })
+    .then(resp => {
+      if (resp === null)
+        return next(new HTTPError(500, `Failed to find events in database.`));
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(400, err)));
 }
 
 // POST to "/events"
@@ -23,7 +28,7 @@ async function create(req, res, next) {
     return next(new HTTPError(400, "Message is required and must not be blank."));
   };
   // find user with access_token
-  let user = await findUser(req, next);
+  let user = await findUserByToken(req, next);
   
   // get event with req.body.id
   let meetup = axios
@@ -32,8 +37,12 @@ async function create(req, res, next) {
         Authorization: `Bearer ${user.access_token}`
       }
     })
-    .then(resp => resp.data)
-    .catch(err => next(new HTTPError(500, "Failed to retrieve data from Meetup API.")));
+    .then(resp => {
+      if (!resp.data)
+        return next(new HTTPError(500, `Failed to retrieve event data from Meetup API.`));
+      else return resp.data;
+    })
+    .catch(err => next(new HTTPError(400, err)));
 
   // wait for user and meetup
   await Promise.all([user, meetup])
@@ -41,7 +50,7 @@ async function create(req, res, next) {
       // destructure user and meetup from response
       let [user, meetup] = resp;
 
-      // destructure values from meetup
+      // destructure values from meetup event object
       let {
         id: meetup_id, // rename id to meetup_uid
         name,
@@ -51,18 +60,21 @@ async function create(req, res, next) {
         local_date,
         local_time,
         venue: { name: venue_name, address_1: venue_address, city: venue_city },
-        group: { name: group },
+        group: { name: group_name, urlname: group_urlname },
         description,
         how_to_find_us
       } = meetup;
     
       // create a new event document in the DB
-      let event = await Event
+      await Event
         .create({
           meetup_id,
           link,
           name,
-          group,
+          group: {
+            name: group_name,
+            urlname: group_urlname
+          },
           local_date,
           local_time,
           status,
@@ -82,31 +94,76 @@ async function create(req, res, next) {
             message: message
           }
         })
-        .catch(err => next(new HTTPError(400, "Failed to add the event to the database.")));
-
-      // respond with 201 and the event object that was created
-      return res.status(201).json(event);
+        .then(resp => {
+          if (!resp) 
+            return next(new HTTPError(400, "Failed to add the event to the database."))
+          else 
+            return res.status(201).json(resp);
+        })
+        .catch(err => next(new HTTPError(500, err)));
     });
 }
 
-// GET to "/events/suggest/:id"
+//PUT to /events/attend/:id
+//Toggle user attendance
+async function toggleAttendance(req, res, next) {
+  let id = req.params.id;
+  //Find the user
+  let user = await findUserByToken(req, next);
+  //Find the event
+  let event = await Event
+    .findById(id)
+    .then(resp => {
+      // check for null response
+      if (!resp) return next(new HTTPError(404, `Couldn't find event with id: ${id}`));
+      else return resp;
+    })
+    .catch(err => next(new HTTPError(500, err)));
+
+  // Add user to attendees array if not attending,
+  // or remove them if they are
+  let newList = event.hive_attendees;
+  if (event.hive_attendees.includes(user.meetup_uid)) {
+    newList.splice(newList.indexOf(user.meetup_uid), 1);
+  } else {
+    newList.push(user.meetup_uid);
+  }
+  
+  //Update event in DB with list of hive_attendees
+  await Event
+    .findByIdAndUpdate(id, { hive_attendees: newList }, { new: true })
+    .then(resp => {
+      if (!resp) return next(new HTTPError(404, `Failed to update event with id: ${id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(500, err)));
+}
+
+
+
+// GET to "/events/suggest/:id?groupUrlName"
 // Display a form for the user to write a message for suggesting/creating an event.
+// Returns full event data object from meetup API.
 async function newSuggestion(req, res, next) {
   let accessToken = req.cookies.tokens.access_token;
   let group = req.query.group;
   let id = req.params.id;
-
+  // Check for required values
   if (!accessToken) return next(new HTTPError(400, "Could not find access token."));
   if (!group) return next(new HTTPError(400, "Could not find group."));
-
+  // GET request to meetup api
   let meetup = await axios
     .get(`https://api.meetup.com/${group}/events/${id}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
     })
-    .then(resp => res.json(resp.data))
-    .catch(err => next(new HTTPError(500, "Failed to retrieve event data from Meetup API.")));
+    .then(resp => {
+      if (!resp.data) 
+        return next(new HTTPError(404, "Failed to retrieve event data from Meetup API."))
+      else return res.json(resp.data);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // GET to "/events/:id"
@@ -114,72 +171,99 @@ async function newSuggestion(req, res, next) {
 async function show(req, res, next) {
   let meetup = await Event
     .findById(req.params.id)
-    .catch(err => next(new HTTPError(404, `Could not find event with ID: ${req.params.id}`)));
-  res.json(meetup);
+    .then(resp => {
+      if (resp === null) 
+        return next(new HTTPError(404, `Could not find event with ID: ${req.params.id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // GET to "/events/:group/:id"
 // Find event data from meetup API
-async function showMeetup(req, res) {
+async function showMeetup(req, res, next) {
   let { group, id } = req.params;
   let accessToken = req.cookies.tokens.access_token;
-  let meetup = await axios
+  // if no access token, return an error
+  if (!accessToken) {
+    return next(new HTTPError(400, "Could not find access token in cookies."))
+  }
+  await axios
     .get(`https://api.meetup.com/${group}/events/${id}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
     })
-    .then(resp => resp.data)
-    .catch(err => res.status(404).json(err));
-    //.catch(err => next(new HTTPError(404, err))); // <-- Err: Cannot set headers after they're sent to client
-
-  res.json(meetup);
+    .then(resp => {
+      if (!resp.data)
+        return next(new HTTPError(404, "Failed to retrieve event data from Meetup API."))
+      else return res.json(resp.data);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // GET to "/events/suggestions"
+// ACCESS: ADMIN ONLY
 // Display events which are suggested and not recommended
 async function suggestions(req, res, next) {
   // Find the current user
-  let user = await findUser(req, next);
+  let user = await findUserByToken(req, next);
   // If current user is not an admin, return an error
-  if (!user.admin) return next(
-      new HTTPError(401, "You must be an admin to view this page.")
-    );
-  //res.redirect("/dashboard")
-  //should we redirect here or on the front-end?
-
+  if (!user.admin) {
+    return next(new HTTPError(401, "You must be an admin to view this page."));
+  }
   // Find events suggested by users
-  let events = await Event
+  await Event
     .find({
       ca_recommended: false,
       "suggested.is_suggested": true
     })
-    .sort({ 
-      created_at: "desc" 
+    .sort({ created_at: "desc" })
+    .then(resp => {
+      if (resp === null)
+        return next(new HTTPError(404, "Failed to find suggested events."))
+      else return res.json(resp);
     })
-    .catch(err => next(new HTTPError(404, "Failed to find suggested events.")));
-
-  res.json(events);
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // PUT to "/events/recommend/:id"
 // Update this event so that ca_recommended = true.
-async function recommend(req, res) {
+async function recommend(req, res, next) {
+  let id = req.params.id;
+  // Find the current user
+  let user = await findUserByToken(req, next);
+  // If current user is not an admin, return an error
+  if (!user.admin) {
+    return next(new HTTPError(401, "You must be an admin to view this page."));
+  }
+  // Update the event
   await Event
-    .findByIdAndUpdate(req.params.id, {
-      ca_recommended: true
+    .findByIdAndUpdate(
+      id, 
+      { ca_recommended: true }, 
+      { new: true }
+    )
+    .then(resp => {
+      if (resp === null)
+        return next(new HTTPError(404, `Could not find event with id: ${id}.`))
+        else return res.json(resp);
     })
-    .then(resp => res.json(resp))
-    .catch(err => next(new HTTPError(500, "Failed to update the event.")));
-  //res.redirect("/events/suggestions");
-  //should we redirect here or on the front-end?
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // DELETE to "/events/:id"
 // Remove this event from the DB
 async function destroy(req, res) {
-  await Event.findByIdAndRemove(req.params.id);
-  res.redirect("/events");
+  let id = req.params.id;
+  await Event
+    .findByIdAndRemove(id, { useFindAndModify: false })
+    .then(resp => {
+      if (resp === null)
+        return next(new HTTPError(404, `Could not find event with id: ${id}.`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 /* 
@@ -209,9 +293,12 @@ async function findMeetupEvent(next, group, id, accessToken) {
   };
 }
 
+
+
 module.exports = {
   index,
   create,
+  toggleAttendance,
   show,
   showMeetup,
   newSuggestion,

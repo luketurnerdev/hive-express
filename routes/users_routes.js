@@ -13,10 +13,10 @@ router.get("/request", usersController.newAccountRequest);
 router.put("/request", usersController.createAccountRequest);
 
 //Modify user confirmed status
-router.put("/:id", usersController.confirmUser);
+router.put("/confirm/:id", usersController.confirmUser);
 
 //Delete user
-router.delete("/:id/", usersController.deleteUser);
+router.delete("/:id", usersController.deleteUser);
 
 // User's profile
 router.get("/:id", usersController.show);

@@ -6,15 +6,15 @@ const User = require("./../database/models/user_model");
 const Event = require("./../database/models/event_model");
 //Review Model
 const Review = require("./../database/models/review_model");
-// import findUser() function
-const findUser = require("./_findUser");
+// import findUserByToken() function
+const findUserByToken = require("./_findUserByToken");
 
 // GET to "/reviews"
 // Show all reviews to admin
 // or Show current user's reviews to non-admin
 async function index(req, res, next) {
   // find current user with access token
-  let user = await findUser(req, next);
+  let user = await findUserByToken(req, next);
 
   // if user is an admin
   if (user.admin === true) {
@@ -45,7 +45,7 @@ async function newReview(req, res, next) {
     .catch(err => next(new HTTPError(404, "Failed to find event.")));
 
   // find current user with access token in cookies
-  let user = await findUser(req, next);
+  let user = await findUserByToken(req, next);
 
   res.json([event, user.id]);
   //res.render("reviews/new_review", { event, user_id });
@@ -106,6 +106,7 @@ async function eventReviews(req, res, next) {
 // PUT to "/reviews"
 // Update a review in the database
 async function update(req, res, next) {
+  // destructure values from request body
   let { id, rating, comment } = req.body;
 
   // check presence of values in request body

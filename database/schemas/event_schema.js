@@ -18,8 +18,14 @@ const eventSchema = new Schema({
     required: true
   },
   group: {
-    type: String,
-    required: true
+    name: {
+      type: String,
+      required: true
+    },
+    urlname: {
+      type: String,
+      required: true
+    }
   },
   local_date: {
     type: String,
