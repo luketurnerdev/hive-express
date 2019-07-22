@@ -206,8 +206,10 @@ async function showMeetup(req, res, next) {
 // ACCESS: ADMIN ONLY
 // Display events which are suggested and not recommended
 async function suggestions(req, res, next) {
+  console.log('here');
   // Find the current user
   let user = await findUserByToken(req, next);
+  console.log(user);
   // If current user is not an admin, return an error
   if (!user.admin) {
     return next(new HTTPError(401, "You must be an admin to view this page."));
