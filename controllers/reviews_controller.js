@@ -106,6 +106,7 @@ async function eventReviews(req, res, next) {
 // PUT to "/reviews"
 // Update a review in the database
 async function update(req, res, next) {
+  // destructure values from request body
   let { id, rating, comment } = req.body;
 
   // check presence of values in request body

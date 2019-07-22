@@ -142,8 +142,12 @@ async function newSuggestion(req, res, next) {
 async function show(req, res, next) {
   let meetup = await Event
     .findById(req.params.id)
-    .catch(err => next(new HTTPError(404, `Could not find event with ID: ${req.params.id}`)));
-  res.json(meetup);
+    .then(resp => {
+      if (resp === null) 
+        return next(new HTTPError(404, `Could not find event with ID: ${req.params.id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // GET to "/events/:group/:id"
@@ -151,72 +155,86 @@ async function show(req, res, next) {
 async function showMeetup(req, res) {
   let { group, id } = req.params;
   let accessToken = req.cookies.tokens.access_token;
-  let meetup = await axios
+  // if no access token, return an error
+  if (!accessToken) {
+    return next(new HTTPError(400, "Could not find access token in cookies."))
+  }
+  await axios
     .get(`https://api.meetup.com/${group}/events/${id}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
     })
-    .then(resp => resp.data)
-    .catch(err => res.status(404).json(err));
-    //.catch(err => next(new HTTPError(404, err))); // <-- Err: Cannot set headers after they're sent to client
-
-  res.json(meetup);
+    .then(resp => {
+      if (!resp.data)
+        return next(new HTTPError(404, "Failed to retrieve event data from Meetup API."))
+      else return res.json(resp.data);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // GET to "/events/suggestions"
+// ACCESS: ADMIN ONLY
 // Display events which are suggested and not recommended
 async function suggestions(req, res, next) {
   // Find the current user
   let user = await findUserByToken(req, next);
   // If current user is not an admin, return an error
-  if (!user.admin) return next(
-      new HTTPError(401, "You must be an admin to view this page.")
-    );
-  //res.redirect("/dashboard")
-  //should we redirect here or on the front-end?
-
+  if (!user.admin) {
+    return next(new HTTPError(401, "You must be an admin to view this page."));
+  }
   // Find events suggested by users
-  let events = await Event
+  await Event
     .find({
       ca_recommended: false,
       "suggested.is_suggested": true
     })
-    .sort({ 
-      created_at: "desc" 
+    .sort({ created_at: "desc" })
+    .then(resp => {
+      if (resp === null)
+        return next(new HTTPError(404, "Failed to find suggested events."))
+      else return res.json(resp);
     })
-    .catch(err => next(new HTTPError(404, "Failed to find suggested events.")));
-
-  res.json(events);
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // PUT to "/events/recommend/:id"
 // Update this event so that ca_recommended = true.
 async function recommend(req, res, next) {
+  let id = req.params.id;
   // Find the current user
+  let user = await findUserByToken(req, next);
   // If current user is not an admin, return an error
-  let user = await findUserByToken(req, next)
-    .then(resp => {
-      if (!resp.admin) throw "You must be an admin to view this page."
-      else return resp;
-    })
-    .catch(err => next(new HTTPError(401, err)));
-    
+  if (!user.admin) {
+    return next(new HTTPError(401, "You must be an admin to view this page."));
+  }
+  // Update the event
   await Event
     .findByIdAndUpdate(
-      req.params.id, 
+      id, 
       { ca_recommended: true }, 
       { new: true }
     )
-    .then(resp => res.json(resp))
-    .catch(err => next(new HTTPError(500, "Failed to update the event.")));
+    .then(resp => {
+      if (resp === null)
+        return next(new HTTPError(404, `Could not find event with id: ${id}.`))
+        else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // DELETE to "/events/:id"
 // Remove this event from the DB
 async function destroy(req, res) {
-  await Event.findByIdAndRemove(req.params.id);
-  res.redirect("/events");
+  let id = req.params.id;
+  await Event
+    .findByIdAndRemove(id, { useFindAndModify: false })
+    .then(resp => {
+      if (resp === null)
+        return next(new HTTPError(404, `Could not find event with id: ${id}.`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 /* 
