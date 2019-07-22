@@ -2,6 +2,19 @@
 const User = require("./../database/models/user_model");
 const findUserByToken = require("./_findUserByToken");
 
+//GET to "/get_user"
+//Return the logged in user
+
+async function getUser(req, res, next) {
+  let user = await findUserByToken(req,res)
+  .then(resp => {
+    console.log(resp);
+    return resp;
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
 // POST to "/auth/register"
 // Create/register a new user or update their tokens if they're already registered.
 async function create(req, res, next) {
@@ -126,6 +139,7 @@ module.exports = {
   create,
   updateTokens,
   confirmUser,
+  getUser,
   show,
   deleteUser,
   newAccountRequest,
