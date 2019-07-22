@@ -218,7 +218,7 @@ async function recommend(req, res, next) {
     .then(resp => {
       if (resp === null)
         return next(new HTTPError(404, `Could not find event with id: ${id}.`))
-        else return res.json(resp)
+        else return res.json(resp);
     })
     .catch(err => next(new HTTPError(500, err)));
 }
@@ -226,8 +226,15 @@ async function recommend(req, res, next) {
 // DELETE to "/events/:id"
 // Remove this event from the DB
 async function destroy(req, res) {
-  await Event.findByIdAndRemove(req.params.id);
-  res.redirect("/events");
+  let id = req.params.id;
+  await Event
+    .findByIdAndRemove(id, { useFindAndModify: false })
+    .then(resp => {
+      if (resp === null)
+        return next(new HTTPError(404, `Could not find event with id: ${id}.`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 /* 
