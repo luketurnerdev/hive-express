@@ -155,17 +155,22 @@ async function show(req, res, next) {
 async function showMeetup(req, res) {
   let { group, id } = req.params;
   let accessToken = req.cookies.tokens.access_token;
-  let meetup = await axios
+  // if no access token, return an error
+  if (!accessToken) {
+    return next(new HTTPError(400, "Could not find access token in cookies."))
+  }
+  await axios
     .get(`https://api.meetup.com/${group}/events/${id}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
     })
-    .then(resp => resp.data)
-    .catch(err => res.status(404).json(err));
-    //.catch(err => next(new HTTPError(404, err))); // <-- Err: Cannot set headers after they're sent to client
-
-  res.json(meetup);
+    .then(resp => {
+      if (!resp.data)
+        return next(new HTTPError(404, "Failed to retrieve event data from Meetup API."))
+      else return res.json(resp.data);
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // GET to "/events/suggestions"
