@@ -183,7 +183,6 @@ async function suggestions(req, res, next) {
   if (!user.admin) {
     return next(new HTTPError(401, "You must be an admin to view this page."));
   }
-
   // Find events suggested by users
   await Event
     .find({
@@ -202,23 +201,26 @@ async function suggestions(req, res, next) {
 // PUT to "/events/recommend/:id"
 // Update this event so that ca_recommended = true.
 async function recommend(req, res, next) {
+  let id = req.params.id;
   // Find the current user
+  let user = await findUserByToken(req, next);
   // If current user is not an admin, return an error
-  let user = await findUserByToken(req, next)
-    .then(resp => {
-      if (!resp.admin) throw "You must be an admin to view this page."
-      else return resp;
-    })
-    .catch(err => next(new HTTPError(401, err)));
-    
+  if (!user.admin) {
+    return next(new HTTPError(401, "You must be an admin to view this page."));
+  }
+  // Update the event
   await Event
     .findByIdAndUpdate(
-      req.params.id, 
+      id, 
       { ca_recommended: true }, 
       { new: true }
     )
-    .then(resp => res.json(resp))
-    .catch(err => next(new HTTPError(500, "Failed to update the event.")));
+    .then(resp => {
+      if (resp === null)
+        return next(new HTTPError(404, `Could not find event with id: ${id}.`))
+        else return res.json(resp)
+    })
+    .catch(err => next(new HTTPError(500, err)));
 }
 
 // DELETE to "/events/:id"
