@@ -47,23 +47,16 @@ async function accountRequests(req, res, next) {
 }
 
 // Show dashboard with user's events and list upcoming meetups
-async function dashboard(req, res) {
-    
-  // if "tokens" cookie isn't found
-  if (!req.cookies.tokens) {
-    // redirect to homepage
-    return res.redirect("/")
-  }
-
-  // Find current user
-  let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({ access_token: accessToken });
-
-
-  //Redirect user if their account is unconfirmed
+async function dashboard(req, res, next) {
+  // find current user
+  let user = await findUserByToken(req, next);
+  // if user is not confirmed
   if (!user.confirmed) {
+    // redirect to account requests
+    //(which will redirect unconfirmed user to newAccountRequest page)
+    console.log("redirecting unconfirmed user to /account_requests");
     return res.redirect("/account_requests")
-  }
+  };
 
   // Find upcoming meetups
   let upcomingMeetups = await axios
@@ -71,23 +64,31 @@ async function dashboard(req, res) {
       `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&topic_category=programming&page=20`,
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${user.access_token || req.cookies.tokens.access_token}`
         }
       }
     )
-    .then(resp => resp.data.events)
-    .catch(err => console.error(err));
+    .then(resp => {
+      // check for null response
+      if (!resp.data){
+        console.log("no events")
+        return next(new HTTPError(404, "Failed to retreive upcoming meetups from Meetup API."))
+      }
+      // return the events array
+      else return resp.data.events;
+    })
+    .then(resp => {
+      // remove events without a venue
+      for (let i=0; i < resp.length; i++){ 
+        if (!resp[i].venue) resp.splice(i, 1);
+      }
+      // return the events array
+      return resp;
+    })
+    .catch(err => next(new HTTPError(500, err)));
     
-
-  //Remove events without a venue
-  for (let i=0; i < upcomingMeetups.length; i++){ 
-    if ( !upcomingMeetups[i].venue) {
-      upcomingMeetups.splice(i, 1); 
-    }
- }
-
-  // Render the dashboard view and pass objects with data to display.
-  res.render("pages/dashboard", { upcomingMeetups, user });
+  // respond with user document and upcoming meetups array
+  return res.json([user, upcomingMeetups]);
 }
 
 async function profile(req, res) {
