@@ -75,7 +75,10 @@ const eventSchema = new Schema({
     required: true
   },
   attendees: [Number],
-  hive_attendees: [Number],
+  hive_attendees: {
+    type: [Schema.Types.ObjectId],
+    ref: "user"
+  },
   ca_recommended: {
     type: Boolean,
     required: true,
