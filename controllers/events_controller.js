@@ -218,6 +218,11 @@ async function findMeetupEvent(next, group, id, accessToken) {
   };
 }
 
+//Attending an event
+//put request comes through to express. the db is updated. the response should be the updated event, with
+//the new attendee now in the array
+
+
 module.exports = {
   index,
   create,
