@@ -18,6 +18,49 @@ async function index(req, res, next) {
     .catch(err => next(new HTTPError(400, err)));
 }
 
+// POST to "/events/new"
+// User clicked 'attend' button
+async function createAndAttendEvent(req, res, next) {
+  let { meetupEventId,  groupUrlname } = req.body;
+
+  // find current user
+  let user = await findUserByToken(req, next);
+
+  // get event data from meetup api
+  let meetup = await axios
+    .get(`https://api.meetup.com/${groupUrlname}/events/${meetupEventId}`, {
+      headers: {
+        Authorization: `Bearer ${user.access_token}`
+      }
+    })
+    .then(resp => {
+      // check response
+      if (!resp.data)
+        return next(new HTTPError(500, `Failed to retrieve event data from Meetup API.`));
+      else return resp.data;
+    })
+    .catch(err => next(new HTTPError(400, err)));
+
+  // Look for matching event in database
+  let event = await Event
+    .findOne({ meetup_id: meetupEventId })
+    .catch(err => next(err));
+  
+  // if event is found in database
+  if (event) {
+    // toggle the user's attendance
+    // respond with the updated event doc
+    res.json(event)
+  }
+  else {
+    // add the event to the database
+    // add the user to the attendees array
+    // respond with the new event doc
+    res.send("event is not defined")
+  }
+
+}
+
 // POST to "/events"
 // Create an event and add to DB
 async function create(req, res, next) {
@@ -298,6 +341,7 @@ async function findMeetupEvent(next, group, id, accessToken) {
 module.exports = {
   index,
   create,
+  createAndAttendEvent,
   toggleAttendance,
   show,
   showMeetup,

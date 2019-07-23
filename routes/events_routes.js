@@ -8,8 +8,12 @@ const reviewsController = require("./../controllers/reviews_controller");
 router.get("/", eventsController.index);
 
 // POST to "/events"
-// Suggest / Create an event in the DB
+// Suggest & Create an event in the DB
 router.post("/", eventsController.create);
+
+// POST to "/events/new"
+// Attend & Create an event in the DB
+router.post("/new", eventsController.createAndAttendEvent);
 
 // GET to "/events/suggest/:id"
 // Compose a message to send with the event for suggestion to admin.
