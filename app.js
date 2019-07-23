@@ -9,7 +9,12 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 //Enable cors
-app.use(cors());
+app.use(cors(
+    {
+        origin: process.env.REACT_SERVER,
+        credentials: true
+    }
+));
 
 // Handlebars view engine
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));

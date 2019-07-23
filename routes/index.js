@@ -38,6 +38,8 @@ router.use("/users", usersRoutes);
 // Reviews routes
 router.use("/reviews", reviewsRoutes);
 
+// router.put("/attendtest", pagesController.attendTest)
+
 
 
 module.exports = router;

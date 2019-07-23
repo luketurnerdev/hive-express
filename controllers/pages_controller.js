@@ -1,13 +1,19 @@
 const User = require("./../database/models/user_model");
+const Event = require("./../database/models/user_model");
+
 const findUserByToken = require("./_findUserByToken");
 const axios = require("axios");
 
 // GET to "/"
 // Show homepage
-function homepage(req, res) {
+async function homepage(req, res) {
+
+  
   console.log("COOKIES:", req.cookies);
   res.render("pages/homepage");
 }
+
+
 
 // GET to "/register"
 // Login/Register the meetup.com user
