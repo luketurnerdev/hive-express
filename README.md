@@ -104,7 +104,27 @@ As the staff:
 6. Object Relational Mapping (ORM)
 *ORM accurately reflects an efficient and practical database design for project, using correct ORM symbology*
 
-![ORM](docs/orm.jpg)
+We changed the ORM according to what we realized the project needed while we were building both apps (React and Express).
+
+This was the first version:
+![Initial ORM](docs/orm.jpg)
+
+And this is the last, definite, version:
+![Last ORM](docs/new_orm.jpg)
+
+Several things have changed:
+1. In the events schema:
+* From student_suggested to suggested: firstly, we chose a boolean to know if a single event had been suggested (by a hiver) or not. However, we realized we were missing a message the hiver could write to explain why they were suggesting that specific event. Therefore, we turned the property into an object called suggested, containing a boolean again (is_suggested), the message, and another one named suggested_by, being the latter the id of the user (thus, a number) who suggested it.
+* Different content of location: in order to display the address where the meetup is happening, the address itself (how_to_find_us, as called in MeetUp API) and latitude and longitude (lat and lon, respectively), seemed a good option, in case we decided using the Google Maps API to render a map. Nevertheless, and although we kept the how_to_find_us property, we got rid of the coordinates and added name, address and city. WHAT ARE THEY FOR?
+* A picture as part of the event information: in the final version of the ORM, there is a photo_link property which refers to the url that leads to the event main image.
+
+2. In the reviews:
+* A matter of names: in the first version, we named this schema "ratings", inside of which there was a property called "score". Now, we substituded both titles by "reviews" and "rating", respectively, as we thought it made more sense. Rating stands for a "mark", a numeric or quantitative information to value something, whereas review has a more qualitative meaning (it includes the comment the user posts, linked to the event).
+
+3. In the users:
+* More explicit: instead of "avatar", we ended up using the property "photo".
+* Just what we needed: as we decided users could only sign in/up with their MeetUp account, no password was needed. Moreover, we realized there was no point of keeping the date and moment of creation or update of the user's Hiver account. In addition, we limited the name data to a unique value called "name", instead of splitting it into first and last names.
+
 
 7. Project plan and effort estimation
 
@@ -581,6 +601,7 @@ These include:
 
 * Basic structural website concepts, such as HTML documents, and how these appear on a webpage (using the DOM).
 * Styling concepts, such as using CSS and various styling libraries to achieve an aesthetic result that is pleasing to for users to look at (e.g., appropriate colour schemes, size of icons) and easy to interact with (placement of calls to action, nav bars, text fields etc).
+* Version control skills with Git and GitHub, in order to track changes with add, commit, push and pull commands. Also, to implement branching and merging strategies, and handling merge conflicts.
 * Project management skills, including the use of Trello and spreadsheets to manage tasks, estimation of task completion times, modification of task parameters during the project (agile approach), and prioritising certain features over others to achieve a minimum viable product (MVP).
 * Planning and design skills, such as:
     * The development of wireframes at varying levels of fidelity and for various devices, in order to visually see the layout of the application 
@@ -602,7 +623,15 @@ These include:
     * Authorisation, to ensure that certain users can or cannot access certain pages or perform certain functions (for example, only admins can view student account requests). This is supplemented by effective redirections to other pages if a user tries to break these boundaries.
     * The use of asynchronous functions, in order to manipulate Javascript's callstack to ensure data is retrieved when it needs to be, and the program can continue to compile the rest of it's code while the function serves its purpose. This usually returns a promise, which can be handled appropriately depending if it succeeds or not.
      TODO: frontend fill in below
-    * Frontend technologies, such as React..
+* Frontend skills, such as:
+    * Setting up a dynamic and complex web application, by handling user interactions on the former through JavaScript.
+    * Deep knowledge of JavaScript Fundamentals and ES6 patterns regarding variables and scoping; arrays and objects; functions, fat arrow functions, adn callback functions; DOM Manipulation and event handlers; the "this keyword, among others.
+    * Use of React, the most popular JavaScript framework/library nowadays, in order to make our code much easier thanks to the reusability of components and the clean abstraction.
+    * Dealing with JSX syntax extension as in React almost no HTML is touched. JSX seems to be very similar to HTML, which makes it very intuitive if you know HTML and CSS.
+    * Apply CSS for styling.
+    * Use of Chrome DevTools to test and fine tune the pages in the browser itself, in ways specific to how the browser is interpreting our code.
+    * Request information to the database through axios, and plan the collection and use of the data which comes within the response.
+    * Research strategies to find the most suitable, up-to-date npm packages for the app to be the more complete possible.
 * Testing (including End-to-End and integration testing), to ensure that the code is working as intended as features are added, removed, modified and prepared for final deployment. Automated testing can be used to repeat the same series of tests with given expected results, under varying circumstances (such as code refactoring).
 
 

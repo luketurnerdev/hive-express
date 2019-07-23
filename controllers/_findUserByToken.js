@@ -9,9 +9,9 @@ async function findUserByToken(req, next){
   try {
     // check tokens cookie
     if (!req.cookies.tokens) throw new HTTPError(404, "Missing 'tokens' cookie.");
-    // // get access token from cookies
+    // get access token from cookies
     let accessToken = req.cookies.tokens.access_token;
-    // // check the token
+    // check the token
     if (!accessToken) throw new HTTPError(404, "Missing user's access_token.");
 
     // find user with access token
