@@ -5,7 +5,6 @@ const User = require("../database/models/user_model");
  */
 
 async function findUserByToken(req, next){
-  console.log(req.cookies);
   try {
     // check tokens cookie
     if (!req.cookies.tokens) throw new HTTPError(404, "Missing 'tokens' cookie.");

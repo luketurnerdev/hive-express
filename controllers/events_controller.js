@@ -18,6 +18,106 @@ async function index(req, res, next) {
     .catch(err => next(new HTTPError(400, err)));
 }
 
+// POST to "/events/new"
+// User clicked 'attend' button
+async function createAndAttendEvent(req, res, next) {
+  let { meetupEventId,  groupUrlname } = req.body;
+
+  // find current user
+  let user = await findUserByToken(req, next);
+
+  // get event data from meetup api
+  let meetup = await axios
+    .get(`https://api.meetup.com/${groupUrlname}/events/${meetupEventId}`, {
+      headers: {
+        Authorization: `Bearer ${user.access_token}`
+      }
+    })
+    .then(resp => {
+      // check response
+      if (!resp.data)
+        return next(new HTTPError(500, `Failed to retrieve event data from Meetup API.`));
+      else return resp.data;
+    })
+    .catch(err => next(new HTTPError(400, err)));
+
+  // Look for matching event in database
+  let event = await Event
+    .findOne({ meetup_id: meetupEventId })
+    .catch(err => next(err));
+  
+  // if event is found in database
+  if (event) {
+    // copy attendees array
+    let newList = event.hive_attendees;
+    // if user's id is included in attendees array, remove them
+    // else add their id to the array
+    (event.hive_attendees.includes(user.id)) ? newList.splice(newList.indexOf(user.id), 1) : newList.push(user.id);
+    // update the event doc with the new attendees array
+    await Event
+      .findByIdAndUpdate(
+        event.id,
+        { hive_attendees: newList },
+        { new: true, useFindAndModify: false }
+      )
+      .then(resp => {
+        // check response
+        if (!resp) return next(new HTTPError(404, `Failed to update event with id: ${id}`))
+        // respond with the updated event doc
+        else return res.json(resp);
+      })
+      .catch(err => next(err));
+  }
+  else { // (event is not in database)
+    // destructure values from meetup event object
+    let {
+      id: meetup_id, // rename id to meetup_uid
+      name,
+      link,
+      rsvp_limit,
+      status,
+      local_date,
+      local_time,
+      venue: { name: venue_name, address_1: venue_address, city: venue_city },
+      group: { name: group_name, urlname: group_urlname },
+      description,
+      how_to_find_us
+    } = meetup;    
+    // add the event to the database
+    await Event
+      .create({
+        meetup_id,
+        link,
+        name,
+        group: {
+          name: group_name,
+          urlname: group_urlname
+        },
+        local_date,
+        local_time,
+        status,
+        location: {
+          name: venue_name,
+          address: venue_address,
+          city: venue_city,
+          how_to_find_us: how_to_find_us
+        },
+        rsvp_limit,
+        description,
+        attendees: [],
+        // add the user to the hive_attendees array
+        hive_attendees: [user.id]
+      })
+      .then(resp => {
+        // check response
+        if (!resp) return next(new HTTPError(400, "Failed to add the event to the database."))
+        // respond with newly created event doc
+        else return res.status(201).json(resp);
+      })
+      .catch(err => next(new HTTPError(500, err)));
+  }
+}
+
 // POST to "/events"
 // Create an event and add to DB
 async function create(req, res, next) {
@@ -298,6 +398,7 @@ async function findMeetupEvent(next, group, id, accessToken) {
 module.exports = {
   index,
   create,
+  createAndAttendEvent,
   toggleAttendance,
   show,
   showMeetup,
