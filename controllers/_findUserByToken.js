@@ -1,10 +1,11 @@
 const User = require("../database/models/user_model");
-
 /*  
  *  Find a user in the database using the access_token stored in cookies.
  *  If unsuccessful, call error handler middleware.
  */
+
 async function findUserByToken(req, next){
+  console.log(req.cookies);
   try {
     // check tokens cookie
     if (!req.cookies.tokens) throw new HTTPError(404, "Missing 'tokens' cookie.");
@@ -18,12 +19,15 @@ async function findUserByToken(req, next){
       .findOne({ access_token: accessToken })
       .then(resp => {
         // check the response
-        if (!resp) throw new HTTPError(404, "User not found.");
-        else return resp;
+        if (!resp) throw new HTTPError(404, "User not found.")
+        else {
+          return resp;
+        } 
       })
     } catch(err) {
       // If errors, return with error middleware
-      return next(err);
+      return (err);
+      
   };
 }
 

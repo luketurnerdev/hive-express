@@ -9,12 +9,13 @@ async function getUser(req, res, next) {
   let user = await findUserByToken(req,res)
   .then(resp => {
     console.log(resp);
-    return resp;
+    res.json(resp);
   })
   .catch(err => {
     console.log(err);
   })
 }
+
 // POST to "/auth/register"
 // Create/register a new user or update their tokens if they're already registered.
 async function create(req, res, next) {
