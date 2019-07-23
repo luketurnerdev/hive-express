@@ -53,7 +53,6 @@ async function createAndAttendEvent(req, res, next) {
     // if user's id is included in attendees array, remove them
     // else add their id to the array
     (event.hive_attendees.includes(user.id)) ? newList.splice(newList.indexOf(user.id), 1) : newList.push(user.id);
-
     // update the event doc with the new attendees array
     await Event
       .findByIdAndUpdate(
@@ -69,7 +68,7 @@ async function createAndAttendEvent(req, res, next) {
       })
       .catch(err => next(err));
   }
-  else {
+  else { // (event is not in database)
     // destructure values from meetup event object
     let {
       id: meetup_id, // rename id to meetup_uid
@@ -106,7 +105,7 @@ async function createAndAttendEvent(req, res, next) {
         rsvp_limit,
         description,
         attendees: [],
-        // add the user to the attendees array
+        // add the user to the hive_attendees array
         hive_attendees: [user.id]
       })
       .then(resp => {
@@ -117,7 +116,6 @@ async function createAndAttendEvent(req, res, next) {
       })
       .catch(err => next(new HTTPError(500, err)));
   }
-
 }
 
 // POST to "/events"
