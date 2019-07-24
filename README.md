@@ -350,18 +350,6 @@ Bibliography:
 1. [Moment.js](https://momentjs.com/).
 2. [react-big-calendar](https://www.npmjs.com/package/react-big-calendar).
 
-#### [OAuth2-Meetup](http://www.passportjs.org/packages/passport-oauth2-meetup/) 
-
-TODO: Check this? Delete it?
-
-As all the information of each event within our Hive will be grabbed from [Meetup.com](https://www.meetup.com), we decided to request for the Meetup account to sign in our Hive. According to this line of thinking, we chose the meetup promise for Passport. 
-
-OAuth2-Meetup would allow us to automatically get the username, identified as **meetup_<**meetupID**>**. Nevertheless, this promise has not been updated for 4 years, which made us wonder if it was our best option.
-
-Happily, we made it work, actually without even using that as a promise, but accessing the data through an axios request.
-
-
-
 #### [axios](https://github.com/axios/axios) 
 
 **Axios** js is a JavaScript library built with the aim of *managing asynchronous programming with promises*. It makes *HTTP requests from node.js* or *XMLHttpRequests from the browser* and it supports the Promise API that is *native to JS ES6*. 
@@ -545,7 +533,6 @@ To finish with, Jest has simple *mock functions*, because it "uses a custom reso
 
 Therefore, it helps "isolate the component being tested from the components it depends on and applying mock objects effectively is an important part of test-driven development (TDD)" ([Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object)).
 
-TODO: Add supertest and other testing packages here
 
 Bibliography:
 1. [Jest Doc](https://jestjs.io/).
@@ -619,7 +606,6 @@ These include:
     * Appropriate error handling methods, to ensure that both developers and end-users can understand why a program crashed or behaved unexpectedly.
     * Authorisation, to ensure that certain users can or cannot access certain pages or perform certain functions (for example, only admins can view student account requests). This is supplemented by effective redirections to other pages if a user tries to break these boundaries.
     * The use of asynchronous functions, in order to manipulate Javascript's callstack to ensure data is retrieved when it needs to be, and the program can continue to compile the rest of it's code while the function serves its purpose. This usually returns a promise, which can be handled appropriately depending if it succeeds or not.
-     TODO: frontend fill in below
 * Frontend skills, such as:
     * Setting up a dynamic and complex web application, by handling user interactions on the former through JavaScript.
     * Deep knowledge of JavaScript Fundamentals and ES6 patterns regarding variables and scoping; arrays and objects; functions, fat arrow functions, and callback functions; DOM Manipulation and event handlers; the "this" keyword, among others.
