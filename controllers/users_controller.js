@@ -1,16 +1,24 @@
 //Import the user model
 const User = require("./../database/models/user_model");
-const meetupService = require("./../services/meetupService");
-const axios = require("axios");
+const findUserByToken = require("./_findUserByToken");
 
-function index(req, res) {
-  res.send("Users index");
+//GET to "/get_user"
+//Return the logged in user
+
+async function getUser(req, res, next) {
+  let user = await findUserByToken(req,res)
+  .then(resp => {
+    console.log(resp);
+    res.json(resp);
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }
 
-//Import access and refresh tokens from authorization
-//Do get request here for user info, store it in a variable and then write it to the DB
-
-async function create(req, res) {
+// POST to "/auth/register"
+// Create/register a new user or update their tokens if they're already registered.
+async function create(req, res, next) {
   let {
     meetup_uid,
     email,
@@ -25,112 +33,114 @@ async function create(req, res) {
     updated_at
   } = req.body;
 
-  let user = await User.create({
-    meetup_uid,
-    email,
-    name,
-    city,
-    photo,
-    admin,
-    confirmed,
-    access_token,
-    refresh_token,
-    created_at,
-    updated_at
-  })
-    .then(response => {
-      console.log("Successfully created new user!");
+  await User
+    .create({
+      meetup_uid,
+      email,
+      name,
+      city,
+      photo,
+      admin,
+      confirmed,
+      access_token,
+      refresh_token,
+      created_at,
+      updated_at
     })
-    .catch(err => res.status(500).send(err));
-
-  res.send(req.body);
+    .then(resp => res.status(201).json(resp))
+    .catch(err => next(new HTTPError(500, err)));
 }
 
+// PUT to "/auth/register"
+// Update the user's tokens in the database.
 async function updateTokens(id, newValues) {
-  await User.update(
-    { meetup_uid: id },
-    {
-      $set: {
+  await User
+    .findOneAndUpdate(
+      { meetup_uid: id },
+      {
         access_token: newValues.access_token,
         refresh_token: newValues.refresh_token
+      },
+      { 
+        new: true,
+        useFindAndModify: false
       }
-    }
-  )
-    .then(item => {
-      console.log(`Successfully updated access tokens for user with id: ${id}`);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    )
+    .then(resp => res.json(resp))
+    .catch(err => new HTTPError(500, err));
 }
 
-async function confirmUser(req, res) {
-
-    let id = req.params.id || null;
-    await User.update(
-    { _id: id },
-    {
-      $set: {
-          confirmed:true
-      }
-    }
-  )
-    .then(item => {
-      console.log(`Successfully confirmed user with id: ${id}`);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-    res.redirect("/account_requests")
-  
-}
-
-//'delete' is a reserved word, using deleteUser instead
-async function deleteUser(req, res) {
-
+// PUT to "/users/confirm/:id"
+// Set a user's confirmed value to true in the database.
+async function confirmUser(req, res, next) {
   let id = req.params.id;
-  console.log(id);
-  await User.findByIdAndRemove(id);
+  await User
+    .findByIdAndUpdate(id, { confirmed: true }, { new: true })
+    .then(resp => {
+      if (!resp) return next(new HTTPError(404, `Can't find user with id: ${id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(400, err)));
+    //res.redirect("/account_requests")
+}
 
-
-  console.log("Deleted user.");
-  res.redirect("/account_requests");
+// DELETE to "/users/:id"
+// Remove a user from the database
+async function deleteUser(req, res, next) {
+  let id = req.params.id;
+  await User
+    .findByIdAndRemove(id, { useFindAndModify: false })
+    .then(resp => {
+      if (!resp) return next(new HTTPError(404, `Can't find user with id: ${id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(400, err)));
 }
 
 // GET to "/users/request"
 // Display form for user to send a message to admin
-async function newAccountRequest(req, res) {
-  // if "tokens" cookie isn't found
-  if (!req.cookies.tokens) {
-    // redirect to homepage
-    console.log("***TOKENS WERE NOT FOUND***");
-    return res.redirect("/");
-  }
-
-  // Find current user
-  let accessToken = req.cookies.tokens.access_token;
-  let user = await User.findOne({ access_token: accessToken });
-
-  res.render("users/request", { user });
+async function newAccountRequest(req, res, next) {
+  // Find and return the current user's document
+  await findUserByToken(req, next)
+    .then(resp => res.json(resp))
+    .catch(err => console.log(err));
 }
 
 // PUT to "/users/request"
-function createAccountRequest(req, res) {
-  res.send(req.body);
+// Update a user's document with an account request message
+async function createAccountRequest(req, res, next) {
+  let { id, request_message } = req.body;
+  // if message is empty, return an error
+  if (!request_message.trim()) {
+    return next(new HTTPError(400, "Message is required and must not be blank."))
+  }
+  await User
+    .findByIdAndUpdate(id, { request_message }, { new: true })
+    .then(resp => {
+      if (!resp) return next(new HTTPError(404, `Can't find user with id: ${id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(400, err)));
 }
 
-async function show(req, res) {
-  let user = await User.findById(req.params.id).catch(err => {
-    res.status(404).send(err);
-  });
-  res.render("users/show", { user });
+// GET to "/users/:id"
+// Show a user's profile
+async function show(req, res, next) {
+  let id = req.params.id;
+  await User
+    .findById(id)
+    .then(resp => {
+      if (!resp) return next(new HTTPError(404, `Can't find user with id: ${id}`))
+      else return res.json(resp);
+    })
+    .catch(err => next(new HTTPError(400, err)));
 }
 
 module.exports = {
-  index,
   create,
   updateTokens,
   confirmUser,
+  getUser,
   show,
   deleteUser,
   newAccountRequest,

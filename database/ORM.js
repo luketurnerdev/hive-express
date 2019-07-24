@@ -10,9 +10,7 @@ users = [
     admin:         Boolean,
     confirmed:     Boolean,
     access_token:  String,
-    refresh_token: String,
-    created_at:    Date,
-    updated_at:    Date
+    refresh_token: String
   }
 ]
 
@@ -21,11 +19,20 @@ events = [
     id:                ObjectId,
     link:              String,
     name:              String,
-    group:             String,
+    group: {
+      name:            String,
+      urlname:         String
+    },
     photo_link:        String,
     local_date:        Date,
     local_time:        Date,
-    how_to_find_us:    String,
+    status:            String,
+    location: {
+      name:            String,
+      address:         String,
+      city:            String,
+      how_to_find_us:  String,
+    },
     attendance_count:  Number,
     guest_limit:       Number,
     rsvp_limit:        Number,
@@ -41,12 +48,12 @@ events = [
   }
 ]
 
-ratings = [
+reviews = [
   {
     id:       ObjectId,
     user:     user,
     event:    event,
-    score: {
+    rating: {
       food:   Number,
       drinks: Number,
       talk:   Number,
@@ -55,3 +62,5 @@ ratings = [
     comment:  String
   }
 ]
+
+
