@@ -155,17 +155,24 @@ As the staff:
 
 ![Wireframe](docs/WireFrame/Students%20WorkFlow.png)
 
-![Wireframe](docs/WireFrame/Admin's%20Dashboard.png)
+![Wireframe](docs/WireFrame/Admin's%20Dashboard%20.png)
 
-![Wireframe](docs/WireFrame/Student's%20Dashboard.png)
+![Wireframe](docs/WireFrame/Student's%20Dashboard%20.png)
 
 ![Wireframe](docs/WireFrame/Events(Admin).png)
+
 ![Wireframe](docs/WireFrame/Event%20Page(Admin).png)
+
 ![Wireframe](docs/WireFrame/Reviews(Admin).png)
+
 ![Wireframe](docs/WireFrame/Event%20Page(Student).png)
+
 ![Wireframe](docs/WireFrame/Events(Student).png)
+
 ![Wireframe](docs/WireFrame/Profile(Student).png)
+
 ![Wireframe](docs/WireFrame/Reviews(Student).png)
+
 ![Wireframe](docs/WireFrame/Reviews(request%20access.png).png)
 
 
