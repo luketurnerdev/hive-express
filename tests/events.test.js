@@ -17,14 +17,32 @@ describe('Test events routes', () => {
     });
 
     let data = response._getData();
-
     expect(data).toBeDefined();
   });
 
-  
-});
+  // test('GET - "/events/:group/:id" response is defined', () => {
+  //   const request = httpMocks.createRequest({
+  //     method: "GET",
+  //     url: "/events/:group/:id",
+  //     params: {
+  //       id: "260841077",
+  //       group: "GraphQL-Sydney"
+  //     },
+  //     cookies: {
+  //       tokens: {
+  //         access_token: "5623b337d9685b4d0b350aacca7d57c2"
+  //       }
+  //     }
+  //   });
+  //   const response = httpMocks.createResponse();
 
-// test('/events returns 200', () => {
-//   //jest.setTimeout(30000);
-//   return request(app).get("/events").expect(200);
-// });
+  //   eventsController.index(request, response, (err) => {
+  //     expect(err).toBeFalsy();
+  //   });
+
+  //   let { name } = response._getData();
+
+  //   let expected = { "name": "GraphQL Sydney" }
+  //   expect(name).toMatchObject(expected);
+  // });
+});
