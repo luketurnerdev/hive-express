@@ -269,12 +269,15 @@ async function newSuggestion(req, res, next) {
 async function suggest(req, res, next) {
   //We need to do a modification to the database entry of the given event
   //And change the status of is_suggested to true
-  const {event_id} = req.body;
+  const {event_id, message} = req.body;
+
   await Event
     .findOneAndUpdate(
       { meetup_id: event_id},
       {
-      suggested : {is_suggested: true},
+      suggested : {
+        is_suggested: true
+      },
       },
       { 
         new: true,
