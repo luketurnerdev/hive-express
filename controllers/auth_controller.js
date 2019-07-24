@@ -44,7 +44,7 @@ async function meetupAuth(req, res) {
     email: userData.email,
     name: userData.name,
     city: userData.city,
-    admin: false,
+    admin: true,
     confirmed: true,
     access_token: tokens.access_token,
     refresh_token: tokens.refresh_token
