@@ -32,7 +32,7 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "dev": "nodemon index.js"
   },
   "repository": {
