@@ -151,13 +151,13 @@ As the staff:
 ![Design](docs/moodboard.jpg)
 
 ### Wireframe / Workflow
-![Wireframe](docs/WireFrame/Admin WorkFlow.png)
+![Wireframe](docs/WireFrame/AdminWorkFlow.png)
 
-![Wireframe](docs/WireFrame/Students WorkFlow.png)
+![Wireframe](docs/WireFrame/Students_WorkFlow.png)
 
-![Wireframe](docs/WireFrame/Admin's Dashboard .png)
+![Wireframe](docs/WireFrame/Admin's Dashboard.png)
 
-![Wireframe](docs/WireFrame/Student's Dashboard .png)
+![Wireframe](docs/WireFrame/Student's Dashboard.png)
 
 ![Wireframe](docs/WireFrame/Events(Admin).png)
 
