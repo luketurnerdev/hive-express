@@ -173,7 +173,7 @@ As the staff:
 
 ![Wireframe](docs/WireFrame/Reviews(Student).png)
 
-![Wireframe](docs/WireFrame/Reviews(request%20access.png).png)
+![Wireframe](docs/WireFrame/request%20access.png)
 
 
 6. Object Relational Mapping (ORM)
