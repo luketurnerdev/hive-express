@@ -3,7 +3,7 @@
 
 App link:
 
-http://ca-hive-react-deploy.s3-website-ap-southeast-2.amazonaws.com
+http://ca-hive-react-deploy.s3-website-ap-southeast-2.amazonaws.com (please open in chrome - I learned this the hard way)
 
 
 ## The Code
