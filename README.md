@@ -6,32 +6,6 @@ App link:
 http://ca-hive-react-deploy.s3-website-ap-southeast-2.amazonaws.com (please open in chrome - I learned this the hard way)
 
 
-## The Code
-*Separate your program into modules that each deal with one particular focus, or concern.-Excellent and complete separation of concerns demonstrating a strong understanding of software design*
-
-*Demonstrate DRY (Don’t Repeat Yourself) principles in all code.-Excellent use of DRY principles, every piece of knowledge has a single, unambiguous, authoritative representation*
-
-*Demonstrate use of functions--Meets D with clearly commented code; use of functions clearly improves code serviceability and maintenance*
-
-*Apply Object oriented principles/patterns--Superior use of object oriented principles/patterns; use of OO principles/patterns throughout application with positive impact on code maintainability and serviceability*
-
-*Code structure--Shows exceptional understanding of folder structure and file naming conventions, adheres to all MERN best practices and conventions*
-
-*Code style --The code adheres to all team standards. The code is exceptionally well organised and very easy to follow. Comments are complete and useful; variables' and functions’ purposes are clearly communicated by their names.*
-
-*Async implementation--Exceptional understanding of async patterns, e.g. expert use of promises and callbacks*
-
-*Recognise, identify and utilise classes--Utilises highly sophisticated classes, demonstrating an exceptional level of understanding; Extensive use of prototypes/inheritance*
-
-*Recognise, identify and utilise functions--Utilises highly sophisticated functions, demonstrating an exceptional level of understanding; Advanced functional programming concepts including Immediately-Invoked Function Expression (IIFE), etc*
-
-*Validation of data (including ranges)--All data is expertly validated using a range of techniques (e.g. regex, etc) and checked; demonstrating an exceptional level of understanding*
-
-*Arrays--Shows thorough understanding of the use-cases of Arrays and utilises them to solve a problem unsolvable otherwise.*
-
-*Objects--Understands, utilises and manipulates Objects using a range of methods to benefit the solution.*
-
-
 ## Project Management
 
 1. Record interactions with your client in a diary format
@@ -103,6 +77,8 @@ We have not yet received sign off about this. We may have to contact Mel.
 
 11. Create a questionnaire for the client to ascertain the satisfaction with your products and services
 
+We have created a survey and shared it with Mel: https://docs.google.com/forms/d/1MkFZl6eR-KzEOauUzfiJa7C17eQzFVEzOxecAtorpw4/edit 
+
 
 ## Application Design 
 
@@ -137,8 +113,6 @@ Hopefully, we will have managed to set up a system in which the user feels encou
 To facilitate the involvement of the user, we don't even require them to sign up, but just to log in with their MeetUp account. Furthermore, the UI is meant to be very intuitive and easy-to-use, and we applied the mobile-first standard from wireframes stage. In addition, all the components of the Dash Board (student's list, CA list, MeetUp list) automatically refresh the Calendar to make it show the events the user is attending at each moment, thus being easy for them check information such as the date and the time.
 
 3. User stories for the whole application
-
-*Provide UX/UI design documentation(user stories) that adequately show Agile methodology implementation.-Provides multiple user stories that use ‘persona, what and why’ that outline meaningful features of project. Shows evidence of user story revision and refinement.*
 
 ### **Minimum Viable Product (MVP)**
 
@@ -188,18 +162,12 @@ The new MVP consists of:
 5. Wireframes for all main pages of your app
 
 
-*Demonstrate sound design Architecture--Shows almost flawless understanding of the high level structure of the app NOT SURE IF THIS CRITERION IS WELL-LOCATED HERE*
-
-*Provide UX/UI design documentation(wireframes) that adequately show Agile methodology implementation.--Provides wireframes that show exceptional planning of project flow and structure including but not limited to space distrobution, content prioritisation, intended actions, functions, relationships between screens.*
-
-*User-interface is highly intuitive, with no impediments to user flow*
 
 ### Design patterns
 ![Design](docs/moodboard.jpg)
 
 
 6. Object Relational Mapping (ORM)
-*ORM accurately reflects an efficient and practical database design for project, using correct ORM symbology*
 
 We changed the ORM according to what we realized the project needed while we were building both apps (React and Express).
 
@@ -226,26 +194,47 @@ Several things have changed:
 7. Project plan and effort estimation
 
 8. Data Flow Diagram
-*Provides dataflow diagram(s) that strictly follow the standard convensions to clearly identify the processes within your application. Clearly depicts where data is coming from, where it is going and how it is being stored.*
+
 9. Database schema
+
 *Creates a well constructed Database schema that contains methods which meaningfully contribute to the solution.*
 10. OO design documentation
-*Provides Object Oriented design diagrams(UML or alternative) that clearly identify OO class attributes, methods, relationships.*
-*Apply Object oriented principles/patterns--Superior use of object oriented principles/patterns; use of OO principles/patterns throughout application with positive impact on code maintainability and serviceability*
 
 ## Tools & Methodologies 
 
 
 1. Trello or similar project management tool to be used for Kanban process to track progress of build
 *Select and follow a commonly used planning methodology, such as Kanban, Trello, Jira, or Asana.-Simple and clear standards for planning methodology chosen and adhered to*
+
+We used Trello and google sheets throughout this project. Our plan was to have trello for the initial planning and higher-level tasks, and then once the project was set in stone, we used the spreadsheet on a daily basis to see at a glance what each task member was required to do for the day. This was colour coded such that yellow meant a task was in progress, green meant it was complete and red meant that there were bugs or we decided to scrap the feature / task.
+
+https://docs.google.com/spreadsheets/d/1zq_Wvs3NnZXU5xJuNmyEzhVX7gum3FFC-9-AVSQr20w/edit#gid=2140008737
+
+
 2. GitHub - Demonstrate use of frequent commits, feature branches (based on user stories), pull requests and merges
 *Provide an overview and description of your source control process.--Meets D criteria and demonstrates frequent commits, merges and pull requests*
 
-*Employ and utilise proper source control methodology--Meets D criteria and demonstrates frequent commits, merges and pull requests from all team members*
+Our githubs are located at :
+
+- Express: https://github.com/luketurnerdev/hive-express
+
+- React: https://github.com/luketurnerdev/hive-react/
+
+We committed to git regularly, and had a fairly conistent branch structure. We would make a development branch, which is (mostly) working code, and then branch off into individual features with the team member's name attached. Master was reserved for deployment only. We communicated our pull requests and other contributions quite reguarly.
 
 3. Use Agile development methodologies
+
+Throughout the project, we were constantly refining tasks depending on the status of other memeber's work, how long we had left in the project, and which features were feasible / necessary. However, we could have benefited from having an organized sprint structure, and this is something i'd like to employ in the future.
+
+
 4. Code review - Demonstrate that you have had your code reviewed by other students and that you have provided a code review for others
+
+
+
+
 5. Show evidence of client communication, e.g. meeting minutes, emails, or other communication tools
+
+
 
 
 ## Short Answer Questions 
@@ -633,6 +622,9 @@ To finish with, Jest has simple *mock functions*, because it "uses a custom reso
 
 Therefore, it helps "isolate the component being tested from the components it depends on and applying mock objects effectively is an important part of test-driven development (TDD)" ([Rouse, TechTarget](https://searchsoftwarequality.techtarget.com/definition/mock-object)).
 
+The following is a list of manual tests we wrote up:
+
+https://docs.google.com/spreadsheets/d/1j-griiszEP2Y3RCEoIZjrmV5ib2LzGC-PeAsMXWvpZk/edit#gid=0
 
 Bibliography:
 1. [Jest Doc](https://jestjs.io/).
