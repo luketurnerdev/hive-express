@@ -151,19 +151,23 @@ As the staff:
 ![Design](docs/moodboard.jpg)
 
 ### Wireframe / Workflow
-![Wireframe](docs/WireFrame/AdminWorkFlow.png)
+![Wireframe](docs/WireFrame/Admin%20WorkFlow.png)
 
-![Wireframe](docs/WireFrame/Students\ \WorkFlow.png)
+![Wireframe](docs/WireFrame/Students%20WorkFlow.png)
 
-![Wireframe](docs/WireFrame/Admin's Dashboard.png)
+![Wireframe](docs/WireFrame/Admin's%20Dashboard.png)
 
-![Wireframe](docs/WireFrame/Student's Dashboard.png)
+![Wireframe](docs/WireFrame/Student's%20Dashboard.png)
 
 ![Wireframe](docs/WireFrame/Events(Admin).png)
-
+![Wireframe](docs/WireFrame/Event%20Page(Admin).png)
+![Wireframe](docs/WireFrame/Reviews(Admin).png)
+![Wireframe](docs/WireFrame/Event%20Page(Student).png)
 ![Wireframe](docs/WireFrame/Events(Student).png)
-
 ![Wireframe](docs/WireFrame/Profile(Student).png)
+![Wireframe](docs/WireFrame/Reviews(Student).png)
+![Wireframe](docs/WireFrame/Reviews(request%20access.png).png)
+
 
 6. Object Relational Mapping (ORM)
 *ORM accurately reflects an efficient and practical database design for project, using correct ORM symbology*
