@@ -36,7 +36,7 @@ const userSchema = new Schema(
     confirmed: {
       type: Boolean,
       required: true,
-      default: false
+      default: true
     },
     access_token: String,
     refresh_token: String
