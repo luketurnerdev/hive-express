@@ -30,19 +30,71 @@
 
 1. Record interactions with your client in a diary format
 
+We initially heard about the idea for the Hive from Garret, who gave a short elevator pitch of the idea. Mel later elaborated on this, in her own words. It sounded quite appealing to me (Luke) and when we were placed in our groups, the group seemed to be into it as well.
+
+Our initial consultion with Mel involved us describing the User stories we had mocked up, both from the perpsective of a student and an admin. Generally, she was happy with the idea of the project, but some assumptions we made about the project were incorrect. 
+
+Namely:
+
+* Mel did not want the financial incentives to be a big part of the site. Initially we had in mind a display with each event that stipulated how much a student might be paid to retrieve certain information from a meetup, but Mel didn't want this as it would make the whole experience inorganic. Instead, if we just implemeneted functionality for Mel to see which users attended an event, and perhaps left a review of the event, she might message them privately on Slack in order to give them a gift card or something similar.
+
+* Mel wanted a way for accounts to be approved, so that only she (or other staff members ) would be able to confirm that students are currently attending Coder, or are alumni.
+
+
+
 2. Plan information gathering activities to determine project requirements, constraints and risks
+
+Our initial meeting involved us suggesting various ideas that we had for the project, for various clients. We each had at least one idea of a client to go with, and so we weighed up the pros and cons. We then planned to meet with these potential clients, and made plans to report back after doing so. While this was underway, we made a vague timeline with the information we knew (when to start coding, when to have a project decided by, etc.) 
+
+After this period, we decided that the most appropriately scoped project for our skills was The Hive, and I personally liked the idea of interacting heavily with an existing API and making a custom application based on this. It would also be easy to interact with Mel and determine her requirements.
+
 3. Develop project charter, including preliminary statement of project scope and obtain sign-off
+
+
 4. Prepare project work breakdown and schedule
+
+The following spreadsheet was used to allocate and track member roles and specific tasks (see tabs at bottom for various days and GANTT chart of the project timeline):
+
+https://docs.google.com/spreadsheets/d/1zq_Wvs3NnZXU5xJuNmyEzhVX7gum3FFC-9-AVSQr20w/edit?usp=sharing
+
+
 5. Allocate roles and responsibilities to team members, based on project solution requirements
-*Meets D with project results demonstrating consideration of strength and weaknesses of team members and project/team conditions*
-*Employ and utilise task delegation methodology--Simple and clear standards for planning methodology chosen and adhered to*
+
+Our different responsibilities were fairly well allocated at the start of the project.
+
+Jim and Luke said that they were more comfortable with writing the backend code, and so they worked together for the majority of the project on writing Express code, setting up and manipulating the database, etc.
+
+Dodam and Juanma were happy to do the front end, including react and styling. However there was a fair amount of crossover towards the end of the project, with the backend team helping the front end clean up some code, and vice versa.
+
 6. Monitor each other’s assigned work
+
+This was a point that we struggled with during the assignment. While we were keeping up to date with eachtoher in regards to the tasks that we were doing, it seems that the separation of concerns was not stated well enough - meaning that sometimes the front end team would spend a long time making some complex logic for a feature, when the backend had already done that, and it wasn't necessary.
+
+In future, we need to make sure we are constantly checking in with eachother to ensure that the data is flowing in such a way that reduces crossosver as much as posisble.
+
+
 7. Reassess ongoing project scope changes, risks and issues
+
+Towards the end of the project, we had to scrap a lot of features, including reviews, suggestions, account requests and the profile page. This was due to the linking up of Express and React causing several issues with the right data being passed into various functions, either going from back to front end or vice versa. The data in the front end also wasn't being manipulated correctly at times, which led to a lot of wasted time towards the end of the project. 
+
+This was certainly a learning experience in terms of upkeeping communication between the two parties, and re-assessing scope. If we had realised these issues were occuring earlier in the process, we may have been able to reduce the scope earlier and produce a more finished result. However, I am still proud of what we have achieved and learned during the process.
+
+
 8. Manage system testing and hand over activities. Prepare maintenance or support plans for client
-*Demonstrate code flow control--Flawless code flow control: documented test coverage/successful results for all user stories, including corner cases*
-*Comprehensive test suite including both unit and integration tests in both backend and frontend, with at least 90% code coverage*
+
+Due to other issues, we were not able to deliver on extensive testing to ensure that the site is working correctly when being placed into the hands of the client.
+
+In terms of maintenence, the site is designed to be fairly self-sufficient for an admin account to be able to use on an ongoing basis. There is no CMS built in, so there currently isn't any way for the client to be able to change content without our help.
+
+Hoever, I do like this project, and would be happy to work on it in the future, in order to make it more functional for Coder Academy to actually be able to use. Other students have expressed interest in this as well.
+
 9. Obtain final project sign-off
+
+We have not yet received sign off about this. We may have to contact Mel.
+
 10. As a team, conduct post project review
+
+
 11. Create a questionnaire for the client to ascertain the satisfaction with your products and services
 
 
