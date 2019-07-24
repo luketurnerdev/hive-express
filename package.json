@@ -31,13 +31,8 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-<<<<<<< HEAD
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-=======
     "test": "jest",
     "start": "nodemon index.js",
->>>>>>> 29fd11c8818f45fb3a67cc7729afbffa24bd0f62
     "dev": "nodemon index.js"
   },
   "repository": {
