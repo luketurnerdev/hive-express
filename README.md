@@ -153,7 +153,7 @@ As the staff:
 ### Wireframe / Workflow
 ![Wireframe](docs/WireFrame/AdminWorkFlow.png)
 
-![Wireframe](docs/WireFrame/Students_WorkFlow.png)
+![Wireframe](docs/WireFrame/Students\ \WorkFlow.png)
 
 ![Wireframe](docs/WireFrame/Admin's Dashboard.png)
 
