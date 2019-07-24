@@ -18,17 +18,26 @@
     "mongoose": "^5.6.4",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
-    "passport-oauth2-meetup": "^1.1.0",
     "query-string": "^6.8.1",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "superagent": "^5.1.0",
+    "supertest": "^4.0.2"
   },
   "scripts": {
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
+=======
+    "test": "jest",
+    "start": "nodemon index.js",
+>>>>>>> 29fd11c8818f45fb3a67cc7729afbffa24bd0f62
     "dev": "nodemon index.js"
   },
   "repository": {
@@ -40,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/luketurnerdev/hive-express/issues"
   },
-  "homepage": "https://github.com/luketurnerdev/hive-express#readme"
+  "homepage": "https://github.com/luketurnerdev/hive-express#readme",
+  "jest": {
+    "testEnvironment": "node"
+  }
 }

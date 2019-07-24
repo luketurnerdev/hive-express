@@ -6,6 +6,10 @@ const usersRoutes = require("./users_routes");
 const reviewsRoutes = require("./reviews_routes");
 
 const pagesController = require("./../controllers/pages_controller");
+const usersController = require("./../controllers/users_controller");
+
+// Get current user route
+router.get("/get_user", usersController.getUser);
 
 // Root / Homepage
 router.get("/", pagesController.homepage);
@@ -33,5 +37,9 @@ router.use("/users", usersRoutes);
 
 // Reviews routes
 router.use("/reviews", reviewsRoutes);
+
+// router.put("/attendtest", pagesController.attendTest)
+
+
 
 module.exports = router;

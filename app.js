@@ -1,5 +1,3 @@
-//localStorage
-// import behavioursubject from 'rxjs'
 //Express server setup
 const express = require("express");
 const exphbs = require("express-handlebars");
@@ -10,11 +8,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-
 //Enable cors
-app.use(cors());
-
-
+app.use(cors({
+    origin: process.env.REACT_SERVER,
+    credentials: true
+ }));
 
 // Handlebars view engine
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -22,10 +20,6 @@ app.set("view engine", "handlebars");
 
 // Cookie Parser
 app.use(cookieParser());
-
-// Body parser, get streams as json
-//app.use(express.urlencoded({ extended: false }));
-//app.use(express.json());
 
 // Method Override
 app.use(methodOverride("_method"));
@@ -40,15 +34,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routes from /routes
 app.use(require("./routes"));
 
-//Route specific middleware
-// app.use("/", (req, res, next) => {
-//   console.log("This is middleware for a specific route.");
-// });
+// Error Handler Middleware
+app.use(require("./middleware/error_handler_middleware"));
 
-module.exports = app;
-
-//API Keys
+//Enable use of process.env calls
 require("dotenv").config();
+<<<<<<< HEAD
 client_id = process.env.CLIENT_ID;
 client_secret = process.env.CLIENT_SECRET;
 redirect_uri = process.env.REDIRECT_URI;
@@ -78,5 +69,7 @@ app.get('/', (req,res) => {
     console.log(meetupService);
 
 });
+=======
+>>>>>>> 29fd11c8818f45fb3a67cc7729afbffa24bd0f62
 
 module.exports = app;
