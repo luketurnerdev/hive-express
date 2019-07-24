@@ -166,6 +166,31 @@ The new MVP consists of:
 ### Design patterns
 ![Design](docs/moodboard.jpg)
 
+### Wireframe / Workflow
+![Wireframe](docs/WireFrame/Admin%20WorkFlow.png)
+
+![Wireframe](docs/WireFrame/Students%20WorkFlow.png)
+
+![Wireframe](docs/WireFrame/Admin's%20Dashboard%20.png)
+
+![Wireframe](docs/WireFrame/Student's%20Dashboard%20.png)
+
+![Wireframe](docs/WireFrame/Events(Admin).png)
+
+![Wireframe](docs/WireFrame/Event%20Page(Admin).png)
+
+![Wireframe](docs/WireFrame/Reviews(Admin).png)
+
+![Wireframe](docs/WireFrame/Event%20Page(Student).png)
+
+![Wireframe](docs/WireFrame/Events(Student).png)
+
+![Wireframe](docs/WireFrame/Profile(Student).png)
+
+![Wireframe](docs/WireFrame/Reviews(Student).png)
+
+![Wireframe](docs/WireFrame/request%20access.png)
+
 
 6. Object Relational Mapping (ORM)
 
@@ -198,10 +223,207 @@ Several things have changed:
 9. Database schema
 
 *Creates a well constructed Database schema that contains methods which meaningfully contribute to the solution.*
+
+``` javascript
+const { Schema } = require("mongoose");
+
+// event schema
+const eventSchema = new Schema({
+  meetup_id: {
+    type: String,
+    required: true
+  },
+  link: {
+    type: String,
+    required: true
+  },
+  photo_link: {
+    type: String
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  group: {
+    name: {
+      type: String,
+      required: true
+    },
+    urlname: {
+      type: String,
+      required: true
+    }
+  },
+  local_date: {
+    type: String,
+    required: true
+  },
+  local_time: {
+    type: String,
+    required: true
+  },
+  status: {
+    type: String
+  },
+  location: {
+    name: {
+      type: String,
+      required: true
+    },
+    address: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    how_to_find_us: {
+      type: String,
+      trim: true
+    }
+  },
+  attendance_count: {
+    type: Number
+  },
+  guest_limit: {
+    type: Number
+  },
+  rsvp_limit: {
+    type: Number
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  attendees: [Number],
+  hive_attendees: {
+    type: [Schema.Types.ObjectId],
+    ref: "user"
+  },
+  ca_recommended: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  suggested: {
+    is_suggested: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    suggested_by: Schema.Types.ObjectId,
+    message: String,
+  }
+},
+{
+  timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
+}
+);
+
+// user schema
+//These are the attributes a user will have
+//A lot of these will be pulled from the user's Meetup.com profile
+const userSchema = new Schema(
+  {
+    meetup_uid: {
+      type: Number,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    photo: {
+      type: String
+    },
+    admin: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    request_message: {
+      type: String
+    },
+    confirmed: {
+      type: Boolean,
+      required: true,
+      default: true
+    },
+    access_token: String,
+    refresh_token: String
+  },
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+  }
+);
+
+// review schema
+
+const reviewSchema = new Schema(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true
+    },
+    event: {
+      type: Schema.Types.ObjectId,
+      ref: "event",
+      required: true
+    },
+    rating: {
+      food: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      },
+      drinks: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      },
+      talks: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      },
+      vibe: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      }
+    },
+    comment: {
+      type: String,
+      required: true,
+      trim: true
+    }
+  },
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+  }
+);
+
+```
+
 10. OO design documentation
 
 ## Tools & Methodologies 
-
 
 1. Trello or similar project management tool to be used for Kanban process to track progress of build
 *Select and follow a commonly used planning methodology, such as Kanban, Trello, Jira, or Asana.-Simple and clear standards for planning methodology chosen and adhered to*
