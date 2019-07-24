@@ -136,6 +136,19 @@ As the staff:
 - I should be able to approve or reject potential hiver’s sign up requests, so that I can make sure Hiver’s users are either Coder Academy’s staff or students/alumni.
 - I should be able to delete students’ comments in order to keep the Hive free of harassment and other undesired behaviours.
 
+#### Revision of MVP
+
+Due to various technical issues, namely making Express and React interact correctly, we had to significantly reduce our scope during the project.
+
+The new MVP consists of:
+
+- Letting users see upcoming events from Meetup.com
+- Letting users click 'attend' on these events and having them appear dynamically in the calendar.
+- Letting users revoke their attendance from an event.
+- Letting users see events that have been reccomended by Coder Academy.
+- Letting users see events that are been attended by other students.
+- Letting users see all events available in the database, and filtering by either 'Coder events' or 'student's events'.
+
 ### First versions of User Stories (evidence of user story revision and refinement)
 
 ![Students' first version](docs/students_first_version.png)
@@ -147,6 +160,8 @@ As the staff:
 4. A workflow diagram of the user journey/s
 
 5. Wireframes for all main pages of your app
+
+
 *Demonstrate sound design Architecture--Shows almost flawless understanding of the high level structure of the app NOT SURE IF THIS CRITERION IS WELL-LOCATED HERE*
 
 *Provide UX/UI design documentation(wireframes) that adequately show Agile methodology implementation.--Provides wireframes that show exceptional planning of project flow and structure including but not limited to space distrobution, content prioritisation, intended actions, functions, relationships between screens.*
