@@ -49,10 +49,7 @@
 
 1. Compose a summary of your application including problem definition and solution
 
-
-
 2. Review the conceptual design with the client and edit based on their feedback
-
 
 3. User stories for the whole application
 
@@ -625,7 +622,7 @@ These include:
      TODO: frontend fill in below
 * Frontend skills, such as:
     * Setting up a dynamic and complex web application, by handling user interactions on the former through JavaScript.
-    * Deep knowledge of JavaScript Fundamentals and ES6 patterns regarding variables and scoping; arrays and objects; functions, fat arrow functions, adn callback functions; DOM Manipulation and event handlers; the "this keyword, among others.
+    * Deep knowledge of JavaScript Fundamentals and ES6 patterns regarding variables and scoping; arrays and objects; functions, fat arrow functions, and callback functions; DOM Manipulation and event handlers; the "this" keyword, among others.
     * Use of React, the most popular JavaScript framework/library nowadays, in order to make our code much easier thanks to the reusability of components and the clean abstraction.
     * Dealing with JSX syntax extension as in React almost no HTML is touched. JSX seems to be very similar to HTML, which makes it very intuitive if you know HTML and CSS.
     * Apply CSS for styling.
@@ -638,3 +635,10 @@ These include:
 5. Evaluate how effective your knowledge and skills were this project, using examples, and suggest changes or improvements for future projects of a similar nature?
 
 *Evaluates effectiveness of knowledge and skills accurately, providing examples, and providing an insightful improvement on each skill*
+
+I think that Coder Academy prepared students appropriately for this project. Due to the breadth of knowledge that we learn in this course, it is difficult to accurately reproduce all the skills we have learned with a high degree of accuracy, but the things that were forgotten or we were a bit rusty on were complimented by the resoureces (evernote, lectures and teachers) available. 
+
+For example, there were things regarding making local instances of axios that I had forgotten as we only covered them once and didn't put them into practice. After getting a refresher on this concept, the project flowed a lot more smoothly - a lot of time was saved and a lot of errors were avoided.
+
+The project is a good demonstration in the unconscious skill level that we have 
+

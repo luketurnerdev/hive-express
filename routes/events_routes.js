@@ -19,6 +19,14 @@ router.post("/new", eventsController.createAndAttendEvent);
 // Compose a message to send with the event for suggestion to admin.
 router.get("/suggest/:id", eventsController.newSuggestion);
 
+//PUT ROUTE for "/events/suggest/:id"
+//Change the suggested object to true in the database for the event
+
+router.put("/suggest/:id", eventsController.suggest)
+
+//TODO: fill this in - juan is passing in event.id
+
+
 // GET to "/events/suggestions"
 // Display events that have been suggested for admin's approval.
 // **TODO** RESTRICTED TO: ADMIN ONLY

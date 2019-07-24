@@ -1,10 +1,10 @@
 const User = require("../database/models/user_model");
 /*  
- *  Find a user in the database using the access_token stored in cookies.
+ *   a user in the database using the access_token stored in cookies.
  *  If unsuccessful, call error handler middleware.
  */
 
-async function findUserByToken(req, next){
+async function UserByToken(req, next){
   try {
     // check tokens cookie
     if (!req.cookies.tokens) throw new HTTPError(404, "Missing 'tokens' cookie.");
@@ -13,9 +13,9 @@ async function findUserByToken(req, next){
     // check the token
     if (!accessToken) throw new HTTPError(404, "Missing user's access_token.");
 
-    // find user with access token
+    //  user with access token
     return await User
-      .findOne({ access_token: accessToken })
+      .One({ access_token: accessToken })
       .then(resp => {
         // check the response
         if (!resp) throw new HTTPError(404, "User not found.")
@@ -30,4 +30,4 @@ async function findUserByToken(req, next){
   };
 }
 
-module.exports = findUserByToken;
+module.exports = UserByToken;

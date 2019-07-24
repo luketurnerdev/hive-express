@@ -22,6 +22,7 @@ async function index(req, res, next) {
 // User clicked 'attend' button
 async function createAndAttendEvent(req, res, next) {
   let { meetupEventId,  groupUrlname } = req.body;
+  console.log(req.body);
 
   // find current user
   let user = await findUserByToken(req, next);
@@ -264,6 +265,27 @@ async function newSuggestion(req, res, next) {
     .catch(err => next(new HTTPError(500, err)));
 }
 
+//PUT to "events/suggest/:id"
+async function suggest(req, res, next) {
+  //We need to do a modification to the database entry of the given event
+  //And change the status of is_suggested to true
+  const {event_id} = req.body;
+  await Event
+    .findOneAndUpdate(
+      { meetup_id: event_id},
+      {
+      suggested : {is_suggested: true},
+      },
+      { 
+        new: true,
+        useFindAndModify: false
+      }
+    )
+    
+    .then(resp => res.json(resp))
+    .catch(err => console.log(err));
+}
+
 // GET to "/events/:id"
 // Find (in DB) and show one event's details
 async function show(req, res, next) {
@@ -401,6 +423,7 @@ module.exports = {
   createAndAttendEvent,
   toggleAttendance,
   show,
+  suggest,
   showMeetup,
   newSuggestion,
   suggestions,
