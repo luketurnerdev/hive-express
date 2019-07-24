@@ -177,7 +177,6 @@ As the staff:
 
 
 6. Object Relational Mapping (ORM)
-*ORM accurately reflects an efficient and practical database design for project, using correct ORM symbology*
 
 We changed the ORM according to what we realized the project needed while we were building both apps (React and Express).
 
@@ -207,12 +206,209 @@ Several things have changed:
 *Provides dataflow diagram(s) that strictly follow the standard convensions to clearly identify the processes within your application. Clearly depicts where data is coming from, where it is going and how it is being stored.*
 9. Database schema
 *Creates a well constructed Database schema that contains methods which meaningfully contribute to the solution.*
+
+``` javascript
+const { Schema } = require("mongoose");
+
+// event schema
+const eventSchema = new Schema({
+  meetup_id: {
+    type: String,
+    required: true
+  },
+  link: {
+    type: String,
+    required: true
+  },
+  photo_link: {
+    type: String
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  group: {
+    name: {
+      type: String,
+      required: true
+    },
+    urlname: {
+      type: String,
+      required: true
+    }
+  },
+  local_date: {
+    type: String,
+    required: true
+  },
+  local_time: {
+    type: String,
+    required: true
+  },
+  status: {
+    type: String
+  },
+  location: {
+    name: {
+      type: String,
+      required: true
+    },
+    address: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    how_to_find_us: {
+      type: String,
+      trim: true
+    }
+  },
+  attendance_count: {
+    type: Number
+  },
+  guest_limit: {
+    type: Number
+  },
+  rsvp_limit: {
+    type: Number
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  attendees: [Number],
+  hive_attendees: {
+    type: [Schema.Types.ObjectId],
+    ref: "user"
+  },
+  ca_recommended: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  suggested: {
+    is_suggested: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    suggested_by: Schema.Types.ObjectId,
+    message: String,
+  }
+},
+{
+  timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
+}
+);
+
+// user schema
+//These are the attributes a user will have
+//A lot of these will be pulled from the user's Meetup.com profile
+const userSchema = new Schema(
+  {
+    meetup_uid: {
+      type: Number,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    photo: {
+      type: String
+    },
+    admin: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    request_message: {
+      type: String
+    },
+    confirmed: {
+      type: Boolean,
+      required: true,
+      default: true
+    },
+    access_token: String,
+    refresh_token: String
+  },
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+  }
+);
+
+// review schema
+
+const reviewSchema = new Schema(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true
+    },
+    event: {
+      type: Schema.Types.ObjectId,
+      ref: "event",
+      required: true
+    },
+    rating: {
+      food: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      },
+      drinks: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      },
+      talks: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      },
+      vibe: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+      }
+    },
+    comment: {
+      type: String,
+      required: true,
+      trim: true
+    }
+  },
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+  }
+);
+
+```
+
 10. OO design documentation
 *Provides Object Oriented design diagrams(UML or alternative) that clearly identify OO class attributes, methods, relationships.*
 *Apply Object oriented principles/patterns--Superior use of object oriented principles/patterns; use of OO principles/patterns throughout application with positive impact on code maintainability and serviceability*
 
 ## Tools & Methodologies 
-
 
 1. Trello or similar project management tool to be used for Kanban process to track progress of build
 *Select and follow a commonly used planning methodology, such as Kanban, Trello, Jira, or Asana.-Simple and clear standards for planning methodology chosen and adhered to*
