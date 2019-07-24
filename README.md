@@ -150,6 +150,20 @@ As the staff:
 ### Design patterns
 ![Design](docs/moodboard.jpg)
 
+### Wireframe / Workflow
+![Wireframe](docs/WireFrame/Admin WorkFlow.png)
+
+![Wireframe](docs/WireFrame/Students WorkFlow.png)
+
+![Wireframe](docs/WireFrame/Admin's Dashboard .png)
+
+![Wireframe](docs/WireFrame/Student's Dashboard .png)
+
+![Wireframe](docs/WireFrame/Events(Admin).png)
+
+![Wireframe](docs/WireFrame/Events(Student).png)
+
+![Wireframe](docs/WireFrame/Profile(Student).png)
 
 6. Object Relational Mapping (ORM)
 *ORM accurately reflects an efficient and practical database design for project, using correct ORM symbology*
