@@ -100,9 +100,35 @@ We have not yet received sign off about this. We may have to contact Mel.
 
 ## Application Design 
 
-1. Compose a summary of your application including problem definition and solution
+1. Compose a summary of your application including problem definition and solution. Also, review the conceptual design with the client and edit based on their feedback
 
-2. Review the conceptual design with the client and edit based on their feedback
+From the initial briefing given by Coder Academy's (CA) staff, we realized the problem could be splitted in three points:
+
+* Numerous interesting events for both the students and the staff of CoderAcademy are available on MeetUp.com.
+
+* Keeping track of all events and staying up to date is extremely difficult.
+
+* It is quite difficult to understand individually which event is best suited to everyone's needs.
+
+Therefore, the problem definition end up being:
+
+- "need of an app (the Hive) which helps the students and CA's staff members (the hivers) to keep track of all the events which are interesting for them to improve their network and professional development in the tech world".
+
+The solution that we suggested was creating a **platform** that allowed hivers **to attend events** listed on Meetups and check which ones were attending in a Calendar in the Dashboard. However, these events should be **of interest for** the students' **coding** apprenticeship. Therefore, there should be a filter criterion. As the quality and community of each MeetUp group can vary, we thought the best approach was **CA-recommended-first**.
+
+According to that point of view, we should emphasise the events CA staff had a special interest on. That is why we offer a "SAVE" button for admins only, as it allows them put an event inside the CA list,which is the uppest part of the Dash Board. Thus, the most visible part.
+
+Nevertheless, **the following meetings with the client** made us be **more aware of the student's own interests and autonomy** regarding their professional development. 
+
+Consequently, we updated the problem definition:
+
+- "need of an app (the Hive) which helps the students and CA's staff members (the hivers) ne aware of which coding events are recognized as useful, worth-to-go, by their close academic network, so that they can feel encouraged to attend the former. Furthermore, once they feel comfortable enough with the developer world, they should be able to suggest new events to the Hive Community".
+
+Therefore, now a MeetUp event is added to our database when a hiver attends it (clicks the "ATTEND" button), and there is also a Student's list, which includes all the events students are attending, or suggested by a student.
+
+Hopefully, we will have managed to set up a system in which the user feels encouraged to go to MeetUps if they know some classmates, Alumni or staff are interested in them.
+
+To facilitate the involvement of the user, we don't even require them to sign up, but just to log in with their MeetUp account. Furthermore, the UI is meant to be very intuitive and easy-to-use, and we applied the mobile-first standard from wireframes stage. In addition, all the components of the Dash Board (student's list, CA list, MeetUp list) automatically refresh the Calendar to make it show the events the user is attending at each moment, thus being easy for them check information such as the date and the time.
 
 3. User stories for the whole application
 
