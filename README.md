@@ -257,8 +257,6 @@ Several things have changed:
 
 9. Database schema
 
-*Creates a well constructed Database schema that contains methods which meaningfully contribute to the solution.*
-
 ``` javascript
 const { Schema } = require("mongoose");
 
@@ -457,6 +455,10 @@ const reviewSchema = new Schema(
 ```
 
 10. OO design documentation
+
+
+
+![Hive UML Document](docs/hive-uml.png)
 
 
 
@@ -979,7 +981,7 @@ These include:
 
 5. Evaluate how effective your knowledge and skills were this project, using examples, and suggest changes or improvements for future projects of a similar nature?
 
-I think that Coder Academy prepared students appropriately for this project. Due to the breadth of knowledge that we learn in this course, it is difficult to accurately reproduce all the skills we have learned with a high degree of accuracy, but the things that were forgotten or we were a bit rusty on were complimented by the resoureces (evernote, lectures and teachers) available. 
+I think that Coder Academy prepared students appropriately for this project. Due to the breadth of knowledge that we learn in this course, it is difficult to accurately reproduce all the skills we have learned with a high degree of accuracy, but the things that were forgotten or we were a bit rusty on were complimented by the resources (evernote, lectures and teachers) available. 
 
 For example, there were things regarding making local instances of axios that I had forgotten as we only covered them once and didn't put them into practice. After getting a refresher on this concept, the project flowed a lot more smoothly - a lot of time was saved and a lot of errors were avoided.
 

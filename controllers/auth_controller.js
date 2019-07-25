@@ -26,8 +26,6 @@ function meetupRedirect(req, res) {
     `https://secure.meetup.com/oauth2/authorize?client_id=${client_id}&scope=${scopes}&response_type=code&redirect_uri=${redirect_uri}`
   );
 
-  //Note - getting output that the RSVP is working is difficult (confirmed ageless works)
-  // However, Hamish and I have tested it and it should be working based several console.log debugs
 }
 
 async function meetupAuth(req, res) {
