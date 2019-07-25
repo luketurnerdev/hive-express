@@ -6,6 +6,27 @@ App link:
 http://ca-hive-react-deploy.s3-website-ap-southeast-2.amazonaws.com (please open in chrome - I learned this the hard way)
 
 
+
+## Notes for Garret / Hamish
+
+Hey guys! Just a few things:
+
+As you know, we unfortunately didn't deliver on everything we set out to, but this is reflected in the updated MVP below.
+
+In order to use the site, please login with Meetup. If this doesn't work, please use the test credentials (on meetup):
+
+User: litedog@tempcloud.in 
+Pass:  qweqweqwe
+
+User: pediciziz@thetempmail.com 
+Pass: qweqweqwe
+
+These accounts are not admins, whereas signing up for a new account should make you an admin. Being a non-admin should let you make suggestions for events.
+
+Also: Some of the features that aren't 100% stables are in the slides as GIFS --> https://docs.google.com/presentation/d/11AwQf4Uk6Tryh2xGZrwjGXyYMPlr53gfaJpThJFBKY8/edit?usp=sharing
+
+Have a good day!
+
 ## Project Management
 
 1. Record interactions with your client in a diary format
@@ -423,6 +444,8 @@ const reviewSchema = new Schema(
 
 10. OO design documentation
 
+
+
 ## Tools & Methodologies 
 
 1. Trello or similar project management tool to be used for Kanban process to track progress of build
@@ -463,7 +486,6 @@ Throughout the project, we were constantly refining tasks depending on the statu
 
 
 1. What are the most important aspects of quality software?
-*List discuss and demonstrate 6 software quality characteristics.*
 
 First of all, we can define quality software (from now on, QS) as “reasonably bug or defect free, delivered on time and within budget, meets requirements and/or expectations, and is maintainable”, according to [Try QA](http://tryqa.com/).
 
