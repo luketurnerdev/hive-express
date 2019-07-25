@@ -1,9 +1,13 @@
 # Readme - The Hive
 
 
-App link:
+App link (Frontend):
 
 http://ca-hive-react-deploy.s3-website-ap-southeast-2.amazonaws.com (please open in chrome - I learned this the hard way)
+
+Backend: 
+
+https://coderacademy-hive.herokuapp.com 
 
 
 
@@ -40,8 +44,6 @@ Namely:
 * Mel did not want the financial incentives to be a big part of the site. Initially we had in mind a display with each event that stipulated how much a student might be paid to retrieve certain information from a meetup, but Mel didn't want this as it would make the whole experience inorganic. Instead, if we just implemeneted functionality for Mel to see which users attended an event, and perhaps left a review of the event, she might message them privately on Slack in order to give them a gift card or something similar.
 
 * Mel wanted a way for accounts to be approved, so that only she (or other staff members ) would be able to confirm that students are currently attending Coder, or are alumni.
-
-
 
 2. Plan information gathering activities to determine project requirements, constraints and risks
 
@@ -94,6 +96,18 @@ Hoever, I do like this project, and would be happy to work on it in the future, 
 We have not yet received sign off about this. We may have to contact Mel.
 
 10. As a team, conduct post project review
+
+After the project was finished, we came to the following conclusions:
+
+* In general, we worked well as a team and were diplomatic about role and task allocation
+
+* This was a worthwhile project in which we could showcase and improve upon our skills
+
+* We learned a lot about properly defining scope and reducing this during the course of the project
+
+* It would have been better if we had pre-defined sprints of certain lengths to keep us on track.
+
+* In future, it would be good to stick to agreed upon meeting times for group meetings, to ensure everyone is performing the tasks they are supposed to, and keep the other team members in the loop.
 
 
 11. Create a questionnaire for the client to ascertain the satisfaction with your products and services
@@ -475,9 +489,15 @@ Throughout the project, we were constantly refining tasks depending on the statu
 4. Code review - Demonstrate that you have had your code reviewed by other students and that you have provided a code review for others
 
 
+Front end: Juanma and Dodam checked on the backend throughout the project, and even if they couldn't fully understand how each controller function worked, the backend team was able to summarise it for them well enough that they were able to continue with their work.
+
+Back end: Jim and Luke reviewed some of the React code after the two sides had been merged. This allowed us to see where our data calls were coming from, the format that they were in, and the resulting effect that they had on the visual presentation of the code.
+
 
 
 5. Show evidence of client communication, e.g. meeting minutes, emails, or other communication tools
+
+
 
 
 
@@ -913,8 +933,6 @@ Bibliography:
 
 4. Within your own project what knowledge or skills were required to complete your project, and overcome challenges?
 
-*Effectively describes a range of skills and knowledge used to complete group project.*
-
 During the project, our team drew on all the skills we have learned throughout this course.
 
 These include:
@@ -956,11 +974,7 @@ These include:
 
 5. Evaluate how effective your knowledge and skills were this project, using examples, and suggest changes or improvements for future projects of a similar nature?
 
-*Evaluates effectiveness of knowledge and skills accurately, providing examples, and providing an insightful improvement on each skill*
-
 I think that Coder Academy prepared students appropriately for this project. Due to the breadth of knowledge that we learn in this course, it is difficult to accurately reproduce all the skills we have learned with a high degree of accuracy, but the things that were forgotten or we were a bit rusty on were complimented by the resoureces (evernote, lectures and teachers) available. 
 
 For example, there were things regarding making local instances of axios that I had forgotten as we only covered them once and didn't put them into practice. After getting a refresher on this concept, the project flowed a lot more smoothly - a lot of time was saved and a lot of errors were avoided.
-
-The project is a good demonstration in the unconscious skill level that we have 
 
