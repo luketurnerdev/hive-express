@@ -24,12 +24,8 @@ router.get("/suggest/:id", eventsController.newSuggestion);
 
 router.put("/suggest/:id", eventsController.suggest)
 
-//TODO: fill this in - juan is passing in event.id
-
-
 // GET to "/events/suggestions"
 // Display events that have been suggested for admin's approval.
-// **TODO** RESTRICTED TO: ADMIN ONLY
 router.get("/suggestions", eventsController.suggestions);
 
 // GET to "/events/:id"
