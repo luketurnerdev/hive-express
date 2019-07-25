@@ -497,10 +497,15 @@ Back end: Jim and Luke reviewed some of the React code after the two sides had b
 
 5. Show evidence of client communication, e.g. meeting minutes, emails, or other communication tools
 
+Here is our slack conversation screenshot with mel:
 
+![Mel slack conversation](docs/mel-slack.png)
 
+And the initial application brief sent : https://docs.google.com/document/d/1JjbwN1tjnxD7FIwJDhQyqAbvNOt0mNVbgjiDWoT3A6g/edit
 
+Here is the revised version that we drew up for our in person meeting with her (the changes we made (minutes) while talking to her are in BOLD)
 
+https://docs.google.com/document/d/1pPGQ7xy6OxL8vAzGtEz-KGrAA1qraU-GQhzcYfS0ux4/edit
 
 ## Short Answer Questions 
 
